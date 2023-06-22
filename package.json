@@ -1,16 +1,34 @@
 {
   "name": "ascii-tracer",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "A tool for tracing images into ASCII sketches.",
+  "keywords": "ascii tracer, image tracer, draw ascii, sketch ascii from image, sketch text from image trace, plain text, ascii art, ascii art generator",
+  "homepage": "",
+  "bugs": {
+    "url": "https://github.com/bradysheridan/ascii-tracer/issues",
+    "email": "dev@bradysheridan.com"
+  },
+  "main": "index.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sass": "sass --watch ./src/styles/main.scss:./src/styles/main.css"
+  },
+  "author": {
+    "name": "Brady Sheridan",
+    "email": "dev@bradysheridan",
+    "url": "https://bradysheridan.com/"
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://venmo.com/u/bradysheridan"
   },
   "dependencies": {
     "next": "13.4.4",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "remixicon": "^3.3.0"
   }
 }

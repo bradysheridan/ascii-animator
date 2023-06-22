@@ -1,0 +1,53 @@
+:root {
+  --controls-width-desktop: 300px;
+}
+
+/* Controls default state */
+.controls-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: var(--frame-timeline-height);
+  width: var(--controls-width-desktop);
+  background-color: var(--site-background-color);
+  border-right: 1px dashed var(--site-background-contrast-color);
+}
+.controls-header {
+  padding: 10px;
+  border-bottom: 1px dashed var(--site-background-contrast-color);
+}
+
+/* ControlsDropdown default state */
+.controls-dropdown {
+  display: flex;
+  flex-direction: column;
+}
+.controls-dropdown-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  transition: color 100ms;
+  color: #000;
+}
+.controls-dropdown-label:hover {
+  transition: color 100ms;
+  color: blue;
+}
+.controls-dropdown-children {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 10px 10px 20px;
+  height: 0;
+  opacity: 0;
+}
+
+/* ControlsDropdown expanded state */
+.controls-dropdown.expanded i {
+  transform: rotate(90deg);
+}
+.controls-dropdown.expanded .controls-dropdown-children {
+  height: initial;
+  opacity: 1;
+}
