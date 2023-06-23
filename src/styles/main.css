@@ -239,9 +239,12 @@ span, small, em, strong, input {
 .controls-dropdown-children {
   display: flex;
   flex-direction: column;
-  padding: 0px 10px 10px 20px;
-  height: 0;
-  opacity: 0;
+  content-visibility: hidden;
+}
+
+.controls-dropdown-children label p {
+  font-size: 0.75em;
+  margin: 0 0 8px 0;
 }
 
 /* ControlsDropdown expanded state */
@@ -250,8 +253,26 @@ span, small, em, strong, input {
 }
 
 .controls-dropdown.expanded .controls-dropdown-children {
-  height: initial;
-  opacity: 1;
+  padding: 0px 10px 10px 20px;
+  content-visibility: visible;
+}
+
+/* ControlFile default state */
+.control-file-wrap input[type=file] {
+  width: 100%;
+  cursor: pointer;
+  font-size: 0.75em;
+}
+
+/* ControlSlider default state */
+.control-slider-wrap {
+  width: 100%;
+}
+
+.control-slider-wrap input[type=range] {
+  width: 100%;
+  cursor: pointer;
+  margin: 0;
 }
 
 :root {

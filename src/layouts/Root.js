@@ -3,7 +3,7 @@ import Controls from '@/components/Controls'
 import FrameTimeline from '@/components/FrameTimeline';
 import { ControlsProvider } from '@/components/ControlsContext';
 
-<ControlsContext.Provider
+{/* <ControlsContext.Provider
 value={{
   bookList,
   setBookList,
@@ -12,9 +12,7 @@ value={{
 }}
 >
 {props.children}
-</ControlsContext.Provider>
-
-
+</ControlsContext.Provider> */}
 
 export default function RootLayout({ children }) {
   return(

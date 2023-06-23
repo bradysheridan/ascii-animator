@@ -38,9 +38,11 @@
 .controls-dropdown-children {
   display: flex;
   flex-direction: column;
-  padding: 0px 10px 10px 20px;
-  height: 0;
-  opacity: 0;
+  content-visibility: hidden;
+}
+.controls-dropdown-children label p {
+  font-size: 0.75em;
+  margin: 0 0 8px 0;
 }
 
 /* ControlsDropdown expanded state */
@@ -48,6 +50,6 @@
   transform: rotate(90deg);
 }
 .controls-dropdown.expanded .controls-dropdown-children {
-  height: initial;
-  opacity: 1;
+  padding: 0px 10px 10px 20px;
+  content-visibility: visible;
 }

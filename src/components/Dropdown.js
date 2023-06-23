@@ -8,7 +8,7 @@ export default function Dropdown({ label, children }) {
       <div className="controls-dropdown-label" onClick={() => setIsExpanded(!isExpanded)}>
         <h6>{label}</h6>
 
-        <i class="ri-arrow-right-s-line"></i>
+        <i className="ri-arrow-right-s-line"></i>
       </div>
 
       <div className="controls-dropdown-children">

@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 export default function ControlSlider({
   label,
   name,
@@ -10,12 +8,10 @@ export default function ControlSlider({
   value,
   onChange
 }) {
-  const [num, setNum] = useState(value ? value : 0);
-
   return(
     <nav className="control-slider-wrap">
-      <label for={name}>
-        {label}: {num}{unit}
+      <label htmlFor={name}>
+        <p>{label}: {value}{unit}</p>
       </label>
       
       <input
@@ -24,8 +20,8 @@ export default function ControlSlider({
         min={min || 0}
         max={max || 100}
         step={step || 1}
-        value={value}
-        onChange={onChange}
+        defaultValue={value}
+        onChange={(e) => onChange(e.target.value)}
       />
     </nav>
   )

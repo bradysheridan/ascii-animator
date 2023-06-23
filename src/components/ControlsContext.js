@@ -1,23 +1,21 @@
 import { createContext, useState } from "react";
 
-const ControlsContext = createContext();
+export const ControlsContext = createContext();
 
-  // const ControlsProvider = (props) => {
-  //   const [edgeDetectionThreshold, setEdgeDetectionThreshold] = useState(450);
+export const ControlsProvider = (props) => {
+  const [edgeDetectionThreshold, setEdgeDetectionThreshold] = useState(450);
+  const [sourceImages, setSourceImages] = useState([]);
 
-  //   return(
-  //     <ControlsContext.Provider
-  //       value={{
-  //         edgeDetectionThreshold,
-  //         setEdgeDetectionThreshold
-  //       }}
-  //     >
-  //       {props.children}
-  //     </ControlsContext.Provider>
-  //   );
-  // }
-
-module.exports = {
-  ControlsContext,
-  // ControlsProvider
+  return(
+    <ControlsContext.Provider
+      value={{
+        edgeDetectionThreshold,
+        setEdgeDetectionThreshold,
+        sourceImages,
+        setSourceImages
+      }}
+    >
+      {props.children}
+    </ControlsContext.Provider>
+  );
 }

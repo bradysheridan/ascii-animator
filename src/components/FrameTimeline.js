@@ -1,3 +1,6 @@
+import { useContext } from 'react'
+import { ControlsContext } from '@/components/ControlsContext';
+
 const frames = [
   1,
   2,
@@ -19,6 +22,10 @@ function Frame({
 }
 
 export default function FrameTimeline() {
+  const {
+    
+  } = useContext(ControlsContext);
+
   return(
     <div className="frame-timeline-wrap">
       {
