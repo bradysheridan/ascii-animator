@@ -6,6 +6,10 @@
   width: auto;
   display: inline-block;
   border: 1px dashed black;
+  margin-left: 30px;
+}
+.canvas:first-child {
+  margin-left: 0;
 }
 
 .canvas-title {

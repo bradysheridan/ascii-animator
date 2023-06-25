@@ -39,7 +39,6 @@ export default function ControlFile({
             reader.onload = (e) => {
               var img = new Image(300, 300);
               img.src = e.target.result;
-              console.log('!e', e)
 
               dest.push({
                 data: img,

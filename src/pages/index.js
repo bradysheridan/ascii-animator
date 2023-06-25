@@ -1,45 +1,36 @@
 import { useContext } from 'react'
 import { ControlsContext } from '@/components/ControlsContext';
-import CanvasSource from '@/components/CanvasSource';
+import CanvasASCII from '@/components/CanvasASCII';
+import CanvasP5 from '@/components/CanvasP5';
 
 export default function Index() {
   const {
     sourceImages,
-    x,
-    y,
-    x2,
-    y2
+    filter
   } = useContext(ControlsContext);
 
   return(
     <>
       {
         sourceImages.map((sourceImage, i) => (
-          <div key={`frame-${i}`} style={{ display: 'flex-inline', width: 'auto', marginTop: (i === 0) ? 0 : 30  }}>
-            <CanvasSource
+          <div key={`frame-${i}`} style={{ display: 'flex-inline', marginTop: (i === 0) ? 0 : 30  }}>
+            <CanvasP5
               title={`Frame ${(i + 1)} - Source`}
               sourceImage={sourceImage.data}
             />
 
-            <CanvasSource
-              title={`Frame ${(i + 1)} - Sketch`}
-              x={x}
-              y={y}
+            <CanvasP5
+              title={`Frame ${(i + 1)} - Processed`}
+              sourceImage={sourceImage.data}
+              filter={filter}
+            />
+
+            <CanvasASCII
+              title={`Frame ${(i + 1)} - ASCII`}
             />
           </div>
         ))
       }
-
-      {/* <CanvasSource
-        x={x}
-        y={y}
-        sourceImages={sourceImages}
-      />
-
-      <CanvasSource
-        x={x2}
-        y={y2}
-      /> */}
     </>
   );
 }

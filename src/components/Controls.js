@@ -3,6 +3,7 @@ import Dropdown from '@/components/Dropdown';
 import ControlFile from '@/components/ControlFile';
 import ControlSlider from '@/components/ControlSlider';
 import { ControlsContext } from '@/components/ControlsContext';
+import ControlSelect from './ControlSelect';
 
 export default function Controls() {
   const {
@@ -10,15 +11,8 @@ export default function Controls() {
     setEdgeDetectionThreshold,
     sourceImages,
     setSourceImages,
-    // tests
-    x,
-    setX,
-    y,
-    setY,
-    x2,
-    setX2,
-    y2,
-    setY2
+    filter,
+    setFilter
   } = useContext(ControlsContext);
 
   return(
@@ -48,51 +42,23 @@ export default function Controls() {
           value={edgeDetectionThreshold}
           onChange={setEdgeDetectionThreshold}
         />
-      </Dropdown>
 
-      <Dropdown label="Test controls">
-        <ControlSlider
-          label={"Circle X"}
-          name={"circle-x"}
-          unit={"px"}
-          min={1}
-          max={300}
-          step={1}
-          value={x}
-          onChange={setX}
-        />
-
-        <ControlSlider
-          label={"Circle Y"}
-          name={"circle-y"}
-          unit={"px"}
-          min={1}
-          max={300}
-          step={1}
-          value={y}
-          onChange={setY}
-        />
-
-        <ControlSlider
-          label={"Circle X 2"}
-          name={"circle-x-2"}
-          unit={"px"}
-          min={1}
-          max={300}
-          step={1}
-          value={x2}
-          onChange={setX2}
-        />
-
-        <ControlSlider
-          label={"Circle Y 2"}
-          name={"circle-y-2"}
-          unit={"px"}
-          min={1}
-          max={300}
-          step={1}
-          value={y2}
-          onChange={setY2}
+        <ControlSelect
+          label={"Filter"}
+          name={"filter"}
+          tooltip={`Visit [this page](https://p5js.org/reference/#/p5/filter) for descriptions of each filter.`}
+          values={[
+            "none",
+            "THRESHOLD",
+            "GRAY",
+            "OPAQUE",
+            "INVERT",
+            "POSTERIZE",
+            "BLUR",
+            "ERODE",
+            "DILATE",
+          ]}
+          onChange={setFilter}
         />
       </Dropdown>
     </nav>
