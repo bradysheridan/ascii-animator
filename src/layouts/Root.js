@@ -3,17 +3,6 @@ import Controls from '@/components/Controls'
 import FrameTimeline from '@/components/FrameTimeline';
 import { ControlsProvider } from '@/components/ControlsContext';
 
-{/* <ControlsContext.Provider
-value={{
-  bookList,
-  setBookList,
-  savedBooks,
-  setSavedBooks,
-}}
->
-{props.children}
-</ControlsContext.Provider> */}
-
 export default function RootLayout({ children }) {
   return(
     <>

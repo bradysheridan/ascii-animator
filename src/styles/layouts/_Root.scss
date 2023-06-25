@@ -1,0 +1,10 @@
+.content {
+  width: 100%;
+  margin-left: var(--controls-width-desktop);
+  margin-bottom: var(--frame-timeline-height);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}

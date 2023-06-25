@@ -9,7 +9,16 @@ export default function Controls() {
     edgeDetectionThreshold,
     setEdgeDetectionThreshold,
     sourceImages,
-    setSourceImages
+    setSourceImages,
+    // tests
+    x,
+    setX,
+    y,
+    setY,
+    x2,
+    setX2,
+    y2,
+    setY2
   } = useContext(ControlsContext);
 
   return(
@@ -38,6 +47,52 @@ export default function Controls() {
           step={1}
           value={edgeDetectionThreshold}
           onChange={setEdgeDetectionThreshold}
+        />
+      </Dropdown>
+
+      <Dropdown label="Test controls">
+        <ControlSlider
+          label={"Circle X"}
+          name={"circle-x"}
+          unit={"px"}
+          min={1}
+          max={300}
+          step={1}
+          value={x}
+          onChange={setX}
+        />
+
+        <ControlSlider
+          label={"Circle Y"}
+          name={"circle-y"}
+          unit={"px"}
+          min={1}
+          max={300}
+          step={1}
+          value={y}
+          onChange={setY}
+        />
+
+        <ControlSlider
+          label={"Circle X 2"}
+          name={"circle-x-2"}
+          unit={"px"}
+          min={1}
+          max={300}
+          step={1}
+          value={x2}
+          onChange={setX2}
+        />
+
+        <ControlSlider
+          label={"Circle Y 2"}
+          name={"circle-y-2"}
+          unit={"px"}
+          min={1}
+          max={300}
+          step={1}
+          value={y2}
+          onChange={setY2}
         />
       </Dropdown>
     </nav>

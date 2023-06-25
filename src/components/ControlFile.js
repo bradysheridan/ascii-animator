@@ -8,7 +8,7 @@ export default function ControlFile({
   return(
     <nav className="control-file-wrap">
       <label htmlFor={name}>
-        <p>{label}: {value.map((file, i) => `(${i+1}) ${file.name}${i < value.length - 1 ? ',' : ''}`).join(" ")}</p>
+        <p>{label}: {value.map((file, i) => `(${i+1}) ${file.filename}${i < value.length - 1 ? ',' : ''}`).join(" ")}</p>
       </label>
       
       <input
@@ -17,16 +17,41 @@ export default function ControlFile({
         accept="image/png, image/jpg, image/jpeg"
         multiple={multiple}
         onChange={(e) => {
-          if (e.target && e.target.files) {
-            var files = [];
-            
-            for (const file of e.target.files) {
-              files.push(file)
+          processImagesFromFiles(e.target.files, [], 0, (processedImages) => {
+            onChange(processedImages);
+          });
+
+          function processImagesFromFiles(src, dest, i, cb) {
+            // start condition
+            if (i === 0) {
+              dest = [];
             }
-            
-            onChange(files);
-          } else {
-            throw "Couldn't process selected files."
+
+            // end condition
+            if (i === src.length) {
+              cb(dest);
+              return dest;
+            }
+
+            var filename = src[i].name;
+            var reader = new FileReader();
+
+            reader.onload = (e) => {
+              var img = new Image(300, 300);
+              img.src = e.target.result;
+              console.log('!e', e)
+
+              dest.push({
+                data: img,
+                filename: filename
+              });
+
+              i++;
+
+              return processImagesFromFiles(src, dest, i, cb);
+            }
+
+            reader.readAsDataURL(src[i]);
           }
         }}
       />
