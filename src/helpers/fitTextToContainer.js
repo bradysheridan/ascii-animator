@@ -1,5 +1,13 @@
 // https://observablehq.com/d/66fda698f8b2e164
-function fitTextToContainer(text, fontFace, containerEl, initialFontSize) {
+export default function fitTextToContainer(text, fontFace, containerEl, initialFontSize) {
+
+  console.log("Invoked fitTextToContainer...");
+  console.log("> text", text);
+  console.log("> fontFace", fontFace);
+  console.log("> containerEl", containerEl);
+  console.log("> initialFontSize", initialFontSize);
+
+
   const PIXEL_RATIO = getPixelRatio(),
         width = containerEl.getBoundingClientRect().width
 

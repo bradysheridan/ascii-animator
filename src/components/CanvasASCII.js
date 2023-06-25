@@ -1,8 +1,22 @@
-var width = 200;
-var height = 200;
+import { useEffect, useState } from 'react';
+import fitTextToContainer from '@/helpers/fitTextToContainer';
 
-export default function CanvasSource(props) {
-  const { title } = props;
+var width = 300;
+var height = 300;
+
+export default function CanvasASCII(props) {
+  const { title, asciiString } = props;
+  const [fontSize, setFontSize] = useState(30);
+
+  var containerRef;
+
+  useEffect(() => {
+    if (asciiString) {
+      var fittedFontSize = fitTextToContainer(asciiString, 'monospace', containerRef, 30);
+      console.log("Got fittedFontSize:", fittedFontSize);
+      setFontSize(fittedFontSize);
+    }
+  }, [asciiString]);
 
   return(
     <div className="canvas canvas-ascii">
@@ -11,9 +25,9 @@ export default function CanvasSource(props) {
       </p>
       
       <div style={{ width, height, background: '#eee' }}>
-        <p>
-          {"-> Will render ASCII sketch here."}
-        </p>
+        <pre ref={ref => containerRef = ref} style={{ width: '100%', height: '100%', fontSize, fontFamily: "monospace"}}>
+          { asciiString }
+        </pre>
       </div>
     </div>
   )

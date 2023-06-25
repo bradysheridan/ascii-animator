@@ -37,8 +37,8 @@ export default function Controls() {
           name={"edge-detection-threshold"}
           unit={"px"}
           min={1}
-          max={1000}
-          step={1}
+          max={100}
+          step={0.5}
           value={edgeDetectionThreshold}
           onChange={setEdgeDetectionThreshold}
         />

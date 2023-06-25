@@ -3,12 +3,16 @@ import { createContext, useState } from "react";
 export const ControlsContext = createContext();
 
 export const ControlsProvider = (props) => {
-  const [edgeDetectionThreshold, setEdgeDetectionThreshold] = useState(450);
-  const [sourceImages, setSourceImages] = useState([]);
+  const [asciiStrings, setAsciiStrings] = useState([]);
+  const [edgeDetectionThreshold, setEdgeDetectionThreshold] = useState(20);
   const [filter, setFilter] = useState();
+  const [sourceImages, setSourceImages] = useState([]);
+
   return(
     <ControlsContext.Provider
       value={{
+        asciiStrings,
+        setAsciiStrings,
         edgeDetectionThreshold,
         setEdgeDetectionThreshold,
         sourceImages,
