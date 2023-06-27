@@ -62,7 +62,7 @@ export default function processImageSobel(_p5, sourceImage, destImage, edgeDetec
 
 			// add char to sketch
 			if (edgeDetectionThreshold && result > edgeDetectionThreshold) {
-				frameStr += ".";
+				frameStr += "*";
 			} else {
 				frameStr += " ";
 			}

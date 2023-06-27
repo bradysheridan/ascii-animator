@@ -1,24 +1,19 @@
 // https://observablehq.com/d/66fda698f8b2e164
-export default function fitTextToContainer(text, fontFace, containerEl, initialFontSize) {
+export default function fitTextToContainer(text, fontFace, containerWidth) {
+  const PIXEL_RATIO = getPixelRatio();
 
   console.log("Invoked fitTextToContainer...");
   console.log("> text", text);
   console.log("> fontFace", fontFace);
-  console.log("> containerEl", containerEl);
-  console.log("> initialFontSize", initialFontSize);
+  console.log("> containerWidth", containerWidth);
+  console.log("> PIXEL_RATIO", PIXEL_RATIO);
 
-
-  const PIXEL_RATIO = getPixelRatio(),
-        width = containerEl.getBoundingClientRect().width
-
-  if (!initialFontSize) initialFontSize = parseFloat(containerEl.style['font-size'])
-
-  let canvas = createHiDPICanvas(width, 0),
+  let canvas = createHiDPICanvas(containerWidth, 0),
       context = canvas.getContext('2d'),
       longestLine = getLongestLine(split(text)),
-      fittedFontSize = getFittedFontSize(longestLine, fontFace)
+      fittedFontSize = getFittedFontSize(longestLine, fontFace);
 
-  return fittedFontSize
+  return fittedFontSize;
 
   // --- helpers -------------------------------------------------
 
@@ -33,6 +28,7 @@ export default function fitTextToContainer(text, fontFace, containerEl, initialF
               ctx.msBackingStorePixelRatio ||
               ctx.oBackingStorePixelRatio ||
               ctx.backingStorePixelRatio || 1
+
     return dpr / bsr
   }
 
@@ -73,10 +69,10 @@ export default function fitTextToContainer(text, fontFace, containerEl, initialF
     } while(!fits())
 
     // draw the text (only for this demo)
-    context.fillText(text, 0, 0)
+    // context.fillText(text, 0, 0)
 
     // adjust for resolution
-    fontSize /= PIXEL_RATIO
+    fontSize /= (PIXEL_RATIO / 1.62)
 
     return fontSize
   }
@@ -89,7 +85,6 @@ export default function fitTextToContainer(text, fontFace, containerEl, initialF
     canvas.height = h * PIXEL_RATIO
     canvas.style.width = `${w}px`
     canvas.style.height = `${h}px`
-    canvas.style.border = '1px dashed green'
     canvas.getContext("2d").setTransform(PIXEL_RATIO, 0, 0, PIXEL_RATIO, 0, 0)
     return canvas
   }

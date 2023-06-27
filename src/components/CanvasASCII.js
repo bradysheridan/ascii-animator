@@ -1,20 +1,23 @@
 import { useEffect, useState } from 'react';
 import fitTextToContainer from '@/helpers/fitTextToContainer';
 
-var width = 300;
-var height = 300;
+// var width = 300;
+// var height = 300;
 
 export default function CanvasASCII(props) {
   const { title, asciiString } = props;
-  const [fontSize, setFontSize] = useState(30);
 
-  var containerRef;
+  const [fontSize, setFontSize] = useState(300);
+  const [lineHeight, setLineHeight] = useState(30);
+  const [width, setWidth] = useState(0);
+
+  // var containerRef;
 
   useEffect(() => {
     if (asciiString) {
-      var fittedFontSize = fitTextToContainer(asciiString, 'monospace', containerRef, 30);
-      console.log("Got fittedFontSize:", fittedFontSize);
+      var fittedFontSize = fitTextToContainer(asciiString, 'monospace', width, 300);
       setFontSize(fittedFontSize);
+      setLineHeight(0.62 * fittedFontSize);
     }
   }, [asciiString]);
 
@@ -24,11 +27,11 @@ export default function CanvasASCII(props) {
         {title}
       </p>
       
-      <div style={{ width, height, background: '#eee' }}>
-        <pre ref={ref => containerRef = ref} style={{ width: '100%', height: '100%', fontSize, fontFamily: "monospace"}}>
+      <div className="canvas-ascii-pre-wrap" ref={ref => ref && 0 == width ? setWidth(ref.getBoundingClientRect().width * 0.65) : null}>
+        <pre  style={{ fontSize: `${fontSize}px`, lineHeight: `${lineHeight}px`, fontFamily: "monospace" }}>
           { asciiString }
         </pre>
       </div>
     </div>
-  )
+  );
 }

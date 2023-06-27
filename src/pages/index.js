@@ -20,37 +20,39 @@ export default function Index() {
               frameNumber = i + 1;
 
           return(
-            <div key={`frame-${i}`} style={{ display: 'flex-inline', marginTop: (i === 0) ? 0 : 30  }}>
-              <CanvasP5
-                title={`Frame ${(i + 1)} - Source`}
-                sourceImage={sourceImage.data}
-              />
+            <div className="index-page-wrap">
+              <div key={`frame-${i}`} style={{ display: 'flex', flexDirection: 'column', marginTop: (i === 0) ? 0 : 30  }}>
+                <CanvasP5
+                  title={`Frame ${(frameNumber)} - Source`}
+                  sourceImage={sourceImage.data}
+                />
 
-              <CanvasP5
-                title={`Frame ${(i + 1)} - Filtered`}
-                sourceImage={sourceImage.data}
-                filter={filter}
-              />
+                <CanvasP5
+                  title={`Frame ${(frameNumber)} - Filtered`}
+                  sourceImage={sourceImage.data}
+                  filter={filter}
+                />
 
-              <CanvasP5
-                title={`Frame ${(i + 1)} - Processed`}
-                sourceImage={sourceImage.data}
-                filter={filter}
-                edgeDetectionThreshold={edgeDetectionThreshold}
-                onSketch={(asciiString) => {
-                  var newAsciiStrings = asciiStrings.map(str => str);
-                  newAsciiStrings[frameIndex] = asciiString;
-                  console.log("CanvasP5 onSketch callback got newAsciiStrings:", newAsciiStrings);
-                  setAsciiStrings(newAsciiStrings);
-                }}
-              />
+                <CanvasP5
+                  title={`Frame ${(frameNumber)} - Processed`}
+                  sourceImage={sourceImage.data}
+                  filter={filter}
+                  edgeDetectionThreshold={edgeDetectionThreshold}
+                  onSketch={(asciiString) => {
+                    var newAsciiStrings = asciiStrings.map(str => str);
+                    newAsciiStrings[frameIndex] = asciiString;
+                    console.log("CanvasP5 onSketch callback got newAsciiStrings:", newAsciiStrings);
+                    setAsciiStrings(newAsciiStrings);
+                  }}
+                />
+              </div>
 
               <CanvasASCII
                 title={`Frame ${(i + 1)} - ASCII`}
                 asciiString={asciiStrings[frameIndex]}
               />
             </div>
-          )
+          );
         })
       }
     </>

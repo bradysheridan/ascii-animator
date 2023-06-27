@@ -1,10 +1,11 @@
 .content {
-  width: 100%;
+  display: flex;
+  width: calc(100% - var(--controls-width-desktop));
   margin-left: var(--controls-width-desktop);
   margin-bottom: var(--frame-timeline-height);
-  padding: 40px;
+}
+
+.index-page-wrap {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  flex: 1;
 }
