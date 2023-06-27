@@ -13,21 +13,21 @@
   border-top: 1px dashed var(--site-background-contrast-color);
 }
 
-.frame {
+.frame-preview{
   position: relative;
   height: 100%;
   width: var(--frame-timeline-height);
   border-left: 1px dashed var(--site-background-contrast-color);
   cursor: pointer;
 }
-.frame:first-child {
+.frame-preview:first-child {
   border-left: 0;
 }
-.frame:last-child {
+.frame-preview:last-child {
   border-right: 1px dashed var(--site-background-contrast-color);
 }
-.frame.active,
-.frame:hover {
+.frame-preview.active,
+.frame-preview:hover {
   background-color: var(--site-background-color-highlight-2);
 }
 
@@ -45,4 +45,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+.frame-preview.selected .frame-number {
+  background-color: var(--success-green-light);
 }

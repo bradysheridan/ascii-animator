@@ -5,6 +5,7 @@ import CanvasP5 from '@/components/CanvasP5';
 
 export default function Index() {
   const {
+    selectedFrame,
     asciiStrings,
     setAsciiStrings,
     sourceImages,
@@ -17,11 +18,12 @@ export default function Index() {
       {
         sourceImages.map((sourceImage, i) => {
           var frameIndex = i,
-              frameNumber = i + 1;
+              frameNumber = i + 1,
+              frameIsSelected = frameIndex === selectedFrame;
 
           return(
-            <div className="index-page-wrap">
-              <div key={`frame-${i}`} style={{ display: 'flex', flexDirection: 'column', marginTop: (i === 0) ? 0 : 30  }}>
+            <div key={`frame-${i}`} className={["frame", frameIsSelected ? "selected" : ""].join(" ")}>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <CanvasP5
                   title={`Frame ${(frameNumber)} - Source`}
                   sourceImage={sourceImage.data}
@@ -41,7 +43,6 @@ export default function Index() {
                   onSketch={(asciiString) => {
                     var newAsciiStrings = asciiStrings.map(str => str);
                     newAsciiStrings[frameIndex] = asciiString;
-                    console.log("CanvasP5 onSketch callback got newAsciiStrings:", newAsciiStrings);
                     setAsciiStrings(newAsciiStrings);
                   }}
                 />

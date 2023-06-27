@@ -1,39 +1,43 @@
 import { useContext } from 'react'
 import { ControlsContext } from '@/components/ControlsContext';
 
-const frames = [
-  1,
-  2,
-  3,
-  4
-]
-
 function Frame({
   i,
-  frame
+  image,
+  isSelected,
+  onClick
 }) {
   return(
-    <div className="frame">
+    <div className={["frame-preview", isSelected ? "selected" : ""].join(" ")} onClick={onClick}>
       <p className="frame-number">
         { i + 1 }
       </p>
+
+      <img
+        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+        src={image.data.src}
+      />
     </div>
   )
 }
 
 export default function FrameTimeline() {
   const {
-    
+    sourceImages,
+    selectedFrame,
+    setSelectedFrame
   } = useContext(ControlsContext);
 
   return(
     <div className="frame-timeline-wrap">
       {
-        frames.map((frame, i) => (
+        sourceImages.map((image, i) => (
           <Frame
             key={`frame-${i}`}
             i={i}
-            frame={frame}
+            image={image}
+            isSelected={i === selectedFrame}
+            onClick={() => setSelectedFrame(i)}
           />
         ))
       }

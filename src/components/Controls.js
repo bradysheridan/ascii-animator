@@ -7,6 +7,7 @@ import ControlSelect from './ControlSelect';
 
 export default function Controls() {
   const {
+    setSelectedFrame,
     edgeDetectionThreshold,
     setEdgeDetectionThreshold,
     sourceImages,
@@ -27,7 +28,10 @@ export default function Controls() {
           name={"source-images"}
           multiple={true}
           value={sourceImages}
-          onChange={setSourceImages}
+          onChange={(sourceImages) => {
+            setSourceImages(sourceImages);
+            setSelectedFrame(0);
+          }}
         />
       </Dropdown>
 

@@ -1,0 +1,7 @@
+.frame {
+  display: none;
+  flex: 1;
+}
+.frame.selected {
+  display: flex;
+}
