@@ -1,7 +1,15 @@
-import { useContext } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { ControlsContext } from '@/components/ControlsContext';
 import CanvasASCII from '@/components/CanvasASCII';
 import CanvasP5 from '@/components/CanvasP5';
+
+const EmptyState = () => (
+  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: 'calc(100vh - 100px)' }}>
+    <p>
+      empty state
+    </p>
+  </div>
+);
 
 export default function Index() {
   const {
@@ -10,51 +18,67 @@ export default function Index() {
     setAsciiStrings,
     sourceImages,
     edgeDetectionThreshold,
-    filter
+    filter,
+    animating
   } = useContext(ControlsContext);
 
+  const [asciiStrings2, setAsciiStrings2] = useState(asciiStrings);
+
+  useEffect(() => {
+    setTimeout(() => setAsciiStrings2(asciiStrings), 1500);
+  }, [asciiStrings]);
+
+  // frames on at a time
+  const renderFrames = () => sourceImages.map((sourceImage, i) => {
+    var frameIndex = i,
+        frameIsSelected = frameIndex === selectedFrame;
+
+    return(
+      <div key={`frame-${i}`} className={["frame", frameIsSelected ? "selected" : ""].join(" ")}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <CanvasP5
+            title={`Source`}
+            frameIndex={frameIndex}
+            sourceImage={sourceImage.data}
+          />
+
+          <CanvasP5
+            title={`Filtered`}
+            frameIndex={frameIndex}
+            sourceImage={sourceImage.data}
+            filter={filter}
+          />
+
+          <CanvasP5
+            title={`Processed`}
+            frameIndex={frameIndex}
+            sourceImage={sourceImage.data}
+            filter={filter}
+            edgeDetectionThreshold={edgeDetectionThreshold}
+            onSketch={(asciiString) => {
+              asciiStrings[frameIndex] = asciiString;
+              setAsciiStrings(asciiStrings);
+            }}
+          />
+        </div>
+      </div>
+    );
+  });
+  
   return(
     <>
-      {
-        sourceImages.map((sourceImage, i) => {
-          var frameIndex = i,
-              frameNumber = i + 1,
-              frameIsSelected = frameIndex === selectedFrame;
+      {(0 === sourceImages.length)
+        ? <EmptyState />
+        : <>
+            {renderFrames()}
 
-          return(
-            <div key={`frame-${i}`} className={["frame", frameIsSelected ? "selected" : ""].join(" ")}>
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <CanvasP5
-                  title={`Frame ${(frameNumber)} - Source`}
-                  sourceImage={sourceImage.data}
-                />
-
-                <CanvasP5
-                  title={`Frame ${(frameNumber)} - Filtered`}
-                  sourceImage={sourceImage.data}
-                  filter={filter}
-                />
-
-                <CanvasP5
-                  title={`Frame ${(frameNumber)} - Processed`}
-                  sourceImage={sourceImage.data}
-                  filter={filter}
-                  edgeDetectionThreshold={edgeDetectionThreshold}
-                  onSketch={(asciiString) => {
-                    var newAsciiStrings = asciiStrings.map(str => str);
-                    newAsciiStrings[frameIndex] = asciiString;
-                    setAsciiStrings(newAsciiStrings);
-                  }}
-                />
-              </div>
-
-              <CanvasASCII
-                title={`Frame ${(i + 1)} - ASCII`}
-                asciiString={asciiStrings[frameIndex]}
-              />
-            </div>
-          );
-        })
+            <CanvasASCII
+              asciiStrings={asciiStrings}
+              animating={animating}
+              controlAsciiString={asciiStrings[0]}
+              selectedFrameIndex={selectedFrame}
+            />
+          </>
       }
     </>
   );

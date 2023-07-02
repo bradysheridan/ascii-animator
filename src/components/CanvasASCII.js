@@ -1,35 +1,74 @@
 import { useEffect, useState } from 'react';
 import fitTextToContainer from '@/helpers/fitTextToContainer';
 
-// var width = 300;
-// var height = 300;
-
 export default function CanvasASCII(props) {
-  const { title, asciiString } = props;
+  const {
+    asciiStrings,
+    animating,
+    controlAsciiString,
+    selectedFrameIndex
+  } = props;
 
-  const [fontSize, setFontSize] = useState(300);
-  const [lineHeight, setLineHeight] = useState(30);
-  const [width, setWidth] = useState(0);
-
-  // var containerRef;
+  const [localFrameIndex, setLocalFrameIndex] = useState(selectedFrameIndex);
+  const [fontSize, setFontSize] = useState(0);
+  const [lineHeight, setLineHeight] = useState(0);
+  const [width, setWidth] = useState(640);
+  const [animationInterval, setAnimationInterval] = useState(null);
 
   useEffect(() => {
-    if (asciiString) {
-      var fittedFontSize = fitTextToContainer(asciiString, 'monospace', width, 300);
+    // console.log("ASCII strings updated in CanvasASCII...");
+    // console.log("> asciiStrings", asciiStrings);
+    // console.log(width);
+
+    if (controlAsciiString) {
+      // console.log("Fitting text to container...");
+      // console.log("> controlAsciiString", controlAsciiString);
+
+      var fittedFontSize = fitTextToContainer(controlAsciiString, 'monospace', width),
+          fittedLineHeight = 0.62 * fittedFontSize;
+
       setFontSize(fittedFontSize);
-      setLineHeight(0.62 * fittedFontSize);
+      setLineHeight(fittedLineHeight);
+
+      // console.log("Fitted font size and line height...");
+      // console.log("> Font size:", fittedFontSize);
+      // console.log("> Line height:", fittedLineHeight);
     }
-  }, [asciiString]);
+  }, [controlAsciiString]);
+
+  // run animation when 'animating' prop is true
+  // stop animation when 'animating' prop is false
+  useEffect(() => {
+    if (animating) {
+      let step = () => setLocalFrameIndex(localFrameIndex => (localFrameIndex + 1 === asciiStrings.length) ? 0 : localFrameIndex + 1);
+      let interval = setInterval(step, 150);
+      step();
+      setAnimationInterval(interval);
+    } else {
+      clearInterval(animationInterval);
+      setAnimationInterval(null);
+      setLocalFrameIndex(selectedFrameIndex);
+    }
+  }, [animating]);
+
+  useEffect(() => {
+    if (selectedFrameIndex !== localFrameIndex) {
+      setLocalFrameIndex(selectedFrameIndex);
+    }
+  }, [selectedFrameIndex]);
 
   return(
-    <div className="canvas canvas-ascii">
+    <div className="canvas canvas-ascii" style={{width}}>
       <p className="canvas-title">
-        {title}
+        {`Frame [${localFrameIndex}]`}
       </p>
       
-      <div className="canvas-ascii-pre-wrap" ref={ref => ref && 0 == width ? setWidth(ref.getBoundingClientRect().width * 0.65) : null}>
-        <pre  style={{ fontSize: `${fontSize}px`, lineHeight: `${lineHeight}px`, fontFamily: "monospace" }}>
-          { asciiString }
+      <div
+        className="canvas-ascii-pre-wrap"
+        // ref={ref => ref && 0 == width ? setWidth(ref.getBoundingClientRect().width * 0.65) : null}
+      >
+        <pre style={{ fontSize: `${fontSize}px`, lineHeight: `${lineHeight}px`, fontFamily: "monospace" }}>
+          { asciiStrings[localFrameIndex] }
         </pre>
       </div>
     </div>

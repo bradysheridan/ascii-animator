@@ -200,7 +200,10 @@ span, small, em, strong, input {
   position: relative;
   width: auto;
   display: inline-block;
-  border-bottom: 1px dashed black;
+  border: 1px dashed black;
+  margin: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px grey;
 }
 
 .canvas-title {
@@ -211,8 +214,6 @@ span, small, em, strong, input {
 .canvas-ascii {
   display: flex;
   flex-direction: column;
-  flex: 1;
-  border-left: 1px dashed black;
 }
 
 .canvas-ascii-pre-wrap {
@@ -302,7 +303,6 @@ span, small, em, strong, input {
 
 .frame {
   display: none;
-  flex: 1;
 }
 
 .frame.selected {
@@ -367,6 +367,8 @@ span, small, em, strong, input {
 
 .content {
   display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
   width: calc(100% - var(--controls-width-desktop));
   margin-left: var(--controls-width-desktop);
   margin-bottom: var(--frame-timeline-height);

@@ -2,11 +2,11 @@
 export default function fitTextToContainer(text, fontFace, containerWidth) {
   const PIXEL_RATIO = getPixelRatio();
 
-  console.log("Invoked fitTextToContainer...");
-  console.log("> text", text);
-  console.log("> fontFace", fontFace);
-  console.log("> containerWidth", containerWidth);
-  console.log("> PIXEL_RATIO", PIXEL_RATIO);
+  // console.log("Invoked fitTextToContainer...");
+  // console.log("> text", text);
+  // console.log("> fontFace", fontFace);
+  // console.log("> containerWidth", containerWidth);
+  // console.log("> PIXEL_RATIO", PIXEL_RATIO);
 
   let canvas = createHiDPICanvas(containerWidth, 0),
       context = canvas.getContext('2d'),

@@ -11,7 +11,14 @@ var width = 200;
 var height = 200;
 
 export default function CanvasSource(props) {
-  const { title, sourceImage, filter, edgeDetectionThreshold, onSketch } = props;
+  const {
+    title,
+    sourceImage,
+    filter,
+    edgeDetectionThreshold,
+    onSketch
+  } = props;
+
   const [_p5, set_p5] = useState();
   const [image, setImage] = useState();
 
@@ -68,7 +75,7 @@ export default function CanvasSource(props) {
       var asciiString = processImageSobel(_p5, image, destImage, edgeDetectionThreshold);
       onSketch(asciiString);
     }
-  }, [edgeDetectionThreshold]);
+  }, [edgeDetectionThreshold, image]);
 
   return(
     <div className="canvas canvas-source">

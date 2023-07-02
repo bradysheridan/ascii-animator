@@ -1,19 +1,25 @@
 import { useContext } from 'react';
-import Dropdown from '@/components/Dropdown';
+import { ControlsContext } from '@/components/ControlsContext';
+import ControlButton from '@/components/ControlButton';
 import ControlFile from '@/components/ControlFile';
 import ControlSlider from '@/components/ControlSlider';
-import { ControlsContext } from '@/components/ControlsContext';
 import ControlSelect from './ControlSelect';
+import Dropdown from '@/components/Dropdown';
 
 export default function Controls() {
   const {
+    selectedFrame,
     setSelectedFrame,
+    asciiStrings,
+    setAsciiStrings,
     edgeDetectionThreshold,
     setEdgeDetectionThreshold,
     sourceImages,
     setSourceImages,
     filter,
-    setFilter
+    setFilter,
+    animating,
+    setAnimating
   } = useContext(ControlsContext);
 
   return(
@@ -29,8 +35,14 @@ export default function Controls() {
           multiple={true}
           value={sourceImages}
           onChange={(sourceImages) => {
-            setSourceImages(sourceImages);
             setSelectedFrame(0);
+            setSourceImages(sourceImages);
+            // setAsciiStrings(Array(sourceImages.length));
+
+            console.log("Uploaded image...");
+            console.log("> selectedFrame", selectedFrame);
+            console.log("> sourceImages", sourceImages);
+            console.log("> asciiStrings", asciiStrings);
           }}
         />
       </Dropdown>
@@ -41,7 +53,7 @@ export default function Controls() {
           name={"edge-detection-threshold"}
           unit={"px"}
           min={1}
-          max={100}
+          max={45}
           step={0.5}
           value={edgeDetectionThreshold}
           onChange={setEdgeDetectionThreshold}
@@ -63,6 +75,13 @@ export default function Controls() {
             "DILATE",
           ]}
           onChange={setFilter}
+        />
+      </Dropdown>
+
+      <Dropdown label="Animation">
+        <ControlButton
+          value={animating ? "Stop" : "Start"}
+          onClick={() => setAnimating(!animating)}
         />
       </Dropdown>
     </nav>
