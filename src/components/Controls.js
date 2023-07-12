@@ -14,12 +14,16 @@ export default function Controls() {
     setAsciiStrings,
     edgeDetectionThreshold,
     setEdgeDetectionThreshold,
+    edgeDetectionAlgorithm,
+    setEdgeDetectionAlgorithm,
     sourceImages,
     setSourceImages,
     filter,
     setFilter,
     animating,
-    setAnimating
+    setAnimating,
+    characterDensity,
+    setCharacterDensity
   } = useContext(ControlsContext);
 
   return(
@@ -28,9 +32,9 @@ export default function Controls() {
         <h4>* ASCII Tracer</h4>
       </div>
 
-      <Dropdown label="File(s)">
+      <Dropdown label="Source">
         <ControlFile
-          label={"Source image(s)"}
+          label={"Image(s)"}
           name={"source-images"}
           multiple={true}
           value={sourceImages}
@@ -45,20 +49,17 @@ export default function Controls() {
             console.log("> asciiStrings", asciiStrings);
           }}
         />
+
+        <ControlFile
+          label={"Video (WIP)"}
+          name={"video"}
+          multiple={false}
+          value={[]}
+          onChange={() => null}
+        />
       </Dropdown>
 
-      <Dropdown label="Image processing">
-        <ControlSlider
-          label={"Edge detection threshold"}
-          name={"edge-detection-threshold"}
-          unit={"px"}
-          min={1}
-          max={45}
-          step={0.5}
-          value={edgeDetectionThreshold}
-          onChange={setEdgeDetectionThreshold}
-        />
-
+      <Dropdown label="Filtering">
         <ControlSelect
           label={"Filter"}
           name={"filter"}
@@ -75,6 +76,41 @@ export default function Controls() {
             "DILATE",
           ]}
           onChange={setFilter}
+        />
+      </Dropdown>
+
+      <Dropdown label="Processing">
+        <ControlSelect
+          label={"Edge detection algorithm"}
+          name={"edge-detection-algorithm"}
+          values={[
+            "Sobel",
+            "X-Direction Kernel (WIP)",
+            "Y-Direction Kernel (WIP)"
+          ]}
+          onChange={setEdgeDetectionAlgorithm}
+        />
+
+        <ControlSlider
+          label={"Edge detection threshold"}
+          name={"edge-detection-threshold"}
+          unit={"px"}
+          min={1}
+          max={45}
+          step={0.5}
+          value={edgeDetectionThreshold}
+          onChange={setEdgeDetectionThreshold}
+        />
+
+        <ControlSlider
+          label={"Character density"}
+          name={"character-density"}
+          unit={" per line"}
+          min={1}
+          max={500}
+          step={1}
+          value={characterDensity}
+          onChange={(val) => setCharacterDensity(parseFloat(val))}
         />
       </Dropdown>
 

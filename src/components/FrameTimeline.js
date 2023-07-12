@@ -25,7 +25,8 @@ export default function FrameTimeline() {
   const {
     sourceImages,
     selectedFrame,
-    setSelectedFrame
+    setSelectedFrame,
+    setAnimating
   } = useContext(ControlsContext);
 
   return(
@@ -37,7 +38,10 @@ export default function FrameTimeline() {
             i={i}
             image={image}
             isSelected={i === selectedFrame}
-            onClick={() => setSelectedFrame(i)}
+            onClick={() => {
+              setAnimating(false);
+              setSelectedFrame(i);
+            }}
           />
         ))
       }

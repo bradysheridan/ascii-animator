@@ -6,9 +6,11 @@ export const ControlsProvider = (props) => {
   const [selectedFrame, setSelectedFrame] = useState(0);
   const [asciiStrings, setAsciiStrings] = useState([]);
   const [edgeDetectionThreshold, setEdgeDetectionThreshold] = useState(12.5);
+  const [edgeDetectionAlgorithm, setEdgeDetectionAlgorithm] = useState("Sobel");
   const [filter, setFilter] = useState();
   const [sourceImages, setSourceImages] = useState([]);
   const [animating, setAnimating] = useState(false);
+  const [characterDensity, setCharacterDensity] = useState(100);
 
   return(
     <ControlsContext.Provider
@@ -19,12 +21,16 @@ export const ControlsProvider = (props) => {
         setAsciiStrings,
         edgeDetectionThreshold,
         setEdgeDetectionThreshold,
+        edgeDetectionAlgorithm,
+        setEdgeDetectionAlgorithm,
         sourceImages,
         setSourceImages,
         filter,
         setFilter,
         animating,
-        setAnimating
+        setAnimating,
+        characterDensity,
+        setCharacterDensity
       }}
     >
       {props.children}

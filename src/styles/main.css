@@ -201,7 +201,7 @@ span, small, em, strong, input {
   width: auto;
   display: inline-block;
   border: 1px dashed black;
-  margin: 20px;
+  margin: 12px;
   border-radius: 8px;
   box-shadow: 0px 0px 5px grey;
 }
@@ -214,6 +214,7 @@ span, small, em, strong, input {
 .canvas-ascii {
   display: flex;
   flex-direction: column;
+  flex: 0.9;
 }
 
 .canvas-ascii-pre-wrap {
@@ -270,7 +271,7 @@ span, small, em, strong, input {
 
 .controls-dropdown-children label p {
   font-size: 0.75em;
-  margin: 0 0 8px 0;
+  margin: 0 0 3px 0;
 }
 
 /* ControlsDropdown expanded state */
@@ -281,6 +282,14 @@ span, small, em, strong, input {
 .controls-dropdown.expanded .controls-dropdown-children {
   padding: 0px 10px 10px 20px;
   content-visibility: visible;
+}
+
+.control {
+  margin-top: 10px;
+}
+
+.control:first-child {
+  margin-top: 0;
 }
 
 /* ControlFile default state */
@@ -372,6 +381,7 @@ span, small, em, strong, input {
   width: calc(100% - var(--controls-width-desktop));
   margin-left: var(--controls-width-desktop);
   margin-bottom: var(--frame-timeline-height);
+  padding: 12px;
 }
 
 /*# sourceMappingURL=main.css.map */

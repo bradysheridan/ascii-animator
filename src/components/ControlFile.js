@@ -6,7 +6,7 @@ export default function ControlFile({
   onChange
 }) {
   return(
-    <nav className="control-file-wrap">
+    <nav className="control control-file-wrap">
       <label htmlFor={name}>
         <p>{label}: {value.map((file, i) => `(${i+1}) ${file.filename}${i < value.length - 1 ? ',' : ''}`).join(" ")}</p>
       </label>

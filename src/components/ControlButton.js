@@ -3,7 +3,7 @@ export default function ControlButton({
   onClick
 }) {
   return(
-    <nav className="control-button">
+    <nav className="control control-button">
       <button
         onClick={onClick}
       >

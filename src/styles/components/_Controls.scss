@@ -42,7 +42,7 @@
 }
 .controls-dropdown-children label p {
   font-size: 0.75em;
-  margin: 0 0 8px 0;
+  margin: 0 0 3px 0;
 }
 
 /* ControlsDropdown expanded state */
@@ -52,4 +52,11 @@
 .controls-dropdown.expanded .controls-dropdown-children {
   padding: 0px 10px 10px 20px;
   content-visibility: visible;
+}
+
+.control {
+  margin-top: 10px;
+}
+.control:first-child {
+  margin-top: 0;
 }

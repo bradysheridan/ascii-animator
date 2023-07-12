@@ -9,7 +9,7 @@ export default function ControlSlider({
   onChange
 }) {
   return(
-    <nav className="control-slider-wrap">
+    <nav className="control control-slider-wrap">
       <label htmlFor={name}>
         <p>{label}: {value}{unit}</p>
       </label>

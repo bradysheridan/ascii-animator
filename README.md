@@ -85,7 +85,12 @@
 - [ ] Add inline animation previewing with play/pause buttons
 - [ ] Add an animation frame preview list when multiple images are selected, with the ability to toggle between frames
 - [ ] Detect ideal edge detection threshold range by trimming counting number of non-empty chars in render. For instance, could consider 50% to be the ideal ratio of empty to non-empty chars and set the edge detection threshold accordingly.
+- [ ] Save manual text edits to global state
 
+
+## Animation ideas
+- [ ] Flags
+- [ ] Dove flight
 
 <!-- ABOUT THE PROJECT 
 ## About The Project

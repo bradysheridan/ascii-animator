@@ -19,16 +19,10 @@ export default function Index() {
     sourceImages,
     edgeDetectionThreshold,
     filter,
-    animating
+    animating,
+    characterDensity
   } = useContext(ControlsContext);
 
-  const [asciiStrings2, setAsciiStrings2] = useState(asciiStrings);
-
-  useEffect(() => {
-    setTimeout(() => setAsciiStrings2(asciiStrings), 1500);
-  }, [asciiStrings]);
-
-  // frames on at a time
   const renderFrames = () => sourceImages.map((sourceImage, i) => {
     var frameIndex = i,
         frameIsSelected = frameIndex === selectedFrame;
@@ -36,10 +30,11 @@ export default function Index() {
     return(
       <div key={`frame-${i}`} className={["frame", frameIsSelected ? "selected" : ""].join(" ")}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <CanvasP5
+          {/* <CanvasP5
             title={`Source`}
             frameIndex={frameIndex}
             sourceImage={sourceImage.data}
+            characterDensity={characterDensity}
           />
 
           <CanvasP5
@@ -47,7 +42,8 @@ export default function Index() {
             frameIndex={frameIndex}
             sourceImage={sourceImage.data}
             filter={filter}
-          />
+            characterDensity={characterDensity}
+          /> */}
 
           <CanvasP5
             title={`Processed`}
@@ -55,8 +51,10 @@ export default function Index() {
             sourceImage={sourceImage.data}
             filter={filter}
             edgeDetectionThreshold={edgeDetectionThreshold}
+            characterDensity={characterDensity}
             onSketch={(asciiString) => {
               asciiStrings[frameIndex] = asciiString;
+              // console.log(asciiString);
               setAsciiStrings(asciiStrings);
             }}
           />

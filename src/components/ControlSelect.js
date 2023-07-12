@@ -5,7 +5,7 @@ export default function ControlSelect({
   onChange
 }) {
   return(
-    <nav className="control-select">
+    <nav className="control control-select">
       <label htmlFor={name}>
         <p>{label}</p>
       </label>

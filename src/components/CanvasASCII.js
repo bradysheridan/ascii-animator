@@ -12,27 +12,16 @@ export default function CanvasASCII(props) {
   const [localFrameIndex, setLocalFrameIndex] = useState(selectedFrameIndex);
   const [fontSize, setFontSize] = useState(0);
   const [lineHeight, setLineHeight] = useState(0);
-  const [width, setWidth] = useState(640);
+  const [width, setWidth] = useState(0);
   const [animationInterval, setAnimationInterval] = useState(null);
 
   useEffect(() => {
-    // console.log("ASCII strings updated in CanvasASCII...");
-    // console.log("> asciiStrings", asciiStrings);
-    // console.log(width);
-
     if (controlAsciiString) {
-      // console.log("Fitting text to container...");
-      // console.log("> controlAsciiString", controlAsciiString);
-
       var fittedFontSize = fitTextToContainer(controlAsciiString, 'monospace', width),
           fittedLineHeight = 0.62 * fittedFontSize;
 
       setFontSize(fittedFontSize);
       setLineHeight(fittedLineHeight);
-
-      // console.log("Fitted font size and line height...");
-      // console.log("> Font size:", fittedFontSize);
-      // console.log("> Line height:", fittedLineHeight);
     }
   }, [controlAsciiString]);
 
@@ -58,16 +47,16 @@ export default function CanvasASCII(props) {
   }, [selectedFrameIndex]);
 
   return(
-    <div className="canvas canvas-ascii" style={{width}}>
+    <div className="canvas canvas-ascii">
       <p className="canvas-title">
-        {`Frame [${localFrameIndex}]`}
+        {`Frame ${localFrameIndex + 1}`}
       </p>
       
       <div
         className="canvas-ascii-pre-wrap"
-        // ref={ref => ref && 0 == width ? setWidth(ref.getBoundingClientRect().width * 0.65) : null}
+        ref={ref => ref && 0 == width ? setWidth(ref.getBoundingClientRect().width * 0.5) : null}
       >
-        <pre style={{ fontSize: `${fontSize}px`, lineHeight: `${lineHeight}px`, fontFamily: "monospace" }}>
+        <pre contentEditable suppressContentEditableWarning style={{ fontSize: `${fontSize}px`, lineHeight: `${lineHeight}px`, fontFamily: "monospace" }}>
           { asciiStrings[localFrameIndex] }
         </pre>
       </div>
