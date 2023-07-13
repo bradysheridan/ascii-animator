@@ -127,10 +127,6 @@ export default function Controls() {
       </Dropdown>
 
       <Dropdown label="Animation">
-        <ControlButton
-          value={animating ? "Stop" : "Start"}
-          onClick={() => setAnimating(!animating)}
-        />
       </Dropdown>
     </nav>
   );

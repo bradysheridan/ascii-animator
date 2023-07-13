@@ -14,6 +14,22 @@
   border-left: 1px dashed var(--site-background-contrast-color);
 }
 
+.frame-timeline-controls {
+  position: absolute;
+  top: -39px;
+  left: 20px;
+  display: flex;
+  height: 30px;
+  padding: 8px 12px 0px 12px;
+  border: 1px dashed black;
+  border-bottom: 0;
+}
+.frame-timeline-play-pause-toggle {
+  cursor: pointer;
+  display: flex;
+  margin: 3px 0px 0px 6px;
+}
+
 .frame-preview{
   position: relative;
   height: 100%;

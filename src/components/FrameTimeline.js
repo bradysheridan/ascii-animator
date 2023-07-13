@@ -26,11 +26,26 @@ export default function FrameTimeline() {
     sourceImages,
     selectedFrame,
     setSelectedFrame,
+    animating,
     setAnimating
   } = useContext(ControlsContext);
 
   return(
     <div className="frame-timeline-wrap">
+      <div className="frame-timeline-controls">
+        <h6>Frames</h6>
+
+        { sourceImages.length <= 1
+          ? null
+          : <div className="frame-timeline-play-pause-toggle" onClick={() => setAnimating(!animating)}>
+              { animating
+                  ? <i class="ri-pause-circle-line ri-lg"></i>
+                  : <i class="ri-play-circle-line ri-lg"></i>
+              }
+            </div>
+        }
+      </div>
+
       {
         sourceImages.map((image, i) => (
           <Frame
