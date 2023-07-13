@@ -5,12 +5,13 @@
 .frame-timeline-wrap {
   position: fixed;
   bottom: 0;
-  left: 0;
+  left: var(--controls-width-desktop);
   right: 0;
   display: flex;
   height: var(--frame-timeline-height);
   background: var(--site-background-color);
   border-top: 1px dashed var(--site-background-contrast-color);
+  border-left: 1px dashed var(--site-background-contrast-color);
 }
 
 .frame-preview{

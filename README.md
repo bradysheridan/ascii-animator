@@ -81,7 +81,6 @@
 
 ## To Do
 - [ ] Add filtering and ensure image is drawn from filtered image, not native image
-
 - [ ] Add ability to toggle between edge detection algorithms
 - [ ] Add background image functionality
 - [ ] Add ability to apply CSS filters to bacground image via GUI

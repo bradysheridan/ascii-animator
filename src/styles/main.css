@@ -231,7 +231,7 @@ span, small, em, strong, input {
   position: fixed;
   top: 0;
   left: 0;
-  bottom: var(--frame-timeline-height);
+  bottom: 0;
   width: var(--controls-width-desktop);
   background-color: var(--site-background-color);
   border-right: 1px dashed var(--site-background-contrast-color);
@@ -361,12 +361,13 @@ span, small, em, strong, input {
 .frame-timeline-wrap {
   position: fixed;
   bottom: 0;
-  left: 0;
+  left: var(--controls-width-desktop);
   right: 0;
   display: flex;
   height: var(--frame-timeline-height);
   background: var(--site-background-color);
   border-top: 1px dashed var(--site-background-contrast-color);
+  border-left: 1px dashed var(--site-background-contrast-color);
 }
 
 .frame-preview {
