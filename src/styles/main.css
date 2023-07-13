@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:400,500,700&display=swap");
 :root {
   /* pallette */
-  --primary-color-1: red;
+  --primary-color-1: blue;
   --primary-color-2: blue;
   /* text */
   --text-color-p: #000;
@@ -241,13 +241,13 @@ span, small, em, strong, input {
 
 .controls-header {
   padding: 10px;
-  border-bottom: 1px dashed var(--site-background-contrast-color);
 }
 
 /* ControlsDropdown default state */
 .controls-dropdown {
   display: flex;
   flex-direction: column;
+  border-top: 1px dashed var(--site-background-contrast-color);
 }
 
 .controls-dropdown-label {

@@ -75,6 +75,7 @@
 
 ## Bugs
 - [ ] Resolve an issue where ASCII string is often not fully drawn (cuts off around halfway down y axis)
+- [ ] Resolve an issue where ASCII sketch does not render on first image load
 
 ## Experimental
 - [ ] Detect ideal edge detection threshold range by trimming counting number of non-empty chars in render. For instance, could consider 50% to be the ideal ratio of empty to non-empty chars and set the edge detection threshold accordingly.
@@ -89,7 +90,6 @@
 - [ ] Add non-edge based tracing algorithms (e.g. color channels or pixel brightness)
 - [ ] Implement save/load functionality (e.g. saving image sets and sketch configurations)
 - [ ] Save manual text edits to global state
-
 
 ## Animation ideas
 - [ ] Flags

@@ -32,7 +32,9 @@ export default function Controls() {
   return(
     <nav className="controls-wrap">
       <div className="controls-header">
-        <h4>* ASCII Tracer</h4>
+        <h4>
+           ASCII Tracer
+        </h4>
       </div>
 
       <Dropdown label="Source">
@@ -117,13 +119,10 @@ export default function Controls() {
         />
 
         <ControlNumericalRangesWithOutputs
-          label={"Character outputs"}
+          label={"Character output by pixel contrast value"}
           name={"character-outputs"}
           ranges={characterOutputs}
-          onChange={(val) => {
-            console.log("Calling setCharacterOutputs with val", val);
-            setCharacterOutputs(val);
-          }}
+          onChange={setCharacterOutputs}
         />
       </Dropdown>
 

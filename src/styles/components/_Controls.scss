@@ -16,13 +16,13 @@
 }
 .controls-header {
   padding: 10px;
-  border-bottom: 1px dashed var(--site-background-contrast-color);
 }
 
 /* ControlsDropdown default state */
 .controls-dropdown {
   display: flex;
   flex-direction: column;
+  border-top: 1px dashed var(--site-background-contrast-color);
 }
 .controls-dropdown-label {
   display: flex;
