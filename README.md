@@ -73,18 +73,22 @@
 </details>
 -->
 
+## Bugs
+- [ ] Resolve an issue where ASCII string is often not fully drawn (cuts off around halfway down y axis)
+
+## Experimental
+- [ ] Detect ideal edge detection threshold range by trimming counting number of non-empty chars in render. For instance, could consider 50% to be the ideal ratio of empty to non-empty chars and set the edge detection threshold accordingly.
+
 ## To Do
+- [ ] Add filtering and ensure image is drawn from filtered image, not native image
 
 - [ ] Add ability to toggle between edge detection algorithms
+- [ ] Add background image functionality
 - [ ] Add ability to apply CSS filters to bacground image via GUI
 - [ ] Add ability to reposition/resize background image via GUI
 - [ ] Add ability to invert sketches
 - [ ] Add non-edge based tracing algorithms (e.g. color channels or pixel brightness)
-- [ ] Add ability to specify trace characters via GUI
 - [ ] Implement save/load functionality (e.g. saving image sets and sketch configurations)
-- [ ] Add inline animation previewing with play/pause buttons
-- [ ] Add an animation frame preview list when multiple images are selected, with the ability to toggle between frames
-- [ ] Detect ideal edge detection threshold range by trimming counting number of non-empty chars in render. For instance, could consider 50% to be the ideal ratio of empty to non-empty chars and set the edge detection threshold accordingly.
 - [ ] Save manual text edits to global state
 
 

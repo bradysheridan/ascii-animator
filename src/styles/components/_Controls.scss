@@ -11,6 +11,8 @@
   width: var(--controls-width-desktop);
   background-color: var(--site-background-color);
   border-right: 1px dashed var(--site-background-contrast-color);
+  overflow-y: scroll;
+  padding-bottom: 20px;
 }
 .controls-header {
   padding: 10px;

@@ -1,0 +1,32 @@
+/* ControlSlider default state */
+.control-numerical-ranges-with-outputs-wrap {
+  width: 100%;
+}
+
+.control-numerical-ranges-with-outputs-wrap .range {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  margin: 4px 0px 0px -8px;
+}
+.control-numerical-ranges-with-outputs-wrap .range:nth-child(2) {
+  margin-top: 8px;
+}
+
+.control-numerical-ranges-with-outputs-wrap span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 33.33%;
+}
+
+.control-numerical-ranges-with-outputs-wrap span label,
+.control-numerical-ranges-with-outputs-wrap span input {
+  font-size: 0.8em;
+  width: 50% !important;
+}
+
+.control-numerical-ranges-with-outputs-wrap span label {
+  text-align: center;
+}

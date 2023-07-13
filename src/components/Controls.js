@@ -3,6 +3,7 @@ import { ControlsContext } from '@/components/ControlsContext';
 import ControlButton from '@/components/ControlButton';
 import ControlFile from '@/components/ControlFile';
 import ControlSlider from '@/components/ControlSlider';
+import ControlNumericalRangesWithOutputs from '@/components/ControlNumericalRangesWithOutputs';
 import ControlSelect from './ControlSelect';
 import Dropdown from '@/components/Dropdown';
 
@@ -23,7 +24,9 @@ export default function Controls() {
     animating,
     setAnimating,
     characterDensity,
-    setCharacterDensity
+    setCharacterDensity,
+    characterOutputs,
+    setCharacterOutputs
   } = useContext(ControlsContext);
 
   return(
@@ -79,7 +82,7 @@ export default function Controls() {
         />
       </Dropdown>
 
-      <Dropdown label="Processing">
+      <Dropdown label="Tracing">
         <ControlSelect
           label={"Edge detection algorithm"}
           name={"edge-detection-algorithm"}
@@ -111,6 +114,16 @@ export default function Controls() {
           step={1}
           value={characterDensity}
           onChange={(val) => setCharacterDensity(parseFloat(val))}
+        />
+
+        <ControlNumericalRangesWithOutputs
+          label={"Character outputs"}
+          name={"character-outputs"}
+          ranges={characterOutputs}
+          onChange={(val) => {
+            console.log("Calling setCharacterOutputs with val", val);
+            setCharacterOutputs(val);
+          }}
         />
       </Dropdown>
 

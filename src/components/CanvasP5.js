@@ -17,6 +17,7 @@ export default function CanvasSource(props) {
     filter,
     edgeDetectionThreshold,
     characterDensity,
+    characterOutputs,
     onSketch
   } = props;
 
@@ -61,7 +62,7 @@ export default function CanvasSource(props) {
     my.presketchImage.copy(my.nativeImage, 0, 0, my.nativeImage.width, my.nativeImage.height, 0, 0, my.presketchImage.width, my.presketchImage.height);
 
     // generate ASCII sketch from pre-sketch image
-    my.asciiString = processImageSobel(my.p5, my.presketchImage, my.p5.createImage(my.presketchImage.width, my.presketchImage.height), edgeDetectionThreshold);
+    my.asciiString = processImageSobel(my.p5, my.presketchImage, my.p5.createImage(my.presketchImage.width, my.presketchImage.height), edgeDetectionThreshold, characterOutputs);
 
     if (my.asciiString) {
       onSketch(my.asciiString);
@@ -69,7 +70,7 @@ export default function CanvasSource(props) {
   }
 
   // edgeDetectoinThreshold, characterDensity trigger redraws
-  useEffect(drawImage, [edgeDetectionThreshold, characterDensity]);
+  useEffect(drawImage, [edgeDetectionThreshold, characterDensity, characterOutputs]);
 
   return(
     <div className="canvas canvas-source">

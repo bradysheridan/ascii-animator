@@ -20,7 +20,8 @@ export default function Index() {
     edgeDetectionThreshold,
     filter,
     animating,
-    characterDensity
+    characterDensity,
+    characterOutputs
   } = useContext(ControlsContext);
 
   const renderFrames = () => sourceImages.map((sourceImage, i) => {
@@ -52,6 +53,7 @@ export default function Index() {
             filter={filter}
             edgeDetectionThreshold={edgeDetectionThreshold}
             characterDensity={characterDensity}
+            characterOutputs={characterOutputs}
             onSketch={(asciiString) => {
               asciiStrings[frameIndex] = asciiString;
               // console.log(asciiString);

@@ -11,6 +11,13 @@ export const ControlsProvider = (props) => {
   const [sourceImages, setSourceImages] = useState([]);
   const [animating, setAnimating] = useState(false);
   const [characterDensity, setCharacterDensity] = useState(100);
+  const [characterOutputs, setCharacterOutputs] = useState([
+    [0, 25, " "],
+    [25, 50, "<"],
+    [50, 75, "+"],
+    [75, 150, "'"],
+    ["*"]
+  ]);
 
   return(
     <ControlsContext.Provider
@@ -30,7 +37,9 @@ export const ControlsProvider = (props) => {
         animating,
         setAnimating,
         characterDensity,
-        setCharacterDensity
+        setCharacterDensity,
+        characterOutputs,
+        setCharacterOutputs
       }}
     >
       {props.children}

@@ -1,18 +1,10 @@
-const getSketchChar = (pixelWeight) => {
-	let charsByPixelWeightArr = [
-		[0, 15, "p"],
-		[25, 50, "<"],
-		[50, 75, "+"],
-		[75, 150, "'"],
-		["*"]
-	];
-
+const getSketchChar = (characterByPixelWeight, pixelWeight) => {
   // get char for this pixel based on pixel weight
-  for (var i = 0; i < charsByPixelWeightArr.length; i++) {
+  for (var i = 0; i < characterByPixelWeight.length; i++) {
     // array containing pixel weight range information
     // e.g. [lowerBound, upperBound, char]
     // e.g. [0, 20, "*"]
-    let arr = charsByPixelWeightArr[i];
+    let arr = characterByPixelWeight[i];
 
     // if 3 values (lower bound, upper bound, char)
     // try to match pixelWeight to this array
@@ -31,10 +23,10 @@ const getSketchChar = (pixelWeight) => {
     }
   }
 
-  throw `Could not get pixel's character value from charByPixelWeightArr ${JSON.stringify(charsByPixelWeightArr)}`;
+  throw `Could not get pixel's character value from charByPixelWeightArr ${JSON.stringify(characterByPixelWeight)}`;
 }
 
-export default function processImageSobel(_p5, sourceImage, destImage, edgeDetectionThreshold) {
+export default function processImageSobel(_p5, sourceImage, destImage, edgeDetectionThreshold, characterOutputs) {
 	try {
 		var frameStr = "";
 
@@ -115,7 +107,7 @@ export default function processImageSobel(_p5, sourceImage, destImage, edgeDetec
 				// var char = prevChar === "<" ? "3" : " ";
 
 				if (edgeDetectionThreshold && result > edgeDetectionThreshold) {
-					char = prevChar === "<" ? "3" : getSketchChar(result);
+					char = prevChar === "<" ? "3" : getSketchChar(characterOutputs, result);
 				}
 
 				prevChar = char;
