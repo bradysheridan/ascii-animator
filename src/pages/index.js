@@ -21,7 +21,8 @@ export default function Index() {
     filter,
     animating,
     characterDensity,
-    characterOutputs
+    characterOutputs,
+    animationFramerate
   } = useContext(ControlsContext);
 
   const renderFrames = () => sourceImages.map((sourceImage, i) => {
@@ -75,6 +76,7 @@ export default function Index() {
             <CanvasASCII
               asciiStrings={asciiStrings}
               animating={animating}
+              animationFramerate={animationFramerate}
               controlAsciiString={asciiStrings[0]}
               selectedFrameIndex={selectedFrame}
             />

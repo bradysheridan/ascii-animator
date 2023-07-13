@@ -18,6 +18,7 @@ export const ControlsProvider = (props) => {
     [75, 150, "'"],
     ["*"]
   ]);
+  const [animationFramerate, setAnimationFramerate] = useState(10);
 
   return(
     <ControlsContext.Provider
@@ -39,7 +40,9 @@ export const ControlsProvider = (props) => {
         characterDensity,
         setCharacterDensity,
         characterOutputs,
-        setCharacterOutputs
+        setCharacterOutputs,
+        animationFramerate,
+        setAnimationFramerate
       }}
     >
       {props.children}

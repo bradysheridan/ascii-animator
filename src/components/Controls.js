@@ -26,7 +26,9 @@ export default function Controls() {
     characterDensity,
     setCharacterDensity,
     characterOutputs,
-    setCharacterOutputs
+    setCharacterOutputs,
+    animationFramerate,
+    setAnimationFramerate
   } = useContext(ControlsContext);
 
   return(
@@ -127,6 +129,16 @@ export default function Controls() {
       </Dropdown>
 
       <Dropdown label="Animation">
+        <ControlSlider
+          label={"Animation framerate"}
+          name={"animation-framerite"}
+          unit={" fps"}
+          min={1}
+          max={100}
+          step={1}
+          value={animationFramerate}
+          onChange={setAnimationFramerate}
+        />
       </Dropdown>
     </nav>
   );

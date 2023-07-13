@@ -5,6 +5,7 @@ export default function CanvasASCII(props) {
   const {
     asciiStrings,
     animating,
+    animationFramerate,
     controlAsciiString,
     selectedFrameIndex
   } = props;
@@ -18,7 +19,7 @@ export default function CanvasASCII(props) {
   useEffect(() => {
     if (controlAsciiString) {
       var fittedFontSize = fitTextToContainer(controlAsciiString, 'monospace', width),
-          fittedLineHeight = 0.62 * fittedFontSize;
+          fittedLineHeight = 0.61 * fittedFontSize;
 
       setFontSize(fittedFontSize);
       setLineHeight(fittedLineHeight);
@@ -30,7 +31,7 @@ export default function CanvasASCII(props) {
   useEffect(() => {
     if (animating) {
       let step = () => setLocalFrameIndex(localFrameIndex => (localFrameIndex + 1 === asciiStrings.length) ? 0 : localFrameIndex + 1);
-      let interval = setInterval(step, 150);
+      let interval = setInterval(step, 1000 / animationFramerate); /* 1000/fps = animation interval in milliseconds */
       step();
       setAnimationInterval(interval);
     } else {

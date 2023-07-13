@@ -81,6 +81,7 @@
 - [ ] Detect ideal edge detection threshold range by trimming counting number of non-empty chars in render. For instance, could consider 50% to be the ideal ratio of empty to non-empty chars and set the edge detection threshold accordingly.
 
 ## To Do
+- [ ] Use requestAnimationFrame instead of setInterval
 - [ ] Add filtering and ensure image is drawn from filtered image, not native image
 - [ ] Add ability to toggle between edge detection algorithms
 - [ ] Add background image functionality
