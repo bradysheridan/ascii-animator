@@ -39,8 +39,8 @@ export default function FrameTimeline() {
           ? null
           : <div className="frame-timeline-play-pause-toggle" onClick={() => setAnimating(!animating)}>
               { animating
-                  ? <i class="ri-pause-circle-line ri-lg"></i>
-                  : <i class="ri-play-circle-line ri-lg"></i>
+                  ? <i className="ri-pause-circle-line ri-lg"></i>
+                  : <i className="ri-play-circle-line ri-lg"></i>
               }
             </div>
         }

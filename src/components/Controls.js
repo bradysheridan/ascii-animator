@@ -12,7 +12,7 @@ export default function Controls() {
     selectedFrame,
     setSelectedFrame,
     asciiStrings,
-    setAsciiStrings,
+    updateAsciiStrings,
     edgeDetectionThreshold,
     setEdgeDetectionThreshold,
     edgeDetectionAlgorithm,
@@ -48,12 +48,7 @@ export default function Controls() {
           onChange={(sourceImages) => {
             setSelectedFrame(0);
             setSourceImages(sourceImages);
-            // setAsciiStrings(Array(sourceImages.length));
-
-            console.log("Uploaded image...");
-            console.log("> selectedFrame", selectedFrame);
-            console.log("> sourceImages", sourceImages);
-            console.log("> asciiStrings", asciiStrings);
+            updateAsciiStrings(draft => draft = new Array(sourceImages.length).fill("").map(str => str)); // initialize asciiStrings array
           }}
         />
 

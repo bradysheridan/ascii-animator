@@ -69,7 +69,7 @@ export default function CanvasSource(props) {
     }
   }
 
-  // edgeDetectoinThreshold, characterDensity trigger redraws
+  // trigger redraw when certain control vars update
   useEffect(drawImage, [edgeDetectionThreshold, characterDensity, characterOutputs]);
 
   return(

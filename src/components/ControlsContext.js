@@ -1,10 +1,11 @@
 import { createContext, useState } from "react";
+import { useImmer } from "use-immer";
 
 export const ControlsContext = createContext();
 
 export const ControlsProvider = (props) => {
   const [selectedFrame, setSelectedFrame] = useState(0);
-  const [asciiStrings, setAsciiStrings] = useState([]);
+  const [asciiStrings, updateAsciiStrings] = useImmer([]);
   const [edgeDetectionThreshold, setEdgeDetectionThreshold] = useState(12.5);
   const [edgeDetectionAlgorithm, setEdgeDetectionAlgorithm] = useState("Sobel");
   const [filter, setFilter] = useState();
@@ -26,7 +27,7 @@ export const ControlsProvider = (props) => {
         selectedFrame,
         setSelectedFrame,
         asciiStrings,
-        setAsciiStrings,
+        updateAsciiStrings,
         edgeDetectionThreshold,
         setEdgeDetectionThreshold,
         edgeDetectionAlgorithm,

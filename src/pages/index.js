@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect } from 'react'
+import { useImmer } from 'use-immer'
 import { ControlsContext } from '@/components/ControlsContext';
 import CanvasASCII from '@/components/CanvasASCII';
 import CanvasP5 from '@/components/CanvasP5';
@@ -15,7 +16,7 @@ export default function Index() {
   const {
     selectedFrame,
     asciiStrings,
-    setAsciiStrings,
+    updateAsciiStrings,
     sourceImages,
     edgeDetectionThreshold,
     filter,
@@ -25,12 +26,11 @@ export default function Index() {
     animationFramerate
   } = useContext(ControlsContext);
 
-  const renderFrames = () => sourceImages.map((sourceImage, i) => {
-    var frameIndex = i,
-        frameIsSelected = frameIndex === selectedFrame;
+  const renderFrames = () => sourceImages.map((sourceImage, frameIndex) => {
+    var frameIsSelected = frameIndex === selectedFrame;
 
     return(
-      <div key={`frame-${i}`} className={["frame", frameIsSelected ? "selected" : ""].join(" ")}>
+      <div key={`frame-${frameIndex}`} className={["frame", frameIsSelected ? "selected" : ""].join(" ")}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {/* <CanvasP5
             title={`Source`}
@@ -56,9 +56,9 @@ export default function Index() {
             characterDensity={characterDensity}
             characterOutputs={characterOutputs}
             onSketch={(asciiString) => {
-              asciiStrings[frameIndex] = asciiString;
-              // console.log(asciiString);
-              setAsciiStrings(asciiStrings);
+              updateAsciiStrings(draft => {
+                draft[frameIndex] = asciiString;
+              });
             }}
           />
         </div>

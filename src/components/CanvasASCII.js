@@ -23,6 +23,8 @@ export default function CanvasASCII(props) {
 
       setFontSize(fittedFontSize);
       setLineHeight(fittedLineHeight);
+
+      // console.log("CanvasASCII got updated controlAsciiString...");
     }
   }, [controlAsciiString]);
 

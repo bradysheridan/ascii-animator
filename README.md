@@ -74,8 +74,9 @@
 -->
 
 ## Bugs
-- [ ] Resolve an issue where ASCII string is often not fully drawn (cuts off around halfway down y axis)
-- [ ] Resolve an issue where ASCII sketch does not render on first image load
+- [ ] Resolve an issue where ASCII string is often not fully drawn (cuts off around halfway down y axis). There are two issues here:
+        1. CanvasP5 sometimes passes 2 strings up to parent component when it should only pass one (two invocations of onSketch)
+        2. CanvasASCII state seems to be lagging one step behind
 
 ## Experimental
 - [ ] Detect ideal edge detection threshold range by trimming counting number of non-empty chars in render. For instance, could consider 50% to be the ideal ratio of empty to non-empty chars and set the edge detection threshold accordingly.
