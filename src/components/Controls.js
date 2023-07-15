@@ -1,7 +1,8 @@
 import { useContext } from 'react';
 import { ControlsContext } from '@/components/ControlsContext';
 import ControlButton from '@/components/ControlButton';
-import ControlFile from '@/components/ControlFile';
+import ControlFileImage from '@/components/ControlFileImage';
+import ControlFileVideo from '@/components/ControlFileVideo';
 import ControlSlider from '@/components/ControlSlider';
 import ControlNumericalRangesWithOutputs from '@/components/ControlNumericalRangesWithOutputs';
 import ControlSelect from './ControlSelect';
@@ -19,6 +20,8 @@ export default function Controls() {
     setEdgeDetectionAlgorithm,
     sourceImages,
     setSourceImages,
+    sourceVideo,
+    setSourceVideo,
     filter,
     setFilter,
     animating,
@@ -40,29 +43,42 @@ export default function Controls() {
       </div>
 
       <Dropdown label="Source">
-        <ControlFile
+        {/* <ControlFileImage
           label={"Image(s)"}
           name={"source-images"}
+          accept={"image/png, image/jpg, image/jpeg"}
           multiple={true}
           value={sourceImages}
           onChange={(sourceImages) => {
             setSelectedFrame(0);
             setSourceImages(sourceImages);
             // setAsciiStrings(Array(sourceImages.length));
-
             console.log("Uploaded image...");
             console.log("> selectedFrame", selectedFrame);
             console.log("> sourceImages", sourceImages);
             console.log("> asciiStrings", asciiStrings);
           }}
-        />
+        /> */}
 
-        <ControlFile
+        <ControlFileVideo
           label={"Video (WIP)"}
           name={"video"}
+          accept={"video/mp4"}
           multiple={false}
-          value={[]}
-          onChange={() => null}
+          value={sourceVideo}
+          onChange={(val) => {
+            setSourceImages(val);
+            console.log("sourceImages", sourceImages);
+          }}
+          // onChange={(frames) => {
+          //   // setSelectedFrame(0);
+          //   // setSourceImages(frames);
+          //   // setAsciiStrings(Array(sourceImages.length));
+          //   console.log("Uploaded video and extracted frames...");
+          //   console.log("> selectedFrame", selectedFrame);
+          //   console.log("> sourceImages", sourceImages);
+          //   console.log("> asciiStrings", asciiStrings);
+          // }}
         />
       </Dropdown>
 
@@ -130,8 +146,8 @@ export default function Controls() {
 
       <Dropdown label="Animation">
         <ControlSlider
-          label={"Animation framerate"}
-          name={"animation-framerite"}
+          label={"Frame rate"}
+          name={"animation-frame-rate"}
           unit={" fps"}
           min={1}
           max={100}

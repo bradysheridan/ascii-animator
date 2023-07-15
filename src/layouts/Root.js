@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
             {children}
           </div>
             
-          <FrameTimeline />
+          {/* <FrameTimeline /> */}
         </main>
       </ControlsProvider>
     </>

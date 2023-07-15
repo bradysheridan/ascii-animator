@@ -9,7 +9,7 @@ const Sketch = dynamic(() => import('react-p5').then((mod) => mod.default), {
 
 const PREVIEW_IMAGE_WIDTH = 250;
 
-export default function CanvasSource(props) {
+export default function CanvasP5(props) {
   const {
     title,
     sourceImage,
@@ -36,6 +36,8 @@ export default function CanvasSource(props) {
     my.p5 = p5;
     my.canvas = p5.createCanvas(0, 0).parent(canvasParentRef);
 
+    console.log("CanvasP5 got sourceImage", sourceImage);
+    
     // load and draw image
     p5.loadImage(sourceImage.src, (loadedImage) => {
       my.nativeImage = loadedImage;

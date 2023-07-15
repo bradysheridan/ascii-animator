@@ -8,6 +8,7 @@ export const ControlsProvider = (props) => {
   const [edgeDetectionThreshold, setEdgeDetectionThreshold] = useState(12.5);
   const [edgeDetectionAlgorithm, setEdgeDetectionAlgorithm] = useState("Sobel");
   const [filter, setFilter] = useState();
+  const [sourceVideo, setSourceVideo] = useState();
   const [sourceImages, setSourceImages] = useState([]);
   const [animating, setAnimating] = useState(false);
   const [characterDensity, setCharacterDensity] = useState(100);
@@ -31,6 +32,8 @@ export const ControlsProvider = (props) => {
         setEdgeDetectionThreshold,
         edgeDetectionAlgorithm,
         setEdgeDetectionAlgorithm,
+        sourceVideo,
+        setSourceVideo,
         sourceImages,
         setSourceImages,
         filter,

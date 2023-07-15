@@ -213,7 +213,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Brady Sheridan - [Instagram: @brsheridan](https://instagram.com/brsheridan) - dev@bradysheridan.com
 
-Project Link: [https://github.com/bradysheridan/ascii-tracer](https://github.com/bradysheridan/ascii-tracer)
+Project Link: [https://github.com/bradysheridan/ascii-tracer](https://github.com/bradysheridan/ascii-tracer2)
 
 
 

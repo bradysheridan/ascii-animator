@@ -1,6 +1,7 @@
-export default function ControlFile({
+export default function ControlFileImage({
   label,
   name,
+  accept,
   multiple,
   value,
   onChange
@@ -14,7 +15,7 @@ export default function ControlFile({
       <input
         name={name}
         type="file"
-        accept="image/png, image/jpg, image/jpeg"
+        accept={accept}
         multiple={multiple}
         onChange={(e) => {
           processImagesFromFiles(e.target.files, [], 0, (processedImages) => {
