@@ -1,13 +1,11 @@
 import { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
-import processImageSobel from '@/helpers/processImageSobel';
+import sketchASCIIString from '@/helpers/sketchASCIIString';
 
 // will only import `react-p5` on client-side
 const Sketch = dynamic(() => import('react-p5').then((mod) => mod.default), {
   ssr: false,
 });
-
-const PREVIEW_IMAGE_WIDTH = 250;
 
 export default function CanvasSource(props) {
   const {
@@ -15,6 +13,7 @@ export default function CanvasSource(props) {
     sourceImage,
     frameIndex,
     filter,
+    edgeDetectionAlgorithm,
     edgeDetectionThreshold,
     characterDensity,
     characterOutputs,
@@ -47,25 +46,57 @@ export default function CanvasSource(props) {
   const drawImage = () => {
     if (!my.p5) return;
 
-    // create preview image (fixed size)
-    my.previewImage = my.p5.createImage(PREVIEW_IMAGE_WIDTH, PREVIEW_IMAGE_WIDTH * (my.nativeImage.height / my.nativeImage.width));
-    my.previewImage.copy(my.nativeImage, 0, 0, my.nativeImage.width, my.nativeImage.height, 0, 0, my.previewImage.width, my.previewImage.height);
+    // set sizes for preview images
+    const PREVIEW_IMAGE_WIDTH = 250,
+          PREVIEW_IMAGE_HEIGHT = PREVIEW_IMAGE_WIDTH * (my.nativeImage.height / my.nativeImage.width);
 
-    // resize canvas to match preview image
-    my.canvas.resize(my.previewImage.width, my.previewImage.height);
+    if (0 === my.canvas.width) {
+      // resize canvas to match width of preview image and height of 3 preview images:
+      //   1. unaltered native image
+      //   2. presketch image
+      //   3. image after sketch processing
+      my.canvas.resize(PREVIEW_IMAGE_WIDTH, 3 * PREVIEW_IMAGE_HEIGHT);
 
-    // render preview image
-    my.p5.image(my.previewImage, 0, 0, my.previewImage.width, my.previewImage.height);
+      // render preview of unaltered native image
+      my.p5.image(my.nativeImage, 0, 0, PREVIEW_IMAGE_WIDTH, PREVIEW_IMAGE_HEIGHT);
+    }
 
     // create pre-sketch image
     my.presketchImage = my.p5.createImage(characterDensity, characterDensity * (my.nativeImage.height / my.nativeImage.width));
     my.presketchImage.copy(my.nativeImage, 0, 0, my.nativeImage.width, my.nativeImage.height, 0, 0, my.presketchImage.width, my.presketchImage.height);
 
-    // generate ASCII sketch from pre-sketch image
-    my.asciiString = processImageSobel(my.p5, my.presketchImage, my.p5.createImage(my.presketchImage.width, my.presketchImage.height), edgeDetectionThreshold, characterOutputs);
+    // TODO: apply filters to pre-sketch image
+    // ...
 
-    if (my.asciiString) {
-      onSketch(my.asciiString);
+    // render preview of pre-sketch image
+    my.p5.image(my.presketchImage, 0, PREVIEW_IMAGE_HEIGHT, PREVIEW_IMAGE_WIDTH, PREVIEW_IMAGE_HEIGHT);
+
+    // --------------------------------------------------------------------------------------------------------------------------------
+    // console.log("> my.presketchImage.width", my.presketchImage.width);
+    // console.log("> my.presketchImage.height", my.presketchImage.height);
+    // console.log("> my.presketchImage.aspectRatio", (my.presketchImage.height / my.presketchImage.width));
+    // console.log("> my.nativeImage.width", my.nativeImage.width);
+    // console.log("> my.nativeImage.height", my.nativeImage.height);
+    // console.log("> my.nativeImage.aspectRatio", (my.nativeImage.height / my.nativeImage.width));
+    // --------------------------------------------------------------------------------------------------------------------------------
+
+    // generate ASCII sketch from pre-sketch image
+    var { asciiString, edgeImage } = sketchASCIIString({
+      p5: my.p5,
+      sourceImage: my.presketchImage,
+      edgeDetectionAlgorithm,
+      edgeDetectionThreshold,
+      characterOutputs
+    });
+
+    // render preview of image after sketch processing
+    my.p5.image(edgeImage, 0, 2 * PREVIEW_IMAGE_HEIGHT, PREVIEW_IMAGE_WIDTH, PREVIEW_IMAGE_HEIGHT);
+
+    console.log("CanvasP5 got asciiString:", asciiString);
+
+    // pass asciiString to parent
+    if (asciiString) {
+      onSketch(asciiString);
     }
   }
 

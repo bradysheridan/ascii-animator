@@ -86,9 +86,8 @@ export default function Controls() {
           label={"Edge detection algorithm"}
           name={"edge-detection-algorithm"}
           values={[
-            "Sobel",
-            "X-Direction Kernel (WIP)",
-            "Y-Direction Kernel (WIP)"
+            "basic",
+            "sobel"
           ]}
           onChange={setEdgeDetectionAlgorithm}
         />

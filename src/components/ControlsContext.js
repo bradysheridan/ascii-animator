@@ -7,11 +7,11 @@ export const ControlsProvider = (props) => {
   const [selectedFrame, setSelectedFrame] = useState(0);
   const [asciiStrings, updateAsciiStrings] = useImmer([]);
   const [edgeDetectionThreshold, setEdgeDetectionThreshold] = useState(12.5);
-  const [edgeDetectionAlgorithm, setEdgeDetectionAlgorithm] = useState("Sobel");
+  const [edgeDetectionAlgorithm, setEdgeDetectionAlgorithm] = useState("sobel");
   const [filter, setFilter] = useState();
   const [sourceImages, setSourceImages] = useState([]);
   const [animating, setAnimating] = useState(false);
-  const [characterDensity, setCharacterDensity] = useState(100);
+  const [characterDensity, setCharacterDensity] = useState(141);
   const [characterOutputs, setCharacterOutputs] = useState([
     [0, 25, " "],
     [25, 50, "<"],
@@ -19,7 +19,7 @@ export const ControlsProvider = (props) => {
     [75, 150, "'"],
     ["*"]
   ]);
-  const [animationFramerate, setAnimationFramerate] = useState(10);
+  const [animationFramerate, setAnimationFramerate] = useState(7);
 
   return(
     <ControlsContext.Provider

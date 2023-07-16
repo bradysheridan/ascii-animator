@@ -18,6 +18,7 @@ export default function Index() {
     asciiStrings,
     updateAsciiStrings,
     sourceImages,
+    edgeDetectionAlgorithm,
     edgeDetectionThreshold,
     filter,
     animating,
@@ -52,14 +53,11 @@ export default function Index() {
             frameIndex={frameIndex}
             sourceImage={sourceImage.data}
             filter={filter}
+            edgeDetectionAlgorithm={edgeDetectionAlgorithm}
             edgeDetectionThreshold={edgeDetectionThreshold}
             characterDensity={characterDensity}
             characterOutputs={characterOutputs}
-            onSketch={(asciiString) => {
-              updateAsciiStrings(draft => {
-                draft[frameIndex] = asciiString;
-              });
-            }}
+            onSketch={(asciiString) => updateAsciiStrings(draft => { draft[frameIndex] = asciiString })}
           />
         </div>
       </div>
