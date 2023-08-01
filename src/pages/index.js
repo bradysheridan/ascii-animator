@@ -3,6 +3,7 @@ import { useImmer } from 'use-immer'
 import { ControlsContext } from '@/components/ControlsContext';
 import CanvasASCII from '@/components/CanvasASCII';
 import CanvasP5 from '@/components/CanvasP5';
+import Webcam from '@/components/Webcam';
 
 const EmptyState = () => (
   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: 'calc(100vh - 100px)' }}>
@@ -24,7 +25,8 @@ export default function Index() {
     animating,
     characterDensity,
     characterOutputs,
-    animationFramerate
+    animationFramerate,
+    webcamEnabled
   } = useContext(ControlsContext);
 
   const renderFrames = () => sourceImages.map((sourceImage, frameIndex) => {
@@ -67,7 +69,10 @@ export default function Index() {
   return(
     <>
       {(0 === sourceImages.length)
-        ? <EmptyState />
+        ? <Webcam
+            webcamEnabled={webcamEnabled}
+          />
+          // <EmptyState />
         : <>
             {renderFrames()}
 

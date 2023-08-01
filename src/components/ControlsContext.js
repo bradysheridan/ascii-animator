@@ -20,6 +20,7 @@ export const ControlsProvider = (props) => {
     ["*"]
   ]);
   const [animationFramerate, setAnimationFramerate] = useState(7);
+  const [webcamEnabled, setWebcamEnabled] = useState(false);
 
   return(
     <ControlsContext.Provider
@@ -43,7 +44,9 @@ export const ControlsProvider = (props) => {
         characterOutputs,
         setCharacterOutputs,
         animationFramerate,
-        setAnimationFramerate
+        setAnimationFramerate,
+        webcamEnabled,
+        setWebcamEnabled
       }}
     >
       {props.children}

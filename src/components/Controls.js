@@ -28,7 +28,9 @@ export default function Controls() {
     characterOutputs,
     setCharacterOutputs,
     animationFramerate,
-    setAnimationFramerate
+    setAnimationFramerate,
+    webcamEnabled,
+    setWebcamEnabled
   } = useContext(ControlsContext);
 
   return(
@@ -58,6 +60,12 @@ export default function Controls() {
           multiple={false}
           value={[]}
           onChange={() => null}
+        />
+
+        <ControlButton
+          label={"Webcam"}
+          value={webcamEnabled ? "On" : "Off"}
+          onClick={() => setWebcamEnabled(!webcamEnabled)}
         />
       </Dropdown>
 
