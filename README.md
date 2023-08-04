@@ -74,9 +74,7 @@
 -->
 
 ## Bugs
-- [ ] Resolve an issue where ASCII string is often not fully drawn (cuts off around halfway down y axis). There are two issues here:
-        1. CanvasP5 sometimes passes 2 strings up to parent component when it should only pass one (two invocations of onSketch)
-        2. CanvasASCII state seems to be lagging one step behind
+- [ ] Resolve an issue where ASCII string is sometimes not fully drawn (cuts off around halfway down y axis)
 
 ## Experimental
 - [ ] Detect ideal edge detection threshold range by trimming counting number of non-empty chars in render. For instance, could consider 50% to be the ideal ratio of empty to non-empty chars and set the edge detection threshold accordingly.
@@ -84,11 +82,10 @@
 ## To Do
 - [ ] Use requestAnimationFrame instead of setInterval
 - [ ] Add filtering and ensure image is drawn from filtered image, not native image
-- [ ] Add ability to toggle between edge detection algorithms
-- [ ] Add background image functionality
+- [ ] Add ability to set background image behind ASCII sketches
 - [ ] Add ability to apply CSS filters to bacground image via GUI
 - [ ] Add ability to reposition/resize background image via GUI
-- [ ] Add ability to invert sketches
+- [ ] Add ability to invert sketches (filters)
 - [ ] Add non-edge based tracing algorithms (e.g. color channels or pixel brightness)
 - [ ] Implement save/load functionality (e.g. saving image sets and sketch configurations)
 - [ ] Save manual text edits to global state

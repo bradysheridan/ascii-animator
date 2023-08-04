@@ -379,20 +379,26 @@ span, small, em, strong, input {
 }
 
 .frame-timeline-controls {
-  position: absolute;
-  top: -39px;
-  left: 20px;
+  position: sticky;
+  top: 0px;
+  left: 0px;
   display: flex;
-  height: 30px;
-  padding: 8px 12px 0px 12px;
-  border: 1px dashed black;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: var(--frame-timeline-height);
+  flex-shrink: 0;
+  border-right: 1px dashed black;
   border-bottom: 0;
+  z-index: 9;
+  background-color: white;
 }
 
 .frame-timeline-play-pause-toggle {
   cursor: pointer;
   display: flex;
-  margin: 3px 0px 0px 6px;
+  margin: 10px 0px 0px 0px;
 }
 
 .frame-preview {
@@ -404,7 +410,8 @@ span, small, em, strong, input {
   flex-shrink: 0;
 }
 
-.frame-preview:first-child {
+.frame-preview:first-child,
+.frame-preview:nth-child(2) {
   border-left: 0;
 }
 
@@ -421,7 +428,6 @@ span, small, em, strong, input {
   position: absolute;
   top: 6px;
   left: 6px;
-  /* padding: 6px; */
   background-color: var(--site-background-color-highlight);
   border-radius: 6px;
   font-size: 0.9em;
