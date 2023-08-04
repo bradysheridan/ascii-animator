@@ -28,6 +28,10 @@ export default function ControlWebcam(props) {
     my.canvasElement = document.createElement("canvas");
     my.canvasElement.width = 640;
     my.canvasElement.height= 480;
+    my.context = my.canvasElement.getContext("2d");
+    my.context.translate(my.canvasElement.width, 0)
+    my.context.scale(-1, 1)
+    // my.context.drawImage(image, 0, 0, width, height)
 
     // initialize animation vars
     var fps = animationFramerate,
@@ -127,13 +131,15 @@ export default function ControlWebcam(props) {
       />
 
       {webcamEnabled && (
-        <div style={{display: 'flex'}}>
+        <div style={{display: 'flex', marginTop: 5}}>
           <ControlButton
             noMargin
             value={webcamRecording ? "Stop recording" : "Start recording"}
             onClick={() => setWebcamRecording(!webcamRecording)}
           />
 
+          <span style={{width: 5}}></span>
+          
           <ControlButton
             noMargin
             disabled={webcamRecording}
