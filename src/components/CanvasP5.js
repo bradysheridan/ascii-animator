@@ -11,15 +11,17 @@ export default function CanvasSource(props) {
   const {
     title,
     sourceImage,
+    sourceImageBase64,
     frameIndex,
     filter,
     edgeDetectionAlgorithm,
     edgeDetectionThreshold,
     characterDensity,
     characterOutputs,
-    onSketch
+    onSketch,
+    webcamEnabled
   } = props;
-
+  
   // expose alias 'my' to store local non-state vars within component instance
   const componentRef = useRef({});
   const { current: my } = componentRef;
@@ -44,13 +46,15 @@ export default function CanvasSource(props) {
 
   // draw image
   const drawImage = () => {
-    if (!my.p5) return;
+    if (!my.p5 || !my.nativeImage) {
+      return;
+    }
 
     // set sizes for preview images
     const PREVIEW_IMAGE_WIDTH = 250,
           PREVIEW_IMAGE_HEIGHT = PREVIEW_IMAGE_WIDTH * (my.nativeImage.height / my.nativeImage.width);
 
-    if (0 === my.canvas.width) {
+    if (0 === my.canvas.width || webcamEnabled) {
       // resize canvas to match width of preview image and height of 3 preview images:
       //   1. unaltered native image
       //   2. presketch image
@@ -92,8 +96,6 @@ export default function CanvasSource(props) {
     // render preview of image after sketch processing
     my.p5.image(edgeImage, 0, 2 * PREVIEW_IMAGE_HEIGHT, PREVIEW_IMAGE_WIDTH, PREVIEW_IMAGE_HEIGHT);
 
-    console.log("CanvasP5 got asciiString:", asciiString);
-
     // pass asciiString to parent
     if (asciiString) {
       onSketch(asciiString);
@@ -102,6 +104,17 @@ export default function CanvasSource(props) {
 
   // trigger redraw when certain control vars update
   useEffect(drawImage, [edgeDetectionThreshold, characterDensity, characterOutputs]);
+
+  //
+  useEffect(() => {
+    if (!my.p5) return;
+
+    // load and draw image
+    my.p5.loadImage(sourceImage.src, (loadedImage) => {
+      my.nativeImage = loadedImage;
+      drawImage();
+    });
+  }, [sourceImage])
 
   return(
     <div className="canvas canvas-source">

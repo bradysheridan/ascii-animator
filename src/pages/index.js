@@ -19,6 +19,7 @@ export default function Index() {
     asciiStrings,
     updateAsciiStrings,
     sourceImages,
+    sourceVideoStream,
     edgeDetectionAlgorithm,
     edgeDetectionThreshold,
     filter,
@@ -65,16 +66,31 @@ export default function Index() {
       </div>
     );
   });
-  
+
+  // console.log("webcamEnabled", webcamEnabled);
+  // console.log("sourceVideoStream", sourceVideoStream);
+
   return(
     <>
-      {(0 === sourceImages.length)
-        ? <Webcam
-            webcamEnabled={webcamEnabled}
-          />
-          // <EmptyState />
+      {(0 === sourceImages.length && !webcamEnabled)
+        ? <EmptyState />
         : <>
-            {renderFrames()}
+            {webcamEnabled && sourceVideoStream[0]
+              ? <CanvasP5
+                  // key={`asdf-${Math.random()}`}
+                  title={`Processed`}
+                  frameIndex={0}
+                  sourceImage={sourceVideoStream[0].data}
+                  filter={filter}
+                  edgeDetectionAlgorithm={edgeDetectionAlgorithm}
+                  edgeDetectionThreshold={edgeDetectionThreshold}
+                  characterDensity={characterDensity}
+                  characterOutputs={characterOutputs}
+                  webcamEnabled={webcamEnabled}
+                  onSketch={(asciiString) => updateAsciiStrings(draft => { draft[0] = asciiString })}
+                />
+              : renderFrames()
+            }
 
             <CanvasASCII
               asciiStrings={asciiStrings}

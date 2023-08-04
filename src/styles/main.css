@@ -204,6 +204,7 @@ span, small, em, strong, input {
   margin: 12px;
   border-radius: 8px;
   box-shadow: 0px 0px 5px grey;
+  width: 250px;
 }
 
 .canvas-title {
@@ -288,6 +289,10 @@ span, small, em, strong, input {
 
 .control {
   margin-top: 10px;
+}
+
+.no-margin {
+  margin: 0;
 }
 
 .control:first-child {

@@ -9,7 +9,8 @@ export const ControlsProvider = (props) => {
   const [edgeDetectionThreshold, setEdgeDetectionThreshold] = useState(12.5);
   const [edgeDetectionAlgorithm, setEdgeDetectionAlgorithm] = useState("sobel");
   const [filter, setFilter] = useState();
-  const [sourceImages, setSourceImages] = useState([]);
+  const [sourceImages, setSourceImages] = useImmer([]);
+  const [sourceVideoStream, setSourceVideoStream] = useState([]);
   const [animating, setAnimating] = useState(false);
   const [characterDensity, setCharacterDensity] = useState(141);
   const [characterOutputs, setCharacterOutputs] = useState([
@@ -21,6 +22,7 @@ export const ControlsProvider = (props) => {
   ]);
   const [animationFramerate, setAnimationFramerate] = useState(7);
   const [webcamEnabled, setWebcamEnabled] = useState(false);
+  const [webcamRecording, setWebcamRecording] = useState(false);
 
   return(
     <ControlsContext.Provider
@@ -35,6 +37,8 @@ export const ControlsProvider = (props) => {
         setEdgeDetectionAlgorithm,
         sourceImages,
         setSourceImages,
+        sourceVideoStream,
+        setSourceVideoStream,
         filter,
         setFilter,
         animating,
@@ -46,7 +50,9 @@ export const ControlsProvider = (props) => {
         animationFramerate,
         setAnimationFramerate,
         webcamEnabled,
-        setWebcamEnabled
+        setWebcamEnabled,
+        webcamRecording,
+        setWebcamRecording
       }}
     >
       {props.children}

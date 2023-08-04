@@ -2,13 +2,14 @@ export default function ControlFile({
   label,
   name,
   multiple,
+  disabled,
   value,
   onChange
 }) {
   return(
     <nav className="control control-file-wrap">
       <label htmlFor={name}>
-        <p>{label}: {value.map((file, i) => `(${i+1}) ${file.filename}${i < value.length - 1 ? ',' : ''}`).join(" ")}</p>
+        <p>{label}: {value.length} {/*value.map((file, i) => `(${i+1}) ${file.filename}${i < value.length - 1 ? ',' : ''}`).join(" ")*/}</p>
       </label>
       
       <input
@@ -16,6 +17,7 @@ export default function ControlFile({
         type="file"
         accept="image/png, image/jpg, image/jpeg"
         multiple={multiple}
+        disabled={disabled ? disabled : false}
         onChange={(e) => {
           processImagesFromFiles(e.target.files, [], 0, (processedImages) => {
             onChange(processedImages);

@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { ControlsContext } from '@/components/ControlsContext';
 import ControlButton from '@/components/ControlButton';
+import ControlWebcam from '@/components/ControlWebcam';
 import ControlFile from '@/components/ControlFile';
 import ControlSlider from '@/components/ControlSlider';
 import ControlNumericalRangesWithOutputs from '@/components/ControlNumericalRangesWithOutputs';
@@ -19,6 +20,8 @@ export default function Controls() {
     setEdgeDetectionAlgorithm,
     sourceImages,
     setSourceImages,
+    sourceVideoStream,
+    setSourceVideoStream,
     filter,
     setFilter,
     animating,
@@ -30,7 +33,9 @@ export default function Controls() {
     animationFramerate,
     setAnimationFramerate,
     webcamEnabled,
-    setWebcamEnabled
+    setWebcamEnabled,
+    webcamRecording,
+    setWebcamRecording
   } = useContext(ControlsContext);
 
   return(
@@ -46,11 +51,13 @@ export default function Controls() {
           label={"Image(s)"}
           name={"source-images"}
           multiple={true}
+          disabled={webcamEnabled}
           value={sourceImages}
           onChange={(sourceImages) => {
             setSelectedFrame(0);
             setSourceImages(sourceImages);
             updateAsciiStrings(draft => draft = new Array(sourceImages.length).fill("").map(str => str)); // initialize asciiStrings array
+            // console.log("sourceImages:", sourceImages);
           }}
         />
 
@@ -58,14 +65,23 @@ export default function Controls() {
           label={"Video (WIP)"}
           name={"video"}
           multiple={false}
+          disabled={true}
           value={[]}
           onChange={() => null}
         />
 
-        <ControlButton
-          label={"Webcam"}
-          value={webcamEnabled ? "On" : "Off"}
-          onClick={() => setWebcamEnabled(!webcamEnabled)}
+        <ControlWebcam
+          webcamEnabled={webcamEnabled}
+          webcamRecording={webcamRecording}
+          animationFramerate={animationFramerate}
+          setWebcamEnabled={setWebcamEnabled}
+          setWebcamRecording={setWebcamRecording}
+          setSourceVideoStream={setSourceVideoStream}
+          recordFrame={(frameImage) => {
+            var newSourceImages = sourceImages.concat([frameImage]);
+            console.log("-> newSourceImages:", newSourceImages);
+            setSourceImages(draft => draft = draft.concat([frameImage]));
+          }}
         />
       </Dropdown>
 
