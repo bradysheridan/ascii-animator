@@ -15,6 +15,8 @@
   /* status */
   --success-green: #4BB543;
   --success-green-light: #c6ebc3;
+  --failure-red: #F44336;
+  --failure-red-light: #FFCDD2;
 }
 
 html, body {
@@ -373,6 +375,7 @@ span, small, em, strong, input {
   background: var(--site-background-color);
   border-top: 1px dashed var(--site-background-contrast-color);
   border-left: 1px dashed var(--site-background-contrast-color);
+  overflow-x: scroll;
 }
 
 .frame-timeline-controls {
@@ -398,6 +401,7 @@ span, small, em, strong, input {
   width: var(--frame-timeline-height);
   border-left: 1px dashed var(--site-background-contrast-color);
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .frame-preview:first-child {
@@ -431,6 +435,25 @@ span, small, em, strong, input {
 
 .frame-preview.selected .frame-number {
   background-color: var(--success-green-light);
+}
+
+.delete-frame {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background-color: var(--failure-red-light);
+  border-radius: 6px;
+  font-size: 0.9em;
+  min-width: 25px;
+  min-height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.delete-frame:hover {
+  background-color: var(--failure-red);
 }
 
 .content {

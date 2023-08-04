@@ -9,7 +9,7 @@ export const ControlsProvider = (props) => {
   const [edgeDetectionThreshold, setEdgeDetectionThreshold] = useState(12.5);
   const [edgeDetectionAlgorithm, setEdgeDetectionAlgorithm] = useState("sobel");
   const [filter, setFilter] = useState();
-  const [sourceImages, setSourceImages] = useImmer([]);
+  const [sourceImages, setSourceImages] = useState([]);
   const [sourceVideoStream, setSourceVideoStream] = useState([]);
   const [animating, setAnimating] = useState(false);
   const [characterDensity, setCharacterDensity] = useState(141);

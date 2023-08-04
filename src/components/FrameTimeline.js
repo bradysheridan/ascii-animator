@@ -5,12 +5,17 @@ function Frame({
   i,
   image,
   isSelected,
-  onClick
+  onSelect,
+  onDelete
 }) {
   return(
-    <div className={["frame-preview", isSelected ? "selected" : ""].join(" ")} onClick={onClick}>
+    <div className={["frame-preview", isSelected ? "selected" : ""].join(" ")} onClick={onSelect}>
       <p className="frame-number">
         { i + 1 }
+      </p>
+
+      <p className="delete-frame" onClick={onDelete}>
+        <i className="ri-delete-bin-2-line"></i>
       </p>
 
       <img
@@ -24,6 +29,7 @@ function Frame({
 export default function FrameTimeline() {
   const {
     sourceImages,
+    setSourceImages,
     selectedFrame,
     setSelectedFrame,
     animating,
@@ -53,13 +59,18 @@ export default function FrameTimeline() {
             i={i}
             image={image}
             isSelected={i === selectedFrame}
-            onClick={() => {
+            onSelect={() => {
               setAnimating(false);
               setSelectedFrame(i);
+            }}
+            onDelete={() => {
+              var arr = [...sourceImages];
+              arr.splice(i, 1);
+              setSourceImages(arr);
             }}
           />
         ))
       }
     </div>
-  )
+  );
 }
