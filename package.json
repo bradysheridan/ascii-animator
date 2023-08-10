@@ -29,6 +29,7 @@
     "immer": "^9.0.21"
   },
   "dependencies": {
+    "avrgirl-arduino": "^5.0.1",
     "next": "13.4.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
