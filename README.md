@@ -73,6 +73,10 @@
 </details>
 -->
 
+## Resources
+https://github.com/arduino/arduino-cli
+https://github.com/bitbank2/image_to_c
+
 ## Bugs
 - [ ] Resolve an issue where ASCII string is sometimes not fully drawn (cuts off around halfway down y axis)
 
