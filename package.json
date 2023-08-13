@@ -2,7 +2,7 @@
   "name": "ascii-tracer",
   "version": "1.0.0",
   "description": "A tool for tracing images into ASCII sketches.",
-  "keywords": "ascii tracer, image tracer, draw ascii, sketch ascii from image, sketch text from image trace, plain text, ascii art, ascii art generator",
+  "keywords": ["ascii tracer", "image tracer", "draw ascii", "sketch ascii from image", "sketch text from image trace", "plain text", "ascii art", "ascii art generator"],
   "homepage": "",
   "bugs": {
     "url": "https://github.com/bradysheridan/ascii-tracer/issues",
@@ -18,7 +18,7 @@
   },
   "author": {
     "name": "Brady Sheridan",
-    "email": "dev@bradysheridan",
+    "email": "dev@bradysheridan.com",
     "url": "https://bradysheridan.com/"
   },
   "funding": {
@@ -31,6 +31,7 @@
   "dependencies": {
     "avrgirl-arduino": "^5.0.1",
     "image-to-bmp": "^1.0.0",
+    "html-to-image": "^1.11.11",
     "next": "13.4.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",

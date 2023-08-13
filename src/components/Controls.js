@@ -7,6 +7,7 @@ import ControlSlider from '@/components/ControlSlider';
 import ControlNumericalRangesWithOutputs from '@/components/ControlNumericalRangesWithOutputs';
 import ControlSelect from './ControlSelect';
 import Dropdown from '@/components/Dropdown';
+import exportSketch from '@/helpers/exportSketch';
 
 export default function Controls() {
   const {
@@ -35,7 +36,9 @@ export default function Controls() {
     webcamEnabled,
     setWebcamEnabled,
     webcamRecording,
-    setWebcamRecording
+    setWebcamRecording,
+    exportFormat,
+    setExportFormat
   } = useContext(ControlsContext);
 
   return(
@@ -156,6 +159,25 @@ export default function Controls() {
           step={1}
           value={animationFramerate}
           onChange={setAnimationFramerate}
+        />
+      </Dropdown>
+
+      <Dropdown label="Export">
+        <ControlSelect
+          label={"Format"}
+          name={"format"}
+          values={[
+            "png"
+          ]}
+          onChange={setExportFormat}
+        />
+
+        <ControlButton
+          value="Export"
+          disabled={sourceImages.length < 1}
+          onClick={() => {
+            exportSketch(exportFormat);
+          }}
         />
       </Dropdown>
     </nav>
