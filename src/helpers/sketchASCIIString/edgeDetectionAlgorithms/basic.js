@@ -49,7 +49,8 @@ export default function edgeDetectionBasic({
           // since our image is grayscale,
           // RGB values are identical
           // we retrieve the green value for this example
-          let val = p5.green(sourceImage.get(xpos, ypos));
+          let val = p5.red(sourceImage.get(xpos, ypos));
+
           // accumulate the  kernel sum
           // kernel is a 3x3 matrix
           // kx and ky have values -1, 0, 1

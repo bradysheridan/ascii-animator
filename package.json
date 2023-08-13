@@ -29,6 +29,7 @@
     "immer": "^9.0.21"
   },
   "dependencies": {
+    "html-to-image": "^1.11.11",
     "next": "13.4.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
