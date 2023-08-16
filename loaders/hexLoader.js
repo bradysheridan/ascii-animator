@@ -2,13 +2,13 @@
  * Hex conversion code from https://github.com/bminer/intel-hex.js/blob/master/index.js
  */
 
-//Intel Hex record types
+// intel hex record types
 const DATA = 0,
-	END_OF_FILE = 1,
-	EXT_SEGMENT_ADDR = 2,
-	START_SEGMENT_ADDR = 3,
-	EXT_LINEAR_ADDR = 4,
-	START_LINEAR_ADDR = 5;
+			END_OF_FILE = 1,
+			EXT_SEGMENT_ADDR = 2,
+			START_SEGMENT_ADDR = 3,
+			EXT_LINEAR_ADDR = 4,
+			START_LINEAR_ADDR = 5;
 
 const EMPTY_VALUE = 0xFF;
 

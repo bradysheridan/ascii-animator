@@ -60,7 +60,9 @@ export default function CanvasASCII(props) {
         ref={ref => ref && 0 == width ? setWidth(ref.getBoundingClientRect().width * 0.5) : null}
       >
         <pre contentEditable suppressContentEditableWarning style={{ fontSize: `${fontSize}px`, lineHeight: `${lineHeight}px`, fontFamily: "monospace" }}>
-          { asciiStrings[localFrameIndex] }
+          <span id="ascii-string">
+            { asciiStrings[localFrameIndex] }
+          </span>
         </pre>
       </div>
     </div>

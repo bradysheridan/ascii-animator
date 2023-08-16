@@ -167,14 +167,15 @@ export default function Controls() {
           label={"Format"}
           name={"format"}
           values={[
-            "png"
+            "png",
+            "print"
           ]}
           onChange={setExportFormat}
         />
 
         <ControlButton
           value="Export"
-          disabled={sourceImages.length < 1}
+
           onClick={() => {
             exportSketch(exportFormat);
           }}
