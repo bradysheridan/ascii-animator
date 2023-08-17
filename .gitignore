@@ -36,3 +36,7 @@ next-env.d.ts
 
 # nodeploy assets
 /nodeploy
+
+# arduino
+/arduino/sketches/print/*
+!/arduino/sketches/print/print.ino

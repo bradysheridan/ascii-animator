@@ -38,6 +38,7 @@
     "immer": "^9.0.21"
   },
   "dependencies": {
+    "arduino-cli": "^0.37.0",
     "avrgirl-arduino": "^5.0.1",
     "html-to-image": "^1.11.11",
     "image-to-bmp": "^1.0.0",

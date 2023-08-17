@@ -11,7 +11,8 @@ const EmptyState = () => (
       empty state
     </p>
 
-    <div id="test1">
+
+    {/* <div id="test1">
       <p>
         Lorem ispum
         <br />
@@ -19,14 +20,14 @@ const EmptyState = () => (
       </p>
     </div>
 
-    <div id="test2" style={{display: 'flex', flexDirection: 'space-around', justifyContent: 'center', alignItems: 'center', width: '100px', height: '100px', border: '10px solid red'}}>
+    <div id="test2" style={{marginLeft: 30, display: 'flex', flexDirection: 'space-around', justifyContent: 'center', alignItems: 'center', width: '100px', height: '100px', border: '10px solid red'}}>
       <div style={{ width: 40, height: 40, backgroundColor: 'blue'}}></div>
       <div style={{ width: 25, height: 25, marginLeft: 12, backgroundColor: 'green'}}></div>
     </div>
 
-    <div id="test3" style={{width: '100px', height: '100px'}}>
+    <div id="test3" style={{marginLeft: 30, width: '100px', height: '100px'}}>
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa19kTSu_b4ZdT-xtJ0AwGHTDstF3IaPiICxhccvEjelgBD0fe7d3_2FYsWp4gdKK4WdY&usqp=CAU" style={{width: '100%', height: '100%'}}></img>
-    </div>
+    </div> */}
 
   </div>
 );

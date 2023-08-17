@@ -1,40 +1,42 @@
-import fs from 'fs';
+import fs from 'node:fs/promises';
+import { exec } from "node:child_process";
 import { Buffer } from 'node:buffer';
-import Avrgirl from "avrgirl-arduino";
 import sharp from 'sharp';
 import convertImageToBitmap from '@/helpers/convertImageToBitmap';
 
-const hexData = require("../../../nodeploy/simple-test-image/build/arduino.avr.uno/simple-test-image.ino.hex");
+// compile arduino sketch
+const compileAndUpload = (onSuccess, onFailure) => {
+  exec("arduino-cli compile -b arduino:avr:uno arduino/sketches/print --output-dir arduino/sketches/print --upload --port /dev/cu.usbmodem1401", (error, stdout, stderr) => {
+    if (error) {
+      console.log(`error: ${error.message}`);
+      return;
+    }
 
-const avrgirl = new Avrgirl({
-  board: 'uno',
-  debug: true
-});
+    if (stderr) {
+      console.log(`stderr: ${stderr}`);
+      return;
+    }
 
-const print = hexBuffer => new Promise((resolve, reject) => {
-  avrgirl.flash(hexBuffer, function(error) {
-    if (error) reject(error);
-    else resolve();
+    console.log(`stdout: ${stdout}`);
   });
-});
+}
 
 /**
- * 1. Receive image from client
- * 2. Convert image to .h format
- * 3. Write image to repo containing .ino file that references it
- * 4. Build .ino file to .hex
- * 5. Upload .hex to Arduino
+ * Upon receiving image from client:
+ *  1. Transform image (remove edge whitespace, invert, extract alpha channel,
+ *     convert to b-w colorspace and resize to max printer width of 384px)
+ *  2. Convert image to 1-deep hexadecimal bitmap, add C header/footer to integrate
+ *     width Arduino sketch, write to .h file
+ *  3. Compile Arduino sketch and upload to board
+ *  4. Respond to client with success/failure message
+ * @param {*} req -- req.body.data contains an image in base64 url format
+ * @param {*} res 
  */
 export default async function handler(req, res) {
+  // convert base64 url to base64 buffer
   var base64Url = req.body.data;
   var base64Str = base64Url.split(',')[1];
   var base64Buffer = Buffer.from(base64Str, 'base64');
-
-  // where'd you leave off?
-  // you got things working solid
-  // need to find the right combination of sharp operaitons
-  // for good output. you generate some good stuff but currently
-  // black boxes being printed. return to alpha channel extraction.
 
   // load image and trim off whitespace
   var { data, info } = await sharp(base64Buffer)
@@ -42,18 +44,16 @@ export default async function handler(req, res) {
     .png()
     .toBuffer({ resolveWithObject: true });
 
-  console.log(data);
-  console.log(info);
-
-  // calculate new dimensions
+  // calculate new image dimensions according to max bitmap width supported by printer (384 pixels)
   // note that the maximum width of bitmaps supported by printer is 384px
   var width = 384;
   var height = Math.round(384 * (info.height / info.width));
 
-  // transform image
+  // transform image (printer needs high contrast b-w, we extract alpha channel because input is always black on transparent)
   var buffer = await sharp(data)
     .negate()
     .ensureAlpha()
+    .threshold()
     .extractChannel(3)
     .resize(width, height)
     .raw()
@@ -63,9 +63,10 @@ export default async function handler(req, res) {
   const bitmap = convertImageToBitmap({ width, height, buffer });
 
   // write .h image file for .ino build
-  fs.writeFile('./nodeploy/simple-test-image/image.h', bitmap, err => (err) ? console.error(err) : null);
-
-  // await print(hexBuffer)
-  //   .then(() => res.status(200).json({ status: "success", data: hexData.default.substring(0, 30) }))
-  //   .catch((err) => res.status(200).json({ status: "failure", error: err }))
+  fs.writeFile('arduino/sketches/print/image.h', bitmap)
+    .then(() => compileAndUpload(
+      () => res.status(200).json({ status: "success" }),    // on succesful compile/upload
+      () => res.status(200).json({ status: "failure" })     // on failed compile/upload
+    ))
+    .catch(err => console.error(err));
 }
