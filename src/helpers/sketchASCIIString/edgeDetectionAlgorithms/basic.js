@@ -24,6 +24,7 @@ export default function edgeDetectionBasic({
 
   // create a new image, same dimensions as sourceImage
   var edgeImage = p5.createImage(sourceImage.width, sourceImage.height);
+  edgeImage.filter(p5.INVERT);
 
   // load its pixels
   edgeImage.loadPixels();
@@ -62,7 +63,7 @@ export default function edgeDetectionBasic({
       }
 
       // set the pixel value of the edgeImage
-      edgeImage.set(x, y, p5.color(sum, sum, sum));
+      edgeImage.set(x, y, p5.color(255,255,255));
 
       // once pixel sum result is calculated, call pixel handler
 			onPixel(sum);

@@ -30,6 +30,8 @@ export default function sobel({
 	var w = sourceImage.width;
 	var h = sourceImage.height;
 
+	var max = 0;
+
 	for (var y = 0; y < h; y++) {
 		for (var x = 0; x < w; x++) {
 			// get index positions within pixel list
@@ -68,7 +70,9 @@ export default function sobel({
 			var r2 = px0+px1+px2+px3+px4+px5+px6+px7+px8; 
 
 			// 0 is the minimum value the sum could result in and 1414 is the maximum
-			var result = p5.map(p5.sqrt(r1*r1+r2*r2),0,1414,0,255);
+			var result = p5.map(p5.sqrt(r1*r1+r2*r2),0,1200,0,255);
+
+			// if (result > max) max = result;
 			
 			// write pixel to destination image
 			edgeImage.pixels[mc] = result; 
@@ -82,8 +86,6 @@ export default function sobel({
 
 		// once all pixels on this line have been processed, call new line handler
 		onNewLine();
-
-		// console.log("y", y, "numSpaces", numSpaces);
 	}
 
 	edgeImage.updatePixels();
