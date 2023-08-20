@@ -14,16 +14,17 @@ export const ControlsProvider = (props) => {
   const [animating, setAnimating] = useState(false);
   const [characterDensity, setCharacterDensity] = useState(141);
   const [characterOutputs, setCharacterOutputs] = useState([
-    [0, 25, " "],
-    [25, 50, "<"],
-    [50, 75, "+"],
-    [75, 150, "'"],
+    [0, 20, " "],
+    [20, 40, ","],
+    [40, 60, "+"],
+    [60, 80, ";"],
     ["*"]
   ]);
   const [animationFramerate, setAnimationFramerate] = useState(7);
   const [webcamEnabled, setWebcamEnabled] = useState(false);
   const [webcamRecording, setWebcamRecording] = useState(false);
   const [exportFormat, setExportFormat] = useState("png");
+  const [propagateChangesToASCIIString, setPropagateChangesToASCIIString] = useState("none");
 
   return(
     <ControlsContext.Provider
@@ -55,7 +56,9 @@ export const ControlsProvider = (props) => {
         webcamRecording,
         setWebcamRecording,
         exportFormat,
-        setExportFormat
+        setExportFormat,
+        propagateChangesToASCIIString,
+        setPropagateChangesToASCIIString
       }}
     >
       {props.children}
