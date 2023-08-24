@@ -12,7 +12,7 @@ function download(dataurl, filename) {
 export default async function exportSketch(format) {
   var node = document.querySelector("pre");
   
-  var width = 1280;
+  var width = 600;
 
   if (!node) return;
 

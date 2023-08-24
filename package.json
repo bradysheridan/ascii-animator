@@ -19,11 +19,12 @@
   },
   "main": "index.js",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 1234",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "sass": "sass --watch ./src/styles/main.scss:./src/styles/main.css"
+    "sass": "sass --watch ./src/styles/main.scss:./src/styles/main.css",
+    "print": "arduino-cli compile -b arduino:avr:uno arduino/sketches/print --output-dir arduino/sketches/print --upload --port /dev/cu.usbmodem1401"
   },
   "author": {
     "name": "Brady Sheridan",

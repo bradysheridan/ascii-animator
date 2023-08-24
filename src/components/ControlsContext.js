@@ -6,18 +6,25 @@ export const ControlsContext = createContext();
 export const ControlsProvider = (props) => {
   const [selectedFrame, setSelectedFrame] = useState(0);
   const [asciiStrings, updateAsciiStrings] = useImmer([]);
-  const [edgeDetectionThreshold, setEdgeDetectionThreshold] = useState(12.5);
+  const [edgeDetectionThreshold, setEdgeDetectionThreshold] = useState(26.5);
   const [edgeDetectionAlgorithm, setEdgeDetectionAlgorithm] = useState("sobel");
   const [filter, setFilter] = useState();
   const [sourceImages, setSourceImages] = useState([]);
   const [sourceVideoStream, setSourceVideoStream] = useState([]);
   const [animating, setAnimating] = useState(false);
-  const [characterDensity, setCharacterDensity] = useState(141);
+  const [characterDensity, setCharacterDensity] = useState(101);
   const [characterOutputs, setCharacterOutputs] = useState([
+<<<<<<< Updated upstream
     [0, 25, " "],
     [25, 50, "<"],
     [50, 75, "+"],
     [75, 150, "'"],
+=======
+    [0, 30, "."],
+    [30, 40, "⋆"],
+    [40, 70, "+"],
+    [70, 100, "★"],
+>>>>>>> Stashed changes
     ["*"]
   ]);
   const [animationFramerate, setAnimationFramerate] = useState(7);
