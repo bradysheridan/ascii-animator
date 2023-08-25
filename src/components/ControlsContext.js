@@ -14,17 +14,10 @@ export const ControlsProvider = (props) => {
   const [animating, setAnimating] = useState(false);
   const [characterDensity, setCharacterDensity] = useState(101);
   const [characterOutputs, setCharacterOutputs] = useState([
-<<<<<<< Updated upstream
-    [0, 25, " "],
-    [25, 50, "<"],
-    [50, 75, "+"],
-    [75, 150, "'"],
-=======
     [0, 30, "."],
     [30, 40, "⋆"],
     [40, 70, "+"],
     [70, 100, "★"],
->>>>>>> Stashed changes
     ["*"]
   ]);
   const [animationFramerate, setAnimationFramerate] = useState(7);

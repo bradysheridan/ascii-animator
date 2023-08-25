@@ -10,8 +10,6 @@ export default function CanvasASCII(props) {
     selectedFrameIndex
   } = props;
 
-<<<<<<< Updated upstream
-=======
   // expose alias 'my' to store local non-state vars within component instance
   const componentRef = useRef({});
   const { current: my } = componentRef;
@@ -21,7 +19,6 @@ export default function CanvasASCII(props) {
 
   // local state vars
   const [editing, setEditing] = useState(false);
->>>>>>> Stashed changes
   const [localFrameIndex, setLocalFrameIndex] = useState(selectedFrameIndex);
   const [fontSize, setFontSize] = useState(0);
   const [lineHeight, setLineHeight] = useState(0);
@@ -65,8 +62,6 @@ export default function CanvasASCII(props) {
       }
     }
   }, [selectedFrameIndex]);
-<<<<<<< Updated upstream
-=======
 
   // persist local frame when user stops editing
   useEffect(() => {
@@ -193,7 +188,6 @@ export default function CanvasASCII(props) {
     // update caret position
     focusAt(my.caretPos);
   }
->>>>>>> Stashed changes
 
   return(
     <div className="canvas canvas-ascii">
@@ -209,12 +203,6 @@ export default function CanvasASCII(props) {
         className="canvas-ascii-pre-wrap"
         ref={ref => ref && 0 == width ? setWidth(ref.getBoundingClientRect().width * 0.5) : null}
       >
-<<<<<<< Updated upstream
-        <pre contentEditable suppressContentEditableWarning style={{ fontSize: `${fontSize}px`, lineHeight: `${lineHeight}px`, fontFamily: "monospace" }}>
-          <span id="ascii-string">
-            { asciiStrings[localFrameIndex] }
-          </span>
-=======
         <pre
           ref={ref => (ref) ? setPreRef(ref) : null}
           contentEditable
@@ -223,7 +211,6 @@ export default function CanvasASCII(props) {
           style={{ fontSize: `${fontSize}px`, lineHeight: `${lineHeight}px`, fontFamily: "monospace" }}
         >
           { asciiStrings[localFrameIndex] }
->>>>>>> Stashed changes
         </pre>
       </div>
     </div>
