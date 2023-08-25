@@ -62,9 +62,6 @@ export default function CanvasSource(props) {
       //   3. image after sketch processing
       my.canvas.resize(PREVIEW_IMAGE_WIDTH, 3 * PREVIEW_IMAGE_HEIGHT);
 
-      // temp
-      // my.nativeImage.filter(my.p5.THRESHOLD);
-
       // render preview of unaltered native image
       my.p5.image(my.nativeImage, 0, 0, PREVIEW_IMAGE_WIDTH, PREVIEW_IMAGE_HEIGHT);
     }

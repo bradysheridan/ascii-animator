@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import rangy from 'rangy';
 import fitTextToContainer from '@/helpers/fitTextToContainer';
+import replaceAt from '@/helpers/replaceAt';
 
 export default function CanvasASCII(props) {
   const {
@@ -7,15 +9,15 @@ export default function CanvasASCII(props) {
     animating,
     animationFramerate,
     controlAsciiString,
-    selectedFrameIndex
+    selectedFrameIndex,
+    propagateChangesToASCIIString,
+    onChange,
+    onChangeBatch
   } = props;
 
   // expose alias 'my' to store local non-state vars within component instance
   const componentRef = useRef({});
   const { current: my } = componentRef;
-
-  // local non-state vars
-
 
   // local state vars
   const [editing, setEditing] = useState(false);
@@ -25,15 +27,14 @@ export default function CanvasASCII(props) {
   const [width, setWidth] = useState(0);
   const [animationInterval, setAnimationInterval] = useState(null);
 
+  // determine canvas sizing by a control string
+  // (set by parent to the first string in the list of frames)
   useEffect(() => {
     if (controlAsciiString) {
       var fittedFontSize = fitTextToContainer(controlAsciiString, 'monospace', width),
           fittedLineHeight = 0.61 * fittedFontSize;
-
       setFontSize(fittedFontSize);
       setLineHeight(fittedLineHeight);
-
-      // console.log("CanvasASCII got updated controlAsciiString...");
     }
   }, [controlAsciiString]);
 
@@ -52,6 +53,7 @@ export default function CanvasASCII(props) {
     }
   }, [animating]);
 
+  // track selected frame index locally
   useEffect(() => {
     if (selectedFrameIndex !== localFrameIndex) {
       setLocalFrameIndex(selectedFrameIndex);
@@ -62,6 +64,16 @@ export default function CanvasASCII(props) {
       }
     }
   }, [selectedFrameIndex]);
+  
+  // focus contenteditable pre at specified caret index
+  const focusAt = (index) => {
+    var range = rangy.createRange();
+    var sel = rangy.getSelection();
+    range.setStart(my.pre.firstChild, index);
+    range.collapse(true);
+    sel.setSingleRange(range);
+    my.pre.focus();
+  }
 
   // persist local frame when user stops editing
   useEffect(() => {
@@ -89,16 +101,6 @@ export default function CanvasASCII(props) {
       });
     });
   }
-  
-  // focus contenteditable pre at specified caret index
-  const focusAt = (index) => {
-    var range = rangy.createRange();
-    var sel = rangy.getSelection();
-    range.setStart(my.pre.firstChild, index);
-    range.collapse(true);
-    sel.setSingleRange(range);
-    my.pre.focus();
-  }
 
   // custom input functionality
   const onInput = (e) => {
@@ -113,11 +115,6 @@ export default function CanvasASCII(props) {
     // ensure input event type is supported
     const inputType = e.nativeEvent.inputType;
     if (SUPPORTED_INPUT_EVENT_TYPES.indexOf(inputType) < 0) return;
-
-    // clear persist local string timeout, preventing changes from bubbling up to
-    // parent state until user has stopped editing text
-    if (my.persistLocalStringTimeout) clearTimeout(my.persistLocalStringTimeout);
-    if (my.focusTimeout) clearTimeout(my.focusTimeout);
 
     // string update logic dependent on input event type
     // TODO: Handle edge cases:
@@ -201,7 +198,7 @@ export default function CanvasASCII(props) {
       
       <div
         className="canvas-ascii-pre-wrap"
-        ref={ref => ref && 0 == width ? setWidth(ref.getBoundingClientRect().width * 0.5) : null}
+        ref={ref => (ref && 0 === width) ? setWidth(ref.getBoundingClientRect().width * 0.5) : null}
       >
         <pre
           ref={ref => (ref) ? setPreRef(ref) : null}

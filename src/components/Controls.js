@@ -38,7 +38,9 @@ export default function Controls() {
     webcamRecording,
     setWebcamRecording,
     exportFormat,
-    setExportFormat
+    setExportFormat,
+    propagateChangesToASCIIString,
+    setPropagateChangesToASCIIString
   } = useContext(ControlsContext);
 
   return(
@@ -146,6 +148,20 @@ export default function Controls() {
           name={"character-outputs"}
           ranges={characterOutputs}
           onChange={setCharacterOutputs}
+        />
+      </Dropdown>
+
+      <Dropdown label="Writing">
+        <ControlSelect
+          label={"Propagate changes to ASCII string"}
+          name={"format"}
+          values={[
+            "none",
+            "all frames",
+            "frames after this one",
+            "frames before this one"
+          ]}
+          onChange={setPropagateChangesToASCIIString}
         />
       </Dropdown>
 
