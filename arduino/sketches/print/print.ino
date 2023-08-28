@@ -11,7 +11,7 @@ void setup() {
   pinMode(7, OUTPUT);
   digitalWrite(7, LOW);
 
-  // init SoftwareSerial
+  // init SoftwareSerial (value varies by printer)
   mySerial.begin(19200);
 
   // init printer (same regardless of serial type)
@@ -19,8 +19,7 @@ void setup() {
 
   // pad start
   #ifdef PAD_START
-    Serial.print("padding start");
-    printer.feed(10);
+    // printer.feed(3);
   #endif
 
   // print
@@ -28,8 +27,7 @@ void setup() {
 
   // pad end
   #ifdef PAD_END
-    Serial.print("padding end");
-    printer.feed(10);
+    printer.feed(3);
   #endif
 
   printer.sleep();      // Tell printer to sleep

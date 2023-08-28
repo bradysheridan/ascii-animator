@@ -18,16 +18,20 @@ function Frame({
         <i className="ri-delete-bin-2-line"></i>
       </p>
 
-      <img
-        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-        src={image.data.src}
-      />
+      {image && (
+        <img
+          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+          src={image.data.src}
+        />
+      )}
     </div>
   )
 }
 
 export default function FrameTimeline() {
   const {
+    asciiStrings,
+    updateAsciiStrings,
     sourceImages,
     setSourceImages,
     selectedFrame,
@@ -36,12 +40,66 @@ export default function FrameTimeline() {
     setAnimating
   } = useContext(ControlsContext);
 
+  var sourceType = sourceImages.length === 0
+    ? asciiStrings.length === 0
+      ? null
+      : "ascii strings"
+    : "images";
+
+  var sourceArr = [], renderFrame;
+
+  // if only ascii strings are present but no images, render frames
+  // without image previews (this happens when we load session data)
+  if ("ascii strings" === sourceType) {
+    sourceArr = asciiStrings;
+
+    renderFrame = (str, i) => (
+      <Frame
+        key={`frame-${i}`}
+        i={i}
+        isSelected={i === selectedFrame}
+        onSelect={() => {
+          setAnimating(false);
+          setSelectedFrame(i);
+        }}
+        onDelete={() => {
+          var arr = [...asciiStrings];
+          arr.splice(i, 1);
+          updateAsciiStrings(arr);
+        }}
+      />
+    );
+  }
+
+  // if images are present render frames with image previews
+  if ("images" === sourceType) {
+    sourceArr = sourceImages;
+
+    renderFrame = (image, i) => (
+      <Frame
+        key={`frame-${i}`}
+        i={i}
+        image={image}
+        isSelected={i === selectedFrame}
+        onSelect={() => {
+          setAnimating(false);
+          setSelectedFrame(i);
+        }}
+        onDelete={() => {
+          var arr = [...sourceImages];
+          arr.splice(i, 1);
+          setSourceImages(arr);
+        }}
+      />
+    );
+  }
+
   return(
     <div className="frame-timeline-wrap">
       <div className="frame-timeline-controls">
         <h6>Frames</h6>
 
-        { sourceImages.length <= 1
+        { sourceArr.length <= 1
           ? null
           : <div className="frame-timeline-play-pause-toggle" onClick={() => setAnimating(!animating)}>
               { animating
@@ -52,25 +110,9 @@ export default function FrameTimeline() {
         }
       </div>
 
-      {
-        sourceImages.map((image, i) => (
-          <Frame
-            key={`frame-${i}`}
-            i={i}
-            image={image}
-            isSelected={i === selectedFrame}
-            onSelect={() => {
-              setAnimating(false);
-              setSelectedFrame(i);
-            }}
-            onDelete={() => {
-              var arr = [...sourceImages];
-              arr.splice(i, 1);
-              setSourceImages(arr);
-            }}
-          />
-        ))
-      }
+      {sourceType && (
+        sourceArr.map(renderFrame)
+      )}
     </div>
   );
 }

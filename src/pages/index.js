@@ -71,7 +71,7 @@ export default function Index() {
 
   return(
     <>
-      {(0 === sourceImages.length && !webcamEnabled)
+      {(0 === sourceImages.length && 0 === asciiStrings.length && !webcamEnabled)
         ? <EmptyState />
         : <>
             {webcamEnabled && sourceVideoStream[0]

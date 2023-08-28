@@ -1,13 +1,6 @@
 import * as htmlToImage from 'html-to-image';
+import download from './download';
 import sendRequest from './sendRequest';
-
-function download(dataurl, filename) {
-  if ('undefined' === typeof document) return;
-  const link = document.createElement("a");
-  link.href = dataurl;
-  link.download = filename;
-  link.click();
-}
 
 export default async function exportSketch(format) {
   var node = document.querySelector("pre");

@@ -3,13 +3,16 @@ import { ControlsContext } from '@/components/ControlsContext';
 import ControlButton from '@/components/ControlButton';
 import ControlWebcam from '@/components/ControlWebcam';
 import ControlFile from '@/components/ControlFile';
+import ControlFileSession from '@/components/ControlFileSession';
 import ControlSlider from '@/components/ControlSlider';
 import ControlNumericalRangesWithOutputs from '@/components/ControlNumericalRangesWithOutputs';
 import ControlSelect from './ControlSelect';
 import Dropdown from '@/components/Dropdown';
+import downloadTextFile from '@/helpers/downloadTextFile';
 import exportSketch from '@/helpers/exportSketch';
 
 export default function Controls() {
+  const context = useContext(ControlsContext);
   const {
     selectedFrame,
     setSelectedFrame,
@@ -41,7 +44,7 @@ export default function Controls() {
     setExportFormat,
     propagateChangesToASCIIString,
     setPropagateChangesToASCIIString
-  } = useContext(ControlsContext);
+  } = context;
 
   return(
     <nav className="controls-wrap">
@@ -52,6 +55,30 @@ export default function Controls() {
       </div>
 
       <Dropdown label="Source">
+        <ControlFileSession
+          label={"Load saved session"}
+          onChange={(sessionData) => {
+            console.log("Loaded saved session:", sessionData);
+
+            // TODO: This is a rudimentary implementation of session state loading. Only a few of these have been tested.
+            setAnimating(false);
+            setAnimationFramerate(sessionData.animationFramerate);
+            updateAsciiStrings(draft => draft = new Array(sessionData.asciiStrings.length).fill("").map(str => str));
+            setCharacterDensity(sessionData.characterDensity);
+            setCharacterOutputs(sessionData.characterOutputs);
+            setEdgeDetectionAlgorithm(sessionData.edgeDetectionAlgorithm);
+            setEdgeDetectionThreshold(sessionData.edgeDetectionThreshold);
+            setExportFormat(sessionData.exportFormat);
+            setPropagateChangesToASCIIString(sessionData.propagateChangesToASCIIString);
+            setSelectedFrame(sessionData.selectedFrame);
+            // TODO: Implement setting sourceImages
+            setWebcamEnabled(false);
+            setWebcamRecording(false);
+
+            setTimeout(() => updateAsciiStrings(sessionData.asciiStrings), 1000);
+          }}
+        />
+
         <ControlFile
           label={"Image(s)"}
           name={"source-images"}
@@ -61,8 +88,7 @@ export default function Controls() {
           onChange={(sourceImages) => {
             setSelectedFrame(0);
             setSourceImages(sourceImages);
-            updateAsciiStrings(draft => draft = new Array(sourceImages.length).fill("").map(str => str)); // initialize asciiStrings array
-            // console.log("sourceImages:", sourceImages);
+            updateAsciiStrings(draft => draft = new Array(sourceImages.length).fill("").map(str => str));
           }}
         />
 
@@ -179,6 +205,14 @@ export default function Controls() {
       </Dropdown>
 
       <Dropdown label="Export">
+        <ControlButton
+          value="Save working session"
+          onClick={() => {
+            var filename = prompt("Save session as", "session.ascii");
+            downloadTextFile(JSON.stringify(context), filename);
+          }}
+        />
+
         <ControlSelect
           label={"Format"}
           name={"format"}
@@ -191,7 +225,6 @@ export default function Controls() {
 
         <ControlButton
           value="Export"
-
           onClick={() => {
             exportSketch(exportFormat);
           }}

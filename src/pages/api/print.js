@@ -9,7 +9,7 @@ import ensureDivisible from '@/helpers/ensureDivisible';
  * Compile Arduino sketch at arduino/sketches/print and upload it to specified board. 
  */
 const compileAndUpload = ({ buildProperty, onSuccess, onFailure }) => {
-  const command = `arduino-cli compile ${buildProperty ? "--build-property compiler.cpp.extra_flags=-D" + buildProperty : ""} -b arduino:avr:uno arduino/sketches/print --output-dir arduino/sketches/print --upload --port /dev/cu.usbmodem11401`;
+  const command = `arduino-cli compile ${buildProperty ? "--build-property compiler.cpp.extra_flags=-D" + buildProperty : ""} -b arduino:avr:uno arduino/sketches/print --output-dir arduino/sketches/print --upload --port /dev/cu.usbmodem1401`;
 
   exec(command, (error, stdout, stderr) => {
     if (error) {
@@ -27,87 +27,6 @@ const compileAndUpload = ({ buildProperty, onSuccess, onFailure }) => {
     console.log(`stdout: ${stdout}`);
     onSuccess();
   });
-}
-
-/**
- *  Recursively print image in quarters (printing the full image at once will often exceed
- *  the Arduino Uno's max sketch size of 32256 bytes)
- * 
- *  TODO: Add dynamic sketch size detection and only take the recursive approach if necessary.
- * 
- *  @param {*} data -- image buffer data
- *  @param {*} chunkHeightDenominator -- denominator for image portion calculation (a value of 4 will print image in quarters)
- *  @param {*} i -- index for recursion logic
- */
-async function printImagePortion(data, chunkHeightDenominator, i) {
-  if (!i) i = 0;
-
-  console.log("\n--- Printing image portion with index", i, "---");
-
-  // Calculate extraction region for this pass
-  var chunkHeight = height / chunkHeightDenominator;
-  var chunkTop = (0 === i) ? 0 : i * chunkHeight;
-  var extractRegion = {
-    left: 0,
-    top: chunkTop,
-    width: width,
-    height: chunkHeight
-  }
-
-  // define logic control vars
-  var isFirstPass = 0 === i;
-  var isLastPass = chunkTop + chunkHeight === height;
-
-  console.log("> isFirstPass", isFirstPass);
-  console.log("> isLastPass", isLastPass);
-  console.log("> extractRegion", extractRegion);
-
-  // Resize image portion according to calculated dimensions
-  // Create 8-bit binary pixel buffer from image portion's alpha channel
-  var buffer = await sharp(data)
-    .negate()
-    .ensureAlpha()
-    .threshold()
-    .extractChannel(3)
-    .resize({ width, height, fit: "contain" })
-    .extract(extractRegion)
-    .raw()
-    .toBuffer();
-
-  console.log("> buffer", buffer);
-
-  // Convert pixel buffer to hexadecimal bitmap with C++ headers
-  const bitmap = convertImageToBitmap({
-    width: width,
-    height: chunkHeight,
-    buffer: buffer
-  });
-
-  // Upon successful print, continue to next pass or, if last pass, notify client of success
-  const onPrintSuccess = async () => {
-    if (isLastPass) {
-      res.status(200).json({ status: "success" });
-    } else {
-      var delay = 15; // sec
-      console.log("> Uploaded sketch to Arduino. Continuing in " + delay + " seconds.");
-      setTimeout(async () => await printImagePortion(data, chunkHeightDenominator, i + 1), delay * 1000);
-    }
-  }
-
-  // Upon failed print, notify client of failure
-  const onPrintFailure = () => {
-    res.status(200).json({ status: "failure" });
-  }
-
-  // Write C++ pixel buffer to 'image.h' file in same directory as Arduino print sketch
-  // Upload print sketch to Arduino board
-  await fs.writeFile('arduino/sketches/print/image.h', bitmap)
-    .then(() => compileAndUpload({
-      buildProperty: (isFirstPass) ? "PAD_START" : (isLastPass) ? "PAD_END" : null,
-      onSuccess: onPrintSuccess,
-      onFailure: onPrintFailure
-    }))
-    .catch(err => console.error(err));
 }
 
 /**
@@ -151,4 +70,85 @@ export default async function handler(req, res) {
 
   // Print image in portions
   printImagePortion(data, chunkDenominator);
+
+  /**
+   *  Recursively print image in quarters (printing the full image at once will often exceed
+   *  the Arduino Uno's max sketch size of 32256 bytes)
+   * 
+   *  TODO: Add dynamic sketch size detection and only take the recursive approach if necessary.
+   * 
+   *  @param {*} data -- image buffer data
+   *  @param {*} chunkHeightDenominator -- denominator for image portion calculation (a value of 4 will print image in quarters)
+   *  @param {*} i -- index for recursion logic
+   */
+  async function printImagePortion(data, chunkHeightDenominator, i) {
+    if (!i) i = 0;
+
+    console.log("\n--- Printing image portion with index", i, "---");
+
+    // Calculate extraction region for this pass
+    var chunkHeight = height / chunkHeightDenominator;
+    var chunkTop = (0 === i) ? 0 : i * chunkHeight;
+    var extractRegion = {
+      left: 0,
+      top: chunkTop,
+      width: width,
+      height: chunkHeight
+    }
+
+    // define logic control vars
+    var isFirstPass = 0 === i;
+    var isLastPass = chunkTop + chunkHeight === height;
+
+    console.log("> isFirstPass", isFirstPass);
+    console.log("> isLastPass", isLastPass);
+    console.log("> extractRegion", extractRegion);
+
+    // Resize image portion according to calculated dimensions
+    // Create 8-bit binary pixel buffer from image portion's alpha channel
+    var buffer = await sharp(data)
+      .negate()
+      .ensureAlpha()
+      .threshold()
+      .extractChannel(3)
+      .resize({ width, height, fit: "contain" })
+      .extract(extractRegion)
+      .raw()
+      .toBuffer();
+
+    console.log("> buffer", buffer);
+
+    // Convert pixel buffer to hexadecimal bitmap with C++ headers
+    const bitmap = convertImageToBitmap({
+      width: width,
+      height: chunkHeight,
+      buffer: buffer
+    });
+
+    // Upon successful print, continue to next pass or, if last pass, notify client of success
+    const onPrintSuccess = async () => {
+      if (isLastPass) {
+        res.status(200).json({ status: "success" });
+      } else {
+        var delay = 15; // sec
+        console.log("> Uploaded sketch to Arduino. Continuing in " + delay + " seconds.");
+        setTimeout(async () => await printImagePortion(data, chunkHeightDenominator, i + 1), delay * 1000);
+      }
+    }
+
+    // Upon failed print, notify client of failure
+    const onPrintFailure = () => {
+      res.status(200).json({ status: "failure" });
+    }
+
+    // Write C++ pixel buffer to 'image.h' file in same directory as Arduino print sketch
+    // Upload print sketch to Arduino board
+    await fs.writeFile('arduino/sketches/print/image.h', bitmap)
+      .then(() => compileAndUpload({
+        buildProperty: (isFirstPass) ? "PAD_START" : (isLastPass) ? "PAD_END" : null,
+        onSuccess: onPrintSuccess,
+        onFailure: onPrintFailure
+      }))
+      .catch(err => console.error(err));
+  }
 }
