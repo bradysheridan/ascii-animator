@@ -25,6 +25,8 @@ export const ControlsProvider = (props) => {
   const [webcamRecording, setWebcamRecording] = useState(false);
   const [exportFormat, setExportFormat] = useState("png");
   const [propagateChangesToASCIIString, setPropagateChangesToASCIIString] = useState("none");
+  // default to 16:9; when an image or set of images is uploaded, the aspect ratio is automatically set to match the first frame in the image set
+  const [aspectRatio, setAspectRatio] = useState("16:9");
 
   return(
     <ControlsContext.Provider

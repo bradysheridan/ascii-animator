@@ -218,11 +218,25 @@ span, small, em, strong, input {
   display: flex;
   flex-direction: column;
   flex: 0.9;
+  border: 1px solid red;
 }
 
 .canvas-ascii-pre-wrap {
+  width: 90%;
+  height: 800px;
+  border: 1px solid blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.canvas-ascii-pre-wrap pre {
+  border: 1px solid orange;
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 :root {

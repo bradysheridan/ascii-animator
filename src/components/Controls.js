@@ -209,6 +209,7 @@ export default function Controls() {
           value="Save working session"
           onClick={() => {
             var filename = prompt("Save session as", "session.ascii");
+            if (!filename) return;
             downloadTextFile(JSON.stringify(context), filename);
           }}
         />
