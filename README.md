@@ -28,10 +28,35 @@
   </a>
 </div>
 
-## Slaps Tour poster required features
-- [ ] Ability to save and load sessions (images, frame config, custom text)
-- [ ] Persistent manual text edits
-- [ ] Ability to propogate text edits across frames
+
+
+## 
+- Compare P5 and Sharp image source formats. Trying to find a way to bridge the gap between client- and server-side image processing. Want to consolidate the image processing so that the same code works in both environments. Process:
+  - Image is loaded into image buffer array
+  - Image buffer array is processed according to a given algorithm. Currently:
+    - With Sharp:
+      - a grayscale pixel map is manually created, calculating the following metadata for each pixel
+        - rgbAverage
+        - luminocity
+        - perceivedLightness
+      - once this pixel map is created, sobel edge detection is run on it, adding the following metadata to each pixel
+        - gradient magnitude
+        - gradient angle
+    - With P5: Sobel edge detection is run on the image, chars are output on edges only
+
+- What do I need to do?
+  - Need to decide on a standard input data format, one that can be easily generated in both client and server contexts. From there, the image processing code can be run anywhere.
+    - Step 1: Determine default Sharp image output format
+      > Sharp output format info: https://sharp.pixelplumbing.com/api-output#tobuffer
+      > Logging output from Sharp image processing:
+
+    - Step 2: Determine default P5 image output format
+      > P5 output format info: 
+    - Step 3: Determine how these can be standardized
+
+- End goal: A package that allows for two input methods:
+  1. Manually provide image data in an ArrayBuffer
+  2. Allow package to generate image data ArrayBuffer itself via Sharp package
 
 ## Experimental
 - [ ] Dynamic edge detection threshold and char value ranges based on range of image pixel contrast (e.g. calculating average rgb value, min and max edge thresholds, etc.)
@@ -44,6 +69,7 @@
 - [ ] Add ability to reposition/resize background image via GUI
 - [ ] Add ability to invert sketches (filters)
 - [ ] Add non-edge based tracing algorithms (e.g. color channels or pixel brightness)
+- [ ] Add docs and tooltips pointing to those docs (e.g. explainer for edge detection next to controls for edge detection threshold)
 
 <!-- LICENSE -->
 ## License

@@ -4,7 +4,7 @@ import CanvasASCII from '@/components/CanvasASCII';
 import CanvasP5 from '@/components/CanvasP5';
 
 const EmptyState = () => (
-  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: 'calc(100vh - 100px)' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%', height: 'calc(100vh - 100px)', fontSize: '0.75rem', maxWidth: 400, margin: '0 auto' }}>
     <p>
       empty state
     </p>
@@ -18,16 +18,34 @@ export default function Index() {
     updateAsciiStrings,
     sourceImages,
     sourceVideoStream,
+    shouldTraceEdges,
     edgeDetectionAlgorithm,
     edgeDetectionThreshold,
     filter,
     animating,
     characterDensity,
     characterOutputs,
+    shadingRamp,
     animationFramerate,
     webcamEnabled,
     propagateChangesToASCIIString
   } = useContext(ControlsContext);
+
+  const renderPresketchCanvas = (frameIndex, sourceImage) => (
+    <CanvasP5
+      title={`Processed`}
+      frameIndex={frameIndex}
+      sourceImage={sourceImage.data}
+      filter={filter}
+      shouldTraceEdges={shouldTraceEdges}
+      edgeDetectionAlgorithm={edgeDetectionAlgorithm}
+      edgeDetectionThreshold={edgeDetectionThreshold}
+      characterDensity={characterDensity}
+      characterOutputs={characterOutputs}
+      shadingRamp={shadingRamp}
+      onSketch={(asciiString) => updateAsciiStrings(draft => { draft[frameIndex] = asciiString })}
+    />
+  );
 
   const renderFrames = () => sourceImages.map((sourceImage, frameIndex) => {
     var frameIsSelected = frameIndex === selectedFrame;
@@ -35,39 +53,11 @@ export default function Index() {
     return(
       <div key={`frame-${frameIndex}`} className={["frame", frameIsSelected ? "selected" : ""].join(" ")}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {/* <CanvasP5
-            title={`Source`}
-            frameIndex={frameIndex}
-            sourceImage={sourceImage.data}
-            characterDensity={characterDensity}
-          />
-
-          <CanvasP5
-            title={`Filtered`}
-            frameIndex={frameIndex}
-            sourceImage={sourceImage.data}
-            filter={filter}
-            characterDensity={characterDensity}
-          /> */}
-
-          <CanvasP5
-            title={`Processed`}
-            frameIndex={frameIndex}
-            sourceImage={sourceImage.data}
-            filter={filter}
-            edgeDetectionAlgorithm={edgeDetectionAlgorithm}
-            edgeDetectionThreshold={edgeDetectionThreshold}
-            characterDensity={characterDensity}
-            characterOutputs={characterOutputs}
-            onSketch={(asciiString) => updateAsciiStrings(draft => { draft[frameIndex] = asciiString })}
-          />
+          {renderPresketchCanvas(frameIndex, sourceImage)}
         </div>
       </div>
     );
   });
-
-  // console.log("webcamEnabled", webcamEnabled);
-  // console.log("sourceVideoStream", sourceVideoStream);
 
   return(
     <>
@@ -75,21 +65,8 @@ export default function Index() {
         ? <EmptyState />
         : <>
             {webcamEnabled && sourceVideoStream[0]
-              ? <CanvasP5
-                  // key={`asdf-${Math.random()}`}
-                  title={`Processed`}
-                  frameIndex={0}
-                  sourceImage={sourceVideoStream[0].data}
-                  filter={filter}
-                  edgeDetectionAlgorithm={edgeDetectionAlgorithm}
-                  edgeDetectionThreshold={edgeDetectionThreshold}
-                  characterDensity={characterDensity}
-                  characterOutputs={characterOutputs}
-                  webcamEnabled={webcamEnabled}
-                  onSketch={(asciiString) => updateAsciiStrings(draft => { draft[0] = asciiString })}
-                />
-              : renderFrames()
-            }
+              ? renderPresketchCanvas(0, sourceVideoStream[0].data)
+              : renderFrames() }
 
             <CanvasASCII
               asciiStrings={asciiStrings}

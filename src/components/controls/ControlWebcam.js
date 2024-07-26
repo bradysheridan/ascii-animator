@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import ControlButton from '@/components/ControlButton'
+import ControlButton from '@/components/controls/ControlButton'
 
 export default function ControlWebcam(props) {
   const {

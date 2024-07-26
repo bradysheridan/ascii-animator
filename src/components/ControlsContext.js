@@ -6,6 +6,7 @@ export const ControlsContext = createContext();
 export const ControlsProvider = (props) => {
   const [selectedFrame, setSelectedFrame] = useState(0);
   const [asciiStrings, updateAsciiStrings] = useImmer([]);
+  const [shouldTraceEdges, setShouldTraceEdges] = useState(false);
   const [edgeDetectionThreshold, setEdgeDetectionThreshold] = useState(26.5);
   const [edgeDetectionAlgorithm, setEdgeDetectionAlgorithm] = useState("sobel");
   const [filter, setFilter] = useState();
@@ -20,6 +21,7 @@ export const ControlsProvider = (props) => {
     [70, 100, "★"],
     ["*"]
   ]);
+  const [shadingRamp, setShadingRamp] = useState(" ,`,.,;,+,*");
   const [animationFramerate, setAnimationFramerate] = useState(7);
   const [webcamEnabled, setWebcamEnabled] = useState(false);
   const [webcamRecording, setWebcamRecording] = useState(false);
@@ -33,6 +35,8 @@ export const ControlsProvider = (props) => {
         setSelectedFrame,
         asciiStrings,
         updateAsciiStrings,
+        shouldTraceEdges,
+        setShouldTraceEdges,
         edgeDetectionThreshold,
         setEdgeDetectionThreshold,
         edgeDetectionAlgorithm,
@@ -49,6 +53,8 @@ export const ControlsProvider = (props) => {
         setCharacterDensity,
         characterOutputs,
         setCharacterOutputs,
+        shadingRamp,
+        setShadingRamp,
         animationFramerate,
         setAnimationFramerate,
         webcamEnabled,

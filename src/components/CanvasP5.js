@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import sketchASCIIString from '@/helpers/sketchASCIIString';
-import convertImageToBitmap from '@/helpers/convertImageToBitmap';
 
 // will only import `react-p5` on client-side
 const Sketch = dynamic(() => import('react-p5').then((mod) => mod.default), {
@@ -15,10 +14,12 @@ export default function CanvasSource(props) {
     sourceImageBase64,
     frameIndex,
     filter,
+    shouldTraceEdges,
     edgeDetectionAlgorithm,
     edgeDetectionThreshold,
     characterDensity,
     characterOutputs,
+    shadingRamp,
     onSketch,
     webcamEnabled
   } = props;
@@ -72,6 +73,8 @@ export default function CanvasSource(props) {
 
     // TODO: apply filters to pre-sketch image
     // ...
+    // my.presketchImage.filter(p5.INVERT);
+
 
     // render preview of pre-sketch image
     my.p5.image(my.presketchImage, 0, PREVIEW_IMAGE_HEIGHT, PREVIEW_IMAGE_WIDTH, PREVIEW_IMAGE_HEIGHT);
@@ -86,16 +89,18 @@ export default function CanvasSource(props) {
     // --------------------------------------------------------------------------------------------------------------------------------
 
     // generate ASCII sketch from pre-sketch image
-    var { asciiString, edgeImage } = sketchASCIIString({
-      p5: my.p5,
-      sourceImage: my.presketchImage,
-      edgeDetectionAlgorithm,
-      edgeDetectionThreshold,
-      characterOutputs
+
+    console.log("-> shouldTraceEdges", shouldTraceEdges);
+
+    var asciiString = sketchASCIIString(my.presketchImage, {
+      shouldTraceEdges: shouldTraceEdges,
+      edgeDetectionThreshold: edgeDetectionThreshold,
+      edgeDetectionAlgorithm: edgeDetectionAlgorithm,
+      shadingRamp: shadingRamp
     });
 
     // render preview of image after sketch processing
-    my.p5.image(edgeImage, 0, 2 * PREVIEW_IMAGE_HEIGHT, PREVIEW_IMAGE_WIDTH, PREVIEW_IMAGE_HEIGHT);
+    // my.p5.image(edgeImage, 0, 2 * PREVIEW_IMAGE_HEIGHT, PREVIEW_IMAGE_WIDTH, PREVIEW_IMAGE_HEIGHT);
 
     // pass asciiString to parent
     if (asciiString) {
@@ -104,7 +109,7 @@ export default function CanvasSource(props) {
   }
 
   // trigger redraw when certain control vars update
-  useEffect(drawImage, [edgeDetectionThreshold, characterDensity, characterOutputs]);
+  useEffect(drawImage, [shadingRamp, shouldTraceEdges, edgeDetectionThreshold, characterDensity, characterOutputs]);
 
   //
   useEffect(() => {
@@ -125,5 +130,5 @@ export default function CanvasSource(props) {
 
       <Sketch setup={setup} />
     </div>
-  )
+  );
 };

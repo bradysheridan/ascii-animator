@@ -162,11 +162,11 @@ export default function CanvasASCII(props) {
       }
 
       if ("frames after this one" === propagateChangesToASCIIString) {
-        filterFrames = ({ str, i }) => i > localFrameIndex
+        filterFrames = ({ str, i }) => i > localFrameIndex;
       }
 
       if ("frames before this one" === propagateChangesToASCIIString) {
-        filterFrames = ({ str, i }) => i < localFrameIndex
+        filterFrames = ({ str, i }) => i < localFrameIndex;
       }
 
       var targetFrames = asciiStrings

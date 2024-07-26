@@ -1,13 +1,17 @@
 import { useContext } from 'react';
 import { ControlsContext } from '@/components/ControlsContext';
-import ControlButton from '@/components/ControlButton';
-import ControlWebcam from '@/components/ControlWebcam';
-import ControlFile from '@/components/ControlFile';
-import ControlFileSession from '@/components/ControlFileSession';
-import ControlSlider from '@/components/ControlSlider';
-import ControlNumericalRangesWithOutputs from '@/components/ControlNumericalRangesWithOutputs';
-import ControlSelect from './ControlSelect';
-import Dropdown from '@/components/Dropdown';
+import ControlButton from '@/components/controls/ControlButton';
+import ControlDropdown from '@/components/controls/ControlDropdown';
+import ControlFile from '@/components/controls/ControlFile';
+import ControlFileSession from '@/components/controls/ControlFileSession';
+import ControlNumericalRangesWithOutputs from '@/components/controls/ControlNumericalRangesWithOutputs';
+import ControlSelect from './controls/ControlSelect';
+import ControlSlider from '@/components/controls/ControlSlider';
+import ControlText from '@/components/controls/ControlText';
+import ControlTextSequence from '@/components/controls/ControlTextSequence';
+import ControlToggle from '@/components/controls/ControlToggle';
+import ControlWebcam from '@/components/controls/ControlWebcam';
+
 import downloadTextFile from '@/helpers/downloadTextFile';
 import exportSketch from '@/helpers/exportSketch';
 
@@ -18,6 +22,8 @@ export default function Controls() {
     setSelectedFrame,
     asciiStrings,
     updateAsciiStrings,
+    shouldTraceEdges,
+    setShouldTraceEdges,
     edgeDetectionThreshold,
     setEdgeDetectionThreshold,
     edgeDetectionAlgorithm,
@@ -34,6 +40,8 @@ export default function Controls() {
     setCharacterDensity,
     characterOutputs,
     setCharacterOutputs,
+    shadingRamp,
+    setShadingRamp,
     animationFramerate,
     setAnimationFramerate,
     webcamEnabled,
@@ -54,7 +62,7 @@ export default function Controls() {
         </h4>
       </div>
 
-      <Dropdown label="Source">
+      <ControlDropdown label="Source">
         <ControlFileSession
           label={"Load saved session"}
           onChange={(sessionData) => {
@@ -66,6 +74,7 @@ export default function Controls() {
             updateAsciiStrings(draft => draft = new Array(sessionData.asciiStrings.length).fill("").map(str => str));
             setCharacterDensity(sessionData.characterDensity);
             setCharacterOutputs(sessionData.characterOutputs);
+            setShouldTraceEdges(sessionData.shouldTraceEdges);
             setEdgeDetectionAlgorithm(sessionData.edgeDetectionAlgorithm);
             setEdgeDetectionThreshold(sessionData.edgeDetectionThreshold);
             setExportFormat(sessionData.exportFormat);
@@ -110,13 +119,12 @@ export default function Controls() {
           setSourceVideoStream={setSourceVideoStream}
           recordFrame={(frameImage) => {
             var newSourceImages = sourceImages.concat([frameImage]);
-            console.log("-> newSourceImages:", newSourceImages);
             setSourceImages(draft => draft = draft.concat([frameImage]));
           }}
         />
-      </Dropdown>
+      </ControlDropdown>
 
-      <Dropdown label="Filtering">
+      <ControlDropdown label="Filtering">
         <ControlSelect
           label={"Filter"}
           name={"filter"}
@@ -134,30 +142,9 @@ export default function Controls() {
           ]}
           onChange={setFilter}
         />
-      </Dropdown>
+      </ControlDropdown>
 
-      <Dropdown label="Tracing">
-        <ControlSelect
-          label={"Edge detection algorithm"}
-          name={"edge-detection-algorithm"}
-          values={[
-            "basic",
-            "sobel"
-          ]}
-          onChange={setEdgeDetectionAlgorithm}
-        />
-
-        <ControlSlider
-          label={"Edge detection threshold"}
-          name={"edge-detection-threshold"}
-          unit={"px"}
-          min={1}
-          max={45}
-          step={0.5}
-          value={edgeDetectionThreshold}
-          onChange={setEdgeDetectionThreshold}
-        />
-
+      <ControlDropdown label="Tracing">
         <ControlSlider
           label={"Character density"}
           name={"character-density"}
@@ -169,15 +156,50 @@ export default function Controls() {
           onChange={(val) => setCharacterDensity(parseFloat(val))}
         />
 
+        <ControlToggle
+          label={"Should trace edges?"}
+          name={"should-trace-edges"}
+          value={shouldTraceEdges}
+          onChange={setShouldTraceEdges}
+        />
+
+        <ControlSelect
+          label={"Edge detection algorithm"}
+          name={"edge-detection-algorithm"}
+          values={[
+            "sobel"
+          ]}
+          onChange={setEdgeDetectionAlgorithm}
+        />
+
+        <ControlSlider
+          label={"Edge detection threshold"}
+          name={"edge-detection-threshold"}
+          unit={"px"}
+          min={1}
+          max={360}
+          step={1}
+          value={edgeDetectionThreshold}
+          onChange={setEdgeDetectionThreshold}
+        />
+
         <ControlNumericalRangesWithOutputs
           label={"Character output by pixel contrast value"}
           name={"character-outputs"}
           ranges={characterOutputs}
           onChange={setCharacterOutputs}
         />
-      </Dropdown>
 
-      <Dropdown label="Writing">
+        <ControlText
+          label={"Shading ramp"}
+          name={"shading-ramp"}
+          value={shadingRamp}
+          delimiter={","}
+          onChange={setShadingRamp}
+        />
+      </ControlDropdown>
+
+      <ControlDropdown label="Writing">
         <ControlSelect
           label={"Propagate changes to ASCII string"}
           name={"format"}
@@ -189,9 +211,9 @@ export default function Controls() {
           ]}
           onChange={setPropagateChangesToASCIIString}
         />
-      </Dropdown>
+      </ControlDropdown>
 
-      <Dropdown label="Animation">
+      <ControlDropdown label="Animation">
         <ControlSlider
           label={"Animation framerate"}
           name={"animation-framerite"}
@@ -202,9 +224,9 @@ export default function Controls() {
           value={animationFramerate}
           onChange={setAnimationFramerate}
         />
-      </Dropdown>
+      </ControlDropdown>
 
-      <Dropdown label="Export">
+      <ControlDropdown label="Export">
         <ControlButton
           value="Save working session"
           onClick={() => {
@@ -218,7 +240,6 @@ export default function Controls() {
           name={"format"}
           values={[
             "png",
-            "print"
           ]}
           onChange={setExportFormat}
         />
@@ -229,7 +250,7 @@ export default function Controls() {
             exportSketch(exportFormat);
           }}
         />
-      </Dropdown>
+      </ControlDropdown>
     </nav>
   );
 }
