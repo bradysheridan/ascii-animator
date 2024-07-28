@@ -3,9 +3,22 @@ export default function Demos() {
     <div className="flex mr-[24px]">
       <div className="lg:columns-2 lg:gap-x-4 lg:max-w-[800px] text-sm [&_*]:text-sm -mt-3 [&_h1]:mt-3 [&_h2]:mt-3 [&_h1]:mb-1 [&_h2]:mb-1 [&_h1]:text-[1.1em] [&_h2]:text-[1.1em]">
         <h1>About the ASCII Animator</h1>
+
         <p>
-          This project was originally developed for a particular use-case: converting an image sequence into an array of ASCII strings that can be rendered as HTML elements and looped via Javascript to create a stop motion animation. The result is this website and the <a href="https://npmjs.com/package/trace-ascii-image" target="_blank">trace-ascii-image</a> npm module which are being developed in tandem.
+          The original intent behind this tool was to generate plain text/ASCII art animations for web design projects. It works by tracing an image sequence into an array of strings that are rendered as {"<pre>"} elements and looped with Javascript. From that foundation, the ASCII Animator is being expanded to include more features and export formats.
         </p>
+
+
+
+        <h2>Open-source project links</h2>
+        <p>
+          This project is open-source and is being developed in tandem with the trace-ascii-image npm module.
+        </p>
+        <ul>
+          <li><a href="" target="blank">ASCII Animator (Github)</a></li>
+          <li><a href="" target="blank">trace-ascii-image (Github)</a></li>
+          <li><a href="" target="blank">trace-ascii-image (npm)</a></li>
+        </ul>
 
         <h2>
           Roadmap
@@ -14,7 +27,7 @@ export default function Demos() {
           It's early days for the ASCII Animator and trace-ascii-image. Check out the roadmap of planned updates below.
         </p>
         <ul>
-          <li>V0.2</li>
+          <li>v0.2</li>
           <ul className="mt-0">
             <li>Make significant UI improvements</li>
             <li>Add mobile functionality</li>
@@ -23,18 +36,18 @@ export default function Demos() {
             <li>Improve comments and documentation</li>
           </ul>
 
-          <li>V0.3</li>
+          <li>v0.3</li>
           <ul className="mt-0">
             <li>Make performance improvements</li>
             <li>Expand/improve shading and edge detection algorithms</li>
           </ul>
 
-          <li>V0.4</li>
+          <li>v0.4</li>
           <ul className="mt-0">
             <li>Expand/improve manual ASCII string editing experience</li>
           </ul>
 
-          <li>V0.5</li>
+          <li>v0.5</li>
           <ul className="mt-0">
             <li>Refactor to Next.js 14 and the app router (or potentially Astro)</li>
           </ul>
@@ -56,11 +69,6 @@ export default function Demos() {
           <li><a href="https://www.asciiart.eu/trace-ascii-image" target="_blank">ASCII Art Archive</a> - Convert a single image to ASCII art</li>
           <li><a href="https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20" target="_blank">Text to ASCII Art Generator (TAAG)</a> - Convert text to ASCII bubble letters</li>
         </ul>
-
-        <h2>Open-source contributions</h2>
-        <p>
-          This project is open-source. Check out the <a href="https://github.com/bradysheridan/ascii-animator" target="_blank">Github repo</a> to see the code, make a pull request or report an issue.
-        </p>
 
         <h2>Contact</h2>
         <div className="flex flex-wrap gap-x-1 text-xs">
@@ -86,7 +94,7 @@ export default function Demos() {
         </div>
 
         <p>
-          Please consider <a href="https://buymeacoffee.com/devq" target="_blank">buying me a cup of joe</a> if you've found this tool useful in a commercial or professional capacity <span className="text-[red]">{"<3"}</span>
+          Please consider <a href="https://buymeacoffee.com/devq" target="_blank">buying me a cup of joe</a> or shouting out the project if you've found this tool useful <span className="text-[red]">{"<3"}</span>
         </p>
 
         <h2>Demos</h2>

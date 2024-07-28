@@ -8,13 +8,13 @@ export const ControlsProvider = (props) => {
   const [asciiStrings, updateAsciiStrings] = useImmer([]);
   const [shouldTraceEdges, setShouldTraceEdges] = useState(false);
   const [edgeCharacter, setEdgeCharacter] = useState("#");
-  const [edgeDetectionThreshold, setEdgeDetectionThreshold] = useState(240);
+  const [edgeDetectionThreshold, setEdgeDetectionThreshold] = useState(220);
   const [edgeDetectionAlgorithm, setEdgeDetectionAlgorithm] = useState("sobel");
   const [filter, setFilter] = useState();
   const [sourceImages, setSourceImages] = useState([]);
   const [sourceVideoStream, setSourceVideoStream] = useState([]);
   const [animating, setAnimating] = useState(false);
-  const [characterDensity, setCharacterDensity] = useState(200);
+  const [characterDensity, setCharacterDensity] = useState(180);
   const [shadingRamp, setShadingRamp] = useState(["*", "+", ";", ".", "`", ",", " "]);
   const [animationFramerate, setAnimationFramerate] = useState(10);
   const [webcamEnabled, setWebcamEnabled] = useState(false);

@@ -24,19 +24,19 @@ export default function Controls() {
           Tracing
         </h2>
         <ul>
-          <li><strong>Character density</strong> - The number of characters per line in the ASCII string frames. In other words, the desired image width.</li>
+          <li><strong>Character density</strong> - The desired number of characters per line (in other words, the desired image width).</li>
           <li><strong>Should trace edges?</strong> - If true, an edge detection algorithm is applied during tracing.</li>
           <li><strong>Edge character</strong> - If tracing edges, this is the character used.</li>
-          <li><strong>Edge detection algorithm</strong> - The only algorithm currently implemented is the <a href="https://en.wikipedia.org/wiki/Sobel_operator" target="_blank">Sobel</a> operator. Additional algorithms and parameter customizations are planned for V0.3.</li>
-          <li><strong>Edge detection threshold</strong> - Pixels whose edge detection value surpasses this threshold will be assigned the specified edge character.</li>
-          <li><strong>Shading ramp (dark to light)</strong> - Shading is currently based on perceived lightness (calculation details visible <a href="https://www.npmjs.com/package/trace-ascii-image?activeTab=code" target="_blank">here</a>). Shading algorithms and parameter customization will be expanded in V0.3. Earlier values in the array below correspond to low perceived lightness (dark pixels). Later values in the array correspond to high preceived lightness (bright pixels).</li>
+          <li><strong>Edge detection algorithm</strong> - The only algorithm currently implemented is the <a href="https://en.wikipedia.org/wiki/Sobel_operator" target="_blank">Sobel</a> operator. Additional algorithms and parameter customizations are planned for v0.3.</li>
+          <li><strong>Edge detection threshold</strong> - Pixels whose gradient magnitude surpasses this threshold are assigned the specified edge character. Gradient magnitude measures how much a pixel differs from the ones around it and results in a value between 1 and 355.</li>
+          <li><strong>Shading ramp (dark to light)</strong> - The array of characters used when assigning source image pixels their text equivalents. This calculation is based on a pixel's perceived lightness and results in a value between 0 and 100. That value is then linearly remapped to the length of the shading ramp array and used to access the correct character. Shading algorithms and parameter customization will be expanded in v0.3.</li>
         </ul>
 
         <h2>
           Writing
         </h2>
         <ul>
-          <li><strong>Propagate changes to ASCII string</strong> - It's possible to manually edit characters in individual animation frames by clicking directly on the ASCII canvas. You may want edits to apply to more frames than just the one you're editing. In this case, use this setting to propagate changes.</li>
+          <li><strong>Propagate changes to ASCII string</strong> - It's possible to manually edit characters in individual animation frames by clicking directly on the ASCII canvas and typing. You may want edits to apply to more frames than just the one you're editing. In this case, use this setting to propagate changes. Note that while editing a given frame, a small edit icon will appear next to the frame number; wait for this icon to disappear before switching to another frame to ensure your changes are saved.</li>
         </ul>
 
         <h2>
@@ -51,11 +51,10 @@ export default function Controls() {
         </h2>
         <ul>
           <li><strong>Save working session</strong> - Export your working session, including all ASCII frames and settings. Source images are not included in save data.</li>
-          <li><strong>Format</strong> - Select animation export format. Export format expansion is planned for V0.2.</li>
+          <li><strong>Format</strong> - Select animation export format. Export format expansion is planned for v0.2.</li>
           <ul>
             <li><strong>embeddable animation (html/js)</strong> - Export code that can be embedded into another website. This consists of a frames.js file containing the animation's ASCII strings, a helper function fitTextToContainer.js to make the animation responsive, and an index.html file that renders and loops the animation.</li>
             <li><strong>png (selected frame)</strong> - Export a .png image of the selected frame.</li>
-            <li><strong>png (frame sequence)</strong> - Export a .png image of the selected frame.</li>
           </ul>
           <li><strong>Export</strong> - Download animation in the selected format.</li>
         </ul>

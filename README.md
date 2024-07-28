@@ -23,6 +23,12 @@
   </p>
 </div>
 
+## About
+
+The original intent behind this tool was to generate plain text/ASCII art animations for web design projects. It works by tracing an image sequence into an array of strings that are rendered as pre elements and looped with Javascript. From that foundation, the ASCII Animator is being expanded to include more features and export formats.
+
+This project is being developed in tandem with the [trace-ascii-image](https://github.com/bradysheridan/trace-ascii-image) npm module.
+
 ## To Do
 - [ ] Migrate all styles to Tailwind
 - [ ] Use requestAnimationFrame instead of setInterval
@@ -33,14 +39,14 @@
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 <!-- CONTACT -->
 ## Contact
 
 Brady Sheridan - dev@bradysheridan.com - [bradysheridan.com](https://www.bradysheridan.com/) - [@brsheridan](https://instagram.com/brsheridan)
 
-Project Link: [https://github.com/bradysheridan/ascii-animator](https://github.com/bradysheridan/ascii-animator)
+Project Links: [ASCII Animator (Website)](https://ascii-animator.com/) - [ASCII Animator (Github)](https://github.com/bradysheridan/ascii-animator) - [trace-ascii-image (Github)](https://github.com/bradysheridan/trace-ascii-image) - [trace-ascii-image (npm)](https://www.npmjs.com/package/trace-ascii-image)
+
+[Github](https://github.com/bradysheridan/trace-ascii-image) - [npm](https://www.npmjs.com/package/trace-ascii-image)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

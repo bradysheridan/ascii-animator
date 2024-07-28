@@ -169,9 +169,8 @@ export default function Controls() {
         <ControlSlider
           label={"Edge detection threshold"}
           name={"edge-detection-threshold"}
-          unit={"°"}
           min={1}
-          max={360}
+          max={355}
           step={1}
           value={edgeDetectionThreshold}
           onChange={setEdgeDetectionThreshold}
