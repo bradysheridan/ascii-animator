@@ -21,7 +21,7 @@ export const ControlsProvider = (props) => {
   const [webcamRecording, setWebcamRecording] = useState(false);
   const [exportFormat, setExportFormat] = useState("embeddable animation (html/js)");
   const [propagateChangesToASCIIString, setPropagateChangesToASCIIString] = useState("none");
-
+  
   return(
     <ControlsContext.Provider
       value={{
