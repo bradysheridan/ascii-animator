@@ -32,7 +32,7 @@ export default function ControlNumericalRangesWithOutputs({
                 </label>
 
                 <input
-                  style={{width: '25%'}}
+                  className="w-[25%]"
                   type={typeof fieldVal}
                   value={fieldVal}
                   onChange={(e) => {

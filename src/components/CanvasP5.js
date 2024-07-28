@@ -15,6 +15,7 @@ export default function CanvasSource(props) {
     frameIndex,
     filter,
     shouldTraceEdges,
+    edgeCharacter,
     edgeDetectionAlgorithm,
     edgeDetectionThreshold,
     characterDensity,
@@ -61,7 +62,7 @@ export default function CanvasSource(props) {
       //   1. unaltered native image
       //   2. presketch image
       //   3. image after sketch processing
-      my.canvas.resize(PREVIEW_IMAGE_WIDTH, 3 * PREVIEW_IMAGE_HEIGHT);
+      my.canvas.resize(PREVIEW_IMAGE_WIDTH, 2 * PREVIEW_IMAGE_HEIGHT);
 
       // render preview of unaltered native image
       my.p5.image(my.nativeImage, 0, 0, PREVIEW_IMAGE_WIDTH, PREVIEW_IMAGE_HEIGHT);
@@ -71,10 +72,9 @@ export default function CanvasSource(props) {
     my.presketchImage = my.p5.createImage(characterDensity, characterDensity * (my.nativeImage.height / my.nativeImage.width));
     my.presketchImage.copy(my.nativeImage, 0, 0, my.nativeImage.width, my.nativeImage.height, 0, 0, my.presketchImage.width, my.presketchImage.height);
 
-    // TODO: apply filters to pre-sketch image
-    // ...
-    // my.presketchImage.filter(p5.INVERT);
-
+    // apply filters to pre-sketch image
+    if (filter && my.p5[filter])
+      my.presketchImage.filter(my.p5[filter]);
 
     // render preview of pre-sketch image
     my.p5.image(my.presketchImage, 0, PREVIEW_IMAGE_HEIGHT, PREVIEW_IMAGE_WIDTH, PREVIEW_IMAGE_HEIGHT);
@@ -89,11 +89,9 @@ export default function CanvasSource(props) {
     // --------------------------------------------------------------------------------------------------------------------------------
 
     // generate ASCII sketch from pre-sketch image
-
-    console.log("-> shouldTraceEdges", shouldTraceEdges);
-
     var asciiString = sketchASCIIString(my.presketchImage, {
       shouldTraceEdges: shouldTraceEdges,
+      edgeCharacter: edgeCharacter,
       edgeDetectionThreshold: edgeDetectionThreshold,
       edgeDetectionAlgorithm: edgeDetectionAlgorithm,
       shadingRamp: shadingRamp
@@ -109,7 +107,7 @@ export default function CanvasSource(props) {
   }
 
   // trigger redraw when certain control vars update
-  useEffect(drawImage, [shadingRamp, shouldTraceEdges, edgeDetectionThreshold, characterDensity, characterOutputs]);
+  useEffect(drawImage, [edgeCharacter, shadingRamp, shouldTraceEdges, edgeDetectionThreshold, characterDensity, characterOutputs]);
 
   //
   useEffect(() => {
@@ -120,7 +118,7 @@ export default function CanvasSource(props) {
       my.nativeImage = loadedImage;
       drawImage();
     });
-  }, [sourceImage])
+  }, [sourceImage]);
 
   return(
     <div className="canvas canvas-source">

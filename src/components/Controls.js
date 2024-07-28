@@ -4,16 +4,15 @@ import ControlButton from '@/components/controls/ControlButton';
 import ControlDropdown from '@/components/controls/ControlDropdown';
 import ControlFile from '@/components/controls/ControlFile';
 import ControlFileSession from '@/components/controls/ControlFileSession';
-import ControlNumericalRangesWithOutputs from '@/components/controls/ControlNumericalRangesWithOutputs';
 import ControlSelect from './controls/ControlSelect';
 import ControlSlider from '@/components/controls/ControlSlider';
+import ControlCharArray from '@/components/controls/ControlCharArray';
 import ControlText from '@/components/controls/ControlText';
-import ControlTextSequence from '@/components/controls/ControlTextSequence';
 import ControlToggle from '@/components/controls/ControlToggle';
 import ControlWebcam from '@/components/controls/ControlWebcam';
 
-import downloadTextFile from '@/helpers/downloadTextFile';
-import exportSketch from '@/helpers/exportSketch';
+import downloadTextFile from '@/helpers/export/downloadTextFile';
+import exportAnimation from '@/helpers/export';
 
 export default function Controls() {
   const context = useContext(ControlsContext);
@@ -24,6 +23,8 @@ export default function Controls() {
     updateAsciiStrings,
     shouldTraceEdges,
     setShouldTraceEdges,
+    edgeCharacter,
+    setEdgeCharacter,
     edgeDetectionThreshold,
     setEdgeDetectionThreshold,
     edgeDetectionAlgorithm,
@@ -55,39 +56,8 @@ export default function Controls() {
   } = context;
 
   return(
-    <nav className="controls-wrap">
-      <div className="controls-header">
-        <h4>
-           ASCII Tracer
-        </h4>
-      </div>
-
-      <ControlDropdown label="Source">
-        <ControlFileSession
-          label={"Load saved session"}
-          onChange={(sessionData) => {
-            console.log("Loaded saved session:", sessionData);
-
-            // TODO: This is a rudimentary implementation of session state loading. Only a few of these have been tested.
-            setAnimating(false);
-            setAnimationFramerate(sessionData.animationFramerate);
-            updateAsciiStrings(draft => draft = new Array(sessionData.asciiStrings.length).fill("").map(str => str));
-            setCharacterDensity(sessionData.characterDensity);
-            setCharacterOutputs(sessionData.characterOutputs);
-            setShouldTraceEdges(sessionData.shouldTraceEdges);
-            setEdgeDetectionAlgorithm(sessionData.edgeDetectionAlgorithm);
-            setEdgeDetectionThreshold(sessionData.edgeDetectionThreshold);
-            setExportFormat(sessionData.exportFormat);
-            setPropagateChangesToASCIIString(sessionData.propagateChangesToASCIIString);
-            setSelectedFrame(sessionData.selectedFrame);
-            // TODO: Implement setting sourceImages
-            setWebcamEnabled(false);
-            setWebcamRecording(false);
-
-            setTimeout(() => updateAsciiStrings(sessionData.asciiStrings), 1000);
-          }}
-        />
-
+    <>
+      <ControlDropdown label="Input" isExpandedByDefault={true}>
         <ControlFile
           label={"Image(s)"}
           name={"source-images"}
@@ -118,8 +88,24 @@ export default function Controls() {
           setWebcamRecording={setWebcamRecording}
           setSourceVideoStream={setSourceVideoStream}
           recordFrame={(frameImage) => {
-            var newSourceImages = sourceImages.concat([frameImage]);
             setSourceImages(draft => draft = draft.concat([frameImage]));
+          }}
+        />
+
+        <ControlFileSession
+          label={"Load saved session"}
+          onChange={(sessionData) => {
+            setSelectedFrame(sessionData.selectedFrame);
+            setShouldTraceEdges(sessionData.shouldTraceEdges);
+            setEdgeCharacter(sessionData.edgeCharacter);
+            setEdgeDetectionThreshold(sessionData.edgeDetectionThreshold);
+            setEdgeDetectionAlgorithm(sessionData.edgeDetectionAlgorithm);
+            setCharacterDensity(sessionData.characterDensity);
+            setShadingRamp(sessionData.shadingRamp);
+            setAnimationFramerate(sessionData.animationFramerate);
+            setExportFormat(sessionData.exportFormat);
+            setSourceImages(sessionData.sourceImages);
+            updateAsciiStrings(sessionData.asciiStrings);
           }}
         />
       </ControlDropdown>
@@ -163,6 +149,14 @@ export default function Controls() {
           onChange={setShouldTraceEdges}
         />
 
+        <ControlText
+          label={"Edge character"}
+          name={"edge-character"}
+          value={edgeCharacter}
+          limit={1}
+          onChange={setEdgeCharacter}
+        />
+
         <ControlSelect
           label={"Edge detection algorithm"}
           name={"edge-detection-algorithm"}
@@ -175,7 +169,7 @@ export default function Controls() {
         <ControlSlider
           label={"Edge detection threshold"}
           name={"edge-detection-threshold"}
-          unit={"px"}
+          unit={"°"}
           min={1}
           max={360}
           step={1}
@@ -183,18 +177,10 @@ export default function Controls() {
           onChange={setEdgeDetectionThreshold}
         />
 
-        <ControlNumericalRangesWithOutputs
-          label={"Character output by pixel contrast value"}
-          name={"character-outputs"}
-          ranges={characterOutputs}
-          onChange={setCharacterOutputs}
-        />
-
-        <ControlText
-          label={"Shading ramp"}
+        <ControlCharArray
+          label={"Shading ramp (dark to light)"}
           name={"shading-ramp"}
-          value={shadingRamp}
-          delimiter={","}
+          characters={shadingRamp}
           onChange={setShadingRamp}
         />
       </ControlDropdown>
@@ -226,12 +212,12 @@ export default function Controls() {
         />
       </ControlDropdown>
 
-      <ControlDropdown label="Export">
+      <ControlDropdown label="Output">
         <ControlButton
           value="Save working session"
           onClick={() => {
             var filename = prompt("Save session as", "session.ascii");
-            downloadTextFile(JSON.stringify(context), filename);
+            if (filename) downloadTextFile(JSON.stringify(context), filename);
           }}
         />
 
@@ -239,7 +225,9 @@ export default function Controls() {
           label={"Format"}
           name={"format"}
           values={[
-            "png",
+            "embeddable animation (html/js)",
+            "png (selected frame)",
+            // "png (image sequence)"
           ]}
           onChange={setExportFormat}
         />
@@ -247,10 +235,10 @@ export default function Controls() {
         <ControlButton
           value="Export"
           onClick={() => {
-            exportSketch(exportFormat);
+            exportAnimation(exportFormat, asciiStrings, animationFramerate);
           }}
         />
       </ControlDropdown>
-    </nav>
+    </>
   );
 }

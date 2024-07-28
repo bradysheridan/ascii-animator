@@ -1,4 +1,4 @@
-import trace from 'image-to-ascii';
+import trace from 'trace-ascii-image';
 
 export default function sketchASCIIString(sourceImage, config) {
   sourceImage.loadPixels();

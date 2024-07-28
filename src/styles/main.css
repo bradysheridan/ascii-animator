@@ -1,4 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:400,500,700&display=swap");
+
 :root {
   /* pallette */
   --primary-color-1: blue;
@@ -43,15 +48,15 @@ h5, h6 {
 
 a {
   text-decoration: none;
-  color: inherit;
+  color: blue;
   font-family: inherit;
 }
 a:visited {
-  color: inherit;
+  color: purple;
 }
-a:hover {
+/* a:hover {
   color: var(--primary-color-1);
-}
+} */
 
 .highlight {
   background-color: var(--text-color-highlight);
@@ -74,34 +79,26 @@ a:hover {
 }
 
 h1 {
-  font-size: 3em;
+  font-size: 2.4em;
 }
 
 h2 {
-  font-size: 2.6em;
-}
-
-h3 {
   font-size: 2.2em;
 }
 
+h3 {
+  font-size: 2.0em;
+}
+
 h4 {
-  font-size: 1.8em;
+  font-size: 1.7em;
 }
 
 h5 {
-  font-size: 1.3em;
+  font-size: 1.4em;
 }
 
 h6, p, code, ol, ul {
-  font-size: 1.1em;
-}
-
-p.big {
-  font-size: 1.2em;
-}
-
-p.small {
   font-size: 1em;
 }
 
@@ -285,7 +282,7 @@ span, small, em, strong, input {
 }
 
 .controls-dropdown.expanded .controls-dropdown-children {
-  padding: 0px 10px 10px 20px;
+  padding: 0px 10px 10px 10px;
   content-visibility: visible;
 }
 
@@ -471,5 +468,3 @@ span, small, em, strong, input {
   margin-bottom: var(--frame-timeline-height);
   padding: 12px;
 }
-
-/*# sourceMappingURL=main.css.map */

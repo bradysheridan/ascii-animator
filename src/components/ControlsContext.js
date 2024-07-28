@@ -7,25 +7,19 @@ export const ControlsProvider = (props) => {
   const [selectedFrame, setSelectedFrame] = useState(0);
   const [asciiStrings, updateAsciiStrings] = useImmer([]);
   const [shouldTraceEdges, setShouldTraceEdges] = useState(false);
-  const [edgeDetectionThreshold, setEdgeDetectionThreshold] = useState(26.5);
+  const [edgeCharacter, setEdgeCharacter] = useState("#");
+  const [edgeDetectionThreshold, setEdgeDetectionThreshold] = useState(240);
   const [edgeDetectionAlgorithm, setEdgeDetectionAlgorithm] = useState("sobel");
   const [filter, setFilter] = useState();
   const [sourceImages, setSourceImages] = useState([]);
   const [sourceVideoStream, setSourceVideoStream] = useState([]);
   const [animating, setAnimating] = useState(false);
-  const [characterDensity, setCharacterDensity] = useState(101);
-  const [characterOutputs, setCharacterOutputs] = useState([
-    [0, 30, "."],
-    [30, 40, "⋆"],
-    [40, 70, "+"],
-    [70, 100, "★"],
-    ["*"]
-  ]);
-  const [shadingRamp, setShadingRamp] = useState(" ,`,.,;,+,*");
-  const [animationFramerate, setAnimationFramerate] = useState(7);
+  const [characterDensity, setCharacterDensity] = useState(200);
+  const [shadingRamp, setShadingRamp] = useState(["*", "+", ";", ".", "`", ",", " "]);
+  const [animationFramerate, setAnimationFramerate] = useState(10);
   const [webcamEnabled, setWebcamEnabled] = useState(false);
   const [webcamRecording, setWebcamRecording] = useState(false);
-  const [exportFormat, setExportFormat] = useState("png");
+  const [exportFormat, setExportFormat] = useState("embeddable animation (html/js)");
   const [propagateChangesToASCIIString, setPropagateChangesToASCIIString] = useState("none");
 
   return(
@@ -37,6 +31,8 @@ export const ControlsProvider = (props) => {
         updateAsciiStrings,
         shouldTraceEdges,
         setShouldTraceEdges,
+        edgeCharacter,
+        setEdgeCharacter,
         edgeDetectionThreshold,
         setEdgeDetectionThreshold,
         edgeDetectionAlgorithm,
@@ -51,8 +47,6 @@ export const ControlsProvider = (props) => {
         setAnimating,
         characterDensity,
         setCharacterDensity,
-        characterOutputs,
-        setCharacterOutputs,
         shadingRamp,
         setShadingRamp,
         animationFramerate,

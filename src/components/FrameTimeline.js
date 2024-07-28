@@ -21,6 +21,7 @@ function Frame({
       {image && (
         <img
           style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+          className="w-full h-full object-contain"
           src={image.data.src}
         />
       )}
@@ -66,6 +67,7 @@ export default function FrameTimeline() {
           var arr = [...asciiStrings];
           arr.splice(i, 1);
           updateAsciiStrings(arr);
+          if (arr.length === 0) updateAsciiStrings([]);
         }}
       />
     );
@@ -88,6 +90,7 @@ export default function FrameTimeline() {
         onDelete={() => {
           var arr = [...sourceImages];
           arr.splice(i, 1);
+          if (arr.length === 0) updateAsciiStrings([]);
           setSourceImages(arr);
         }}
       />

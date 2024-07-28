@@ -131,14 +131,14 @@ export default function ControlWebcam(props) {
       />
 
       {webcamEnabled && (
-        <div style={{display: 'flex', marginTop: 5}}>
+        <div className="flex mt-3">
           <ControlButton
             noMargin
             value={webcamRecording ? "Stop recording" : "Start recording"}
             onClick={() => setWebcamRecording(!webcamRecording)}
           />
 
-          <span style={{width: 5}}></span>
+          <span className="w-3"></span>
           
           <ControlButton
             noMargin

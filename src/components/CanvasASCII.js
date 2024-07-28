@@ -24,17 +24,22 @@ export default function CanvasASCII(props) {
   const [localFrameIndex, setLocalFrameIndex] = useState(selectedFrameIndex);
   const [fontSize, setFontSize] = useState(0);
   const [lineHeight, setLineHeight] = useState(0);
-  const [width, setWidth] = useState(0);
   const [animationInterval, setAnimationInterval] = useState(null);
 
   // determine canvas sizing by a control string
   // (set by parent to the first string in the list of frames)
   useEffect(() => {
-    if (controlAsciiString) {
-      var fittedFontSize = fitTextToContainer(controlAsciiString, 'monospace', width),
-          fittedLineHeight = 0.61 * fittedFontSize;
+    const resize = () => {
+      if (my.refPreWrap) my.width = my.refPreWrap.getBoundingClientRect().width * 0.5
+      var fittedFontSize = fitTextToContainer(controlAsciiString, 'monospace', my.width),
+          fittedLineHeight = 0.68 * fittedFontSize;
       setFontSize(fittedFontSize);
       setLineHeight(fittedLineHeight);
+    }
+
+    if (controlAsciiString) {
+      resize();
+      window.addEventListener('resize', resize);
     }
   }, [controlAsciiString]);
 
@@ -59,7 +64,7 @@ export default function CanvasASCII(props) {
       setLocalFrameIndex(selectedFrameIndex);
       var caretPos = rangy.getSelection().anchorOffset;
       if ('number' === typeof caretPos) {
-        console.log("CARET POS", caretPos);
+        // console.log("CARET POS", caretPos);
         setTimeout(() => focusAt(caretPos));
       }
     }
@@ -198,7 +203,13 @@ export default function CanvasASCII(props) {
       
       <div
         className="canvas-ascii-pre-wrap"
-        ref={ref => (ref && 0 === width) ? setWidth(ref.getBoundingClientRect().width * 0.5) : null}
+        ref={ref => {
+          // initialize canvas width
+          if (ref && !my.width) {
+            my.refPreWrap = ref;
+            my.width = my.refPreWrap.getBoundingClientRect().width * 0.5
+          }
+        }}
       >
         <pre
           ref={ref => (ref) ? setPreRef(ref) : null}

@@ -2,6 +2,7 @@ export default function ControlText({
   label,
   name,
   value,
+  limit,
   onChange
 }) {
   return(
@@ -14,6 +15,7 @@ export default function ControlText({
         name={name}
         type="text"
         defaultValue={value}
+        maxLength={limit || 524288}
         onChange={(e) => onChange(e.target.value)}
       />
     </nav>

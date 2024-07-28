@@ -11,7 +11,6 @@ export default async function httpRequest(params, data) {
     var req = http.request(params, function(res) {
       // reject on bad status
       if (res.statusCode < 200 || res.statusCode >= 300) {
-        console.log(res.body);
         return reject(new Error('statusCode=' + res.statusCode));
       }
 

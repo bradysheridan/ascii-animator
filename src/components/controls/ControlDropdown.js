@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-export default function Dropdown({ label, children }) {
-  const [isExpanded, setIsExpanded] = useState(true);
+export default function Dropdown({ label, children, isExpandedByDefault }) {
+  const [isExpanded, setIsExpanded] = useState(isExpandedByDefault ? isExpandedByDefault : false);
 
   return(
     <div className={`controls-dropdown ${isExpanded ? "expanded" : ""}`}>

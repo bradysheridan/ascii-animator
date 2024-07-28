@@ -1,13 +1,32 @@
-import { useContext } from 'react'
+import { useContext } from 'react';
 import { ControlsContext } from '@/components/ControlsContext';
 import CanvasASCII from '@/components/CanvasASCII';
 import CanvasP5 from '@/components/CanvasP5';
+import Nav from '@/components/Nav';
 
 const EmptyState = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%', height: 'calc(100vh - 100px)', fontSize: '0.75rem', maxWidth: 400, margin: '0 auto' }}>
-    <p>
-      empty state
-    </p>
+  <div className="relative w-full">
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', alignItems: 'center', margin: '0 auto', width: 'calc(100vw - 500px)', height: 'calc(100vh - 200px)', fontSize: '0.85rem', maxWidth: 400 }}>
+      <div className="relative p-2 bg-[rgba(255,255,255,0.75)]">
+        <p>
+          Welcome to the ASCII Animator, an open-source tool <br />for creating plain text animations in the style of ASCII art.
+        </p>
+
+        <Nav />
+
+        <p className="mt-2">
+          To get started, upload your source files on the top left.
+        </p>
+
+        <div className="absolute bottom-[-30px] left-[-18px] text-lg text-monospace">
+          <pre className="text-[14px] leading-[15px]">
+            {`O
+/|- 🫴
+/ \\`}
+          </pre>
+        </div>
+      </div>
+    </div>
   </div>
 );
 
@@ -19,6 +38,7 @@ export default function Index() {
     sourceImages,
     sourceVideoStream,
     shouldTraceEdges,
+    edgeCharacter,
     edgeDetectionAlgorithm,
     edgeDetectionThreshold,
     filter,
@@ -38,6 +58,7 @@ export default function Index() {
       sourceImage={sourceImage.data}
       filter={filter}
       shouldTraceEdges={shouldTraceEdges}
+      edgeCharacter={edgeCharacter}
       edgeDetectionAlgorithm={edgeDetectionAlgorithm}
       edgeDetectionThreshold={edgeDetectionThreshold}
       characterDensity={characterDensity}
@@ -65,7 +86,7 @@ export default function Index() {
         ? <EmptyState />
         : <>
             {webcamEnabled && sourceVideoStream[0]
-              ? renderPresketchCanvas(0, sourceVideoStream[0].data)
+              ? renderPresketchCanvas(0, sourceVideoStream[0])
               : renderFrames() }
 
             <CanvasASCII
