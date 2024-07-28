@@ -29,7 +29,7 @@ export default function Controls() {
           <li><strong>Edge character</strong> - If tracing edges, this is the character used.</li>
           <li><strong>Edge detection algorithm</strong> - The only algorithm currently implemented is the <a href="https://en.wikipedia.org/wiki/Sobel_operator" target="_blank">Sobel</a> operator. Additional algorithms and parameter customizations are planned for v0.3.</li>
           <li><strong>Edge detection threshold</strong> - Pixels whose gradient magnitude surpasses this threshold are assigned the specified edge character. Gradient magnitude measures how much a pixel differs from the ones around it and results in a value between 1 and 355.</li>
-          <li><strong>Shading ramp (dark to light)</strong> - The array of characters used when assigning source image pixels their text equivalents. This calculation is based on a pixel's perceived lightness and results in a value between 0 and 100. That value is then linearly remapped to the length of the shading ramp array and used to access the correct character. Shading algorithms and parameter customization will be expanded in v0.3.</li>
+          <li><strong>Shading ramp (dark to light)</strong> - The array of characters used when assigning source image pixels their text equivalents. This calculation is based on a pixel's perceived lightness and results in a value between 0 and 100. That value is then linearly remapped to the length of the shading ramp array and used to access the corresponding character. Shading algorithms and parameter customization will be expanded in v0.3.</li>
         </ul>
 
         <h2>

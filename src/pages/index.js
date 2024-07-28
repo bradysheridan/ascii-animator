@@ -6,8 +6,8 @@ import Nav from '@/components/Nav';
 
 const EmptyState = () => (
   <div className="relative w-full">
-    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', alignItems: 'center', margin: '0 auto', width: 'calc(100vw - 500px)', height: 'calc(100vh - 200px)', fontSize: '0.85rem', maxWidth: 400 }}>
-      <div className="relative p-2 bg-[rgba(255,255,255,0.75)]">
+    <div className="empty-state">
+      <div className="relative">
         <p>
           Welcome to the ASCII Animator, an open-source tool <br />for creating plain text animations in the style of ASCII art.
         </p>

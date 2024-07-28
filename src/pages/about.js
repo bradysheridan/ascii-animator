@@ -15,9 +15,9 @@ export default function Demos() {
           This project is open-source and is being developed in tandem with the trace-ascii-image npm module.
         </p>
         <ul>
-          <li><a href="" target="blank">ASCII Animator (Github)</a></li>
-          <li><a href="" target="blank">trace-ascii-image (Github)</a></li>
-          <li><a href="" target="blank">trace-ascii-image (npm)</a></li>
+          <li><a href="https://github.com/bradysheridan/ascii-animator" target="_blank">ASCII Animator (Github)</a></li>
+          <li><a href="https://github.com/bradysheridan/trace-ascii-image" target="_blank">trace-ascii-image (Github)</a></li>
+          <li><a href="https://www.npmjs.com/package/trace-ascii-image" target="_blank">trace-ascii-image (npm)</a></li>
         </ul>
 
         <h2>
