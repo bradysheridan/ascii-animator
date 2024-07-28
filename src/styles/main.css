@@ -268,7 +268,8 @@ span, small, em, strong, input {
 .controls-dropdown-children {
   display: flex;
   flex-direction: column;
-  content-visibility: hidden;
+  visibility: hidden;
+  height: 0;
 }
 
 .controls-dropdown-children label p {
@@ -283,7 +284,8 @@ span, small, em, strong, input {
 
 .controls-dropdown.expanded .controls-dropdown-children {
   padding: 0px 10px 10px 10px;
-  content-visibility: visible;
+  visibility: visible;
+  height: auto;
 }
 
 .control {
