@@ -31,6 +31,10 @@ export default function Controls() {
     setEdgeDetectionAlgorithm,
     sourceImages,
     setSourceImages,
+    videoUploadIsLoading,
+    setVideoUploadIsLoading,
+    sourceVideo,
+    setSourceVideo,
     sourceVideoStream,
     setSourceVideoStream,
     filter,
@@ -52,7 +56,9 @@ export default function Controls() {
     exportFormat,
     setExportFormat,
     propagateChangesToASCIIString,
-    setPropagateChangesToASCIIString
+    setPropagateChangesToASCIIString,
+    modalOpen,
+    setModalOpen
   } = context;
 
   return(
@@ -72,12 +78,18 @@ export default function Controls() {
         />
 
         <ControlFile
-          label={"Video (WIP)"}
+          label={"Video"}
           name={"video"}
           multiple={false}
-          disabled={true}
+          disabled={false}
           value={[]}
-          onChange={() => null}
+          accept={"video/mov, video/mp4"}
+          onChange={(file) => {
+            setSourceVideo(file);
+            setModalOpen(true);
+          }}
+          // isLoading={videoUploadIsLoading}
+          // loadingMessage="Processing video into frames..."
         />
 
         <ControlWebcam
@@ -201,7 +213,7 @@ export default function Controls() {
       <ControlDropdown label="Animation">
         <ControlSlider
           label={"Animation framerate"}
-          name={"animation-framerite"}
+          name={"animation-framerate"}
           unit={" fps"}
           min={1}
           max={100}

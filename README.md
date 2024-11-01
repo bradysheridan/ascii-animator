@@ -34,6 +34,10 @@ This project is being developed in tandem with the [trace-ascii-image](https://g
 - [ ] Use requestAnimationFrame instead of setInterval
 - [ ] Look into dynamic weighting during tracing based on variance of source image pixels across various parameters (e.g. luminosity)
 
+## Resources
+- [Algorithms for subpixel registrations](https://www.sciencedirect.com/science/article/abs/pii/0734189X86900289)
+- [Subpixel Sampling](https://bit-101.com/blog/posts/2024-04-09/subpixel-sampling/)
+
 <!-- LICENSE -->
 ## License
 

@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Controls from '@/components/Controls'
 import Menu from '@/components/Menu'
+import Modal from '@/components/Modal'
 import FrameTimeline from '@/components/FrameTimeline';
 import { ControlsProvider } from '@/components/ControlsContext';
 
@@ -28,6 +29,8 @@ export default function RootLayout({ children }) {
           </div>
             
           <FrameTimeline />
+
+          <Modal />
         </main>
       </ControlsProvider>
     </>

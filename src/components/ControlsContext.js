@@ -12,6 +12,8 @@ export const ControlsProvider = (props) => {
   const [edgeDetectionAlgorithm, setEdgeDetectionAlgorithm] = useState("sobel");
   const [filter, setFilter] = useState();
   const [sourceImages, setSourceImages] = useState([]);
+  const [sourceVideo, setSourceVideo] = useState(null);
+  const [videoUploadIsLoading, setVideoUploadIsLoading] = useState(false);
   const [sourceVideoStream, setSourceVideoStream] = useState([]);
   const [animating, setAnimating] = useState(false);
   const [characterDensity, setCharacterDensity] = useState(180);
@@ -21,7 +23,8 @@ export const ControlsProvider = (props) => {
   const [webcamRecording, setWebcamRecording] = useState(false);
   const [exportFormat, setExportFormat] = useState("embeddable animation (html/js)");
   const [propagateChangesToASCIIString, setPropagateChangesToASCIIString] = useState("none");
-  
+  const [modalOpen, setModalOpen] = useState(false);
+
   return(
     <ControlsContext.Provider
       value={{
@@ -39,6 +42,10 @@ export const ControlsProvider = (props) => {
         setEdgeDetectionAlgorithm,
         sourceImages,
         setSourceImages,
+        videoUploadIsLoading,
+        setVideoUploadIsLoading,
+        sourceVideo,
+        setSourceVideo,
         sourceVideoStream,
         setSourceVideoStream,
         filter,
@@ -58,7 +65,9 @@ export const ControlsProvider = (props) => {
         exportFormat,
         setExportFormat,
         propagateChangesToASCIIString,
-        setPropagateChangesToASCIIString
+        setPropagateChangesToASCIIString,
+        modalOpen,
+        setModalOpen
       }}
     >
       {props.children}

@@ -22,7 +22,7 @@ function Frame({
         <img
           style={{ width: '100%', height: '100%', objectFit: 'contain' }}
           className="w-full h-full object-contain"
-          src={image.data.src}
+          src={image.currentSrc || image.data.src}
         />
       )}
     </div>

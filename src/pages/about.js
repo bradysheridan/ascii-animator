@@ -8,8 +8,6 @@ export default function Demos() {
           The original intent behind this tool was to generate plain text/ASCII art animations for web design projects. It works by tracing an image sequence into an array of strings that are rendered as {"<pre>"} elements and looped with Javascript. From that foundation, the ASCII Animator is being expanded to include more features and export formats.
         </p>
 
-
-
         <h2>Open-source project links</h2>
         <p>
           This project is open-source and is being developed in tandem with the trace-ascii-image npm module.
@@ -31,7 +29,7 @@ export default function Demos() {
           <ul className="mt-0">
             <li>Make significant UI improvements</li>
             <li>Add mobile functionality</li>
-            <li>Expand import formats (video)</li>
+            <li className="line-through">Expand import formats (video)</li>
             <li>Expand export formats (video, image sequence)</li>
             <li>Improve comments and documentation</li>
           </ul>

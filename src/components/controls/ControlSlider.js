@@ -6,10 +6,11 @@ export default function ControlSlider({
   max,
   step,
   value,
-  onChange
+  onChange,
+  className
 }) {
   return(
-    <nav className="control control-slider-wrap">
+    <nav className={`control control-slider-wrap ${className || ""}`}>
       <label htmlFor={name}>
         <p>{label}: {value}{unit}</p>
       </label>

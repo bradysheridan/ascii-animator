@@ -24,8 +24,6 @@ export default function CanvasSource(props) {
     onSketch,
     webcamEnabled
   } = props;
-
-  console.log("CanvasP5 props:", props);
   
   // expose alias 'my' to store local non-state vars within component instance
   const componentRef = useRef({});

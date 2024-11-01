@@ -8,7 +8,7 @@ export default function Controls() {
         </h2>
         <ul>
           <li><strong>Image(s)</strong> - Upload a frame sequence (png, jpg, jpeg) to be animated. Video upload is still in development; you can use <a href="https://ezgif.com/video-to-jpg" target="_blank">this tool</a> to split your video into frames then upload the resulting image sequence.</li>
-          <li><strong>Video (WIP)</strong> - Upload a video that is split into a frame sequence based on the animation framerate setting (work in progress).</li>
+          <li><strong>Video</strong> - Upload a video (mp4, mov) that is split into a frame sequence based on the animation frame count setting.</li>
           <li><strong>Webcam mode</strong> - Stream your webcam's video feed into the ASCII Animator. Use the "Start recording" and "Take picture" buttons to save video frames or individual photos to the animation frame timeline.</li>
           <li><strong>Load saved session</strong> - Upload saved data from the "Save working session" button in the Output section. ASCII string frames are stored in the saved data but source images are not.</li>
         </ul>
