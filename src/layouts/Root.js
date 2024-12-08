@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { Analytics } from "@vercel/analytics/react"
 import Controls from '@/components/Controls'
 import Menu from '@/components/Menu'
 import Modal from '@/components/Modal'
@@ -33,6 +34,8 @@ export default function RootLayout({ children }) {
           <Modal />
         </main>
       </ControlsProvider>
+
+      <Analytics/>
     </>
   );
 }

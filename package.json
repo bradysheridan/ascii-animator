@@ -50,6 +50,7 @@
     "immer": "^9.0.21"
   },
   "dependencies": {
+    "@vercel/analytics": "^1.4.1",
     "file-saver": "^2.0.5",
     "html-to-image": "^1.11.11",
     "jszip": "^3.10.1",
