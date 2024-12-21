@@ -25,14 +25,9 @@
 
 ## About
 
-The original intent behind this tool was to generate plain text/ASCII art animations for web design projects. It works by tracing an image sequence into an array of strings that are rendered as pre elements and looped with Javascript. From that foundation, the ASCII Animator is being expanded to include more features and export formats.
+The original intent behind this tool was to generate plain text/ASCII art animations for web design projects. It works by tracing an image sequence into an array of strings that are rendered as pre elements and looped with Javascript. From that foundation, the ASCII Animator is being expanded to include more features and export formats. Check out the roadmap [here](https://www.ascii-animator.com/about).
 
 This project is being developed in tandem with the [trace-ascii-image](https://github.com/bradysheridan/trace-ascii-image) npm module.
-
-## To Do
-- [ ] Migrate all styles to Tailwind
-- [ ] Use requestAnimationFrame instead of setInterval
-- [ ] Look into dynamic weighting during tracing based on variance of source image pixels across various parameters (e.g. luminosity)
 
 ## Resources
 - [Algorithms for subpixel registrations](https://www.sciencedirect.com/science/article/abs/pii/0734189X86900289)

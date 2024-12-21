@@ -27,22 +27,28 @@ export default function Demos() {
         <ul>
           <li>v0.2</li>
           <ul className="mt-0">
-            <li>Make significant UI improvements</li>
-            <li>Add mobile functionality</li>
-            <li className="line-through">Expand import formats (video)</li>
-            <li>Expand export formats (video, image sequence)</li>
+            <li>Refactor rendering and playback to use canvas instead of pre</li>
+            <li>Refactor existing pre-based frame interface for manual string edits alongside new canvas rendering</li>
+            <li>Add color/grayscale option</li>
+            <li>Add embeddable canvas + JS animation to export formats</li>
+            <li>Update embaddable pre + JS  animation export format to be more intuitive</li>
             <li>Improve comments and documentation</li>
+            <li className="line-through">Expand import formats (video)</li>
           </ul>
 
           <li>v0.3</li>
           <ul className="mt-0">
-            <li>Make performance improvements</li>
+            <li>Implement subpixel sampling</li>
             <li>Expand/improve shading and edge detection algorithms</li>
+            <li>Expand export formats (video, GIF)</li>
+            <li>UI improvements</li>
           </ul>
 
           <li>v0.4</li>
           <ul className="mt-0">
+            <li>Improve mobile functionality</li>
             <li>Expand/improve manual ASCII string editing experience</li>
+            <li>Add state caching</li>
           </ul>
 
           <li>v0.5</li>
@@ -50,7 +56,7 @@ export default function Demos() {
             <li>Refactor to Next.js 14 and the app router (or potentially Astro)</li>
           </ul>
 
-          <li>V??</li>
+          <li>V?.?</li>
           <ul className="mt-0">
             <li>Add AI image generation to input methods</li>
           </ul>
@@ -94,14 +100,6 @@ export default function Demos() {
         <p>
           Please consider <a href="https://buymeacoffee.com/devq" target="_blank">buying me a cup of joe</a> or shouting out the project if you've found this tool useful <span className="text-[red]">{"<3"}</span>
         </p>
-
-        <h2>Demos</h2>
-        <p>
-          If you've used the ASCII Animator to make something cool, shoot me an email to have it listed here!
-        </p>
-        <ul>
-          <li><a href="https://www.likeafield.com/" target="_blank">likeafield.com</a> - ASCII landscape as a background element</li>
-        </ul>
       </div>
     </div>
   )
